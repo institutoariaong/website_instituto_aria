@@ -58,6 +58,7 @@
   --r-lg:  28px;
   --r-xl:  40px;
   --r-pill: 999px;
+  --hero-content-lift: 70px;
   /* Transições */
   --t: 240ms ease;
 }
@@ -353,7 +354,7 @@ h4 { font-size: clamp(16px, 1.8vw, 22px); }
 /* Hero content grid */
 .hero-body {
   flex:1;display:flex;align-items:center;
-  padding:120px 0 80px;
+  padding:60px 0 80px;
 }
 .hero-grid {
   display:grid;grid-template-columns:1fr 1fr;
@@ -586,6 +587,34 @@ h4 { font-size: clamp(16px, 1.8vw, 22px); }
 }
 .team-name { font-family:'Libre Baskerville',serif;font-size:15.5px;font-weight:700;color:var(--aria-brown);margin-bottom:4px; }
 .team-role { font-family:'Montserrat',sans-serif;font-size:10.5px;font-weight:700;color:var(--aria-rose-text);text-transform:uppercase;letter-spacing:1px; }
+.team-groups { display:grid;gap:34px; }
+.team-group {
+  background:rgba(255,255,255,.4);border:1px solid var(--aria-border);
+  border-radius:var(--r-lg);padding:28px;
+}
+.team-group-heading {
+  display:flex;align-items:center;gap:12px;margin-bottom:22px;
+  padding-bottom:14px;border-bottom:1px solid var(--aria-border-gold);
+}
+.team-group-number {
+  width:32px;height:32px;border-radius:50%;flex:0 0 32px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--aria-wine);color:#fff;
+  font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;
+}
+.team-group-title { font-size:24px;margin:0; }
+.team-group-grid {
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px;
+}
+.team-group-grid--founders { grid-template-columns:minmax(180px,280px); }
+.team-community-card {
+  display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  background:var(--aria-ivory);border:1px solid var(--aria-border-gold);
+  border-radius:var(--r-md);padding:24px;
+}
+.team-community-card p {
+  color:var(--aria-muted);font-size:14px;line-height:1.7;margin:0;max-width:680px;
+}
 /* Donation tier cards */
 .tier-card {
   border-radius:var(--r-lg);padding:36px 26px;text-align:center;
@@ -721,9 +750,9 @@ footer::before {
   background:linear-gradient(to right,transparent,rgba(198,161,91,.3),transparent);
 }
 .footer-grid {
-  display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;
-  gap:48px;margin-bottom:60px;position:relative;z-index:2;
+  display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr 1.2fr;gap:20px 24px;margin-bottom:60px;position:relative;z-index:2;
 }
+
 .footer-brand p {
   font-size:13.5px;color:rgba(250,247,239,.58);
   line-height:1.75;margin:18px 0 6px;max-width:270px;
@@ -749,10 +778,57 @@ footer::before {
 }
 .social-btn:hover { background:rgba(255,255,255,.16);transform:translateY(-2px); }
 .social-btn svg { width:16px;height:16px;fill:var(--aria-ivory); }
+/* ========================================================
+   ICONES REDES SOCIAIS - NAO ALTERAR
+   Proporcoes definidas e aprovadas. Ajustes feitos manualmente.
+   Para mudar, altere apenas aqui neste bloco.
+   ======================================================== */
+.social-icon-ig {
+  width:35px!important;height:35px!important;
+  object-fit:contain!important;display:block!important;
+  position:relative!important;top:1px!important;
+  transform:scale(1.5)!important;flex-shrink:0!important;
+}
+.social-icon-fb {
+  width:22px!important;height:22px!important;
+  object-fit:contain!important;display:block!important;
+  position:relative!important;top:-3px!important;
+  transform:scale(1.5)!important;flex-shrink:0!important;
+}
+.social-icon-wa {
+  width:28px!important;height:28px!important;
+  flex-shrink:0!important;
+  position:relative!important;top:-1px!important;left:1px!important;
+}
 .footer-col h5 {
   font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;
   letter-spacing:2.5px;text-transform:uppercase;color:var(--aria-gold);margin-bottom:18px;
 }
+
+/* ========================================================
+   ANIMACAO: NAV VOLUNTARIOS - pisca a cada 7s
+   ======================================================== */
+@keyframes vol-pulse {
+  0%, 43.75% {
+    color: inherit;
+    text-shadow: none;
+    background-color: transparent;
+  }
+  56.25%, 87.5% {
+    color: var(--aria-gold);
+    text-shadow: 0 0 8px rgba(198,161,91,0.6);
+    background-color: rgba(198,161,91,0.12);
+  }
+  100% {
+    color: inherit;
+    text-shadow: none;
+    background-color: transparent;
+  }
+}
+#nav-voluntarios {
+  animation: vol-pulse 16s linear infinite;
+}
+
 .footer-col ul { display:flex;flex-direction:column;gap:9px; }
 .footer-col ul li a {
   font-size:13.5px;color:rgba(250,247,239,.58);cursor:pointer;
@@ -953,6 +1029,11 @@ footer::before {
   transition:background var(--t),transform var(--t);
 }
 .mob-cta-btn:hover { background:var(--aria-plum);transform:scale(.98); }
+@media (min-width: 769px) {
+  .hero-body > .container {
+    transform: translateY(-70px);
+  }
+}
 @media (min-width:769px) {
   #mobile-cta-bar {
     justify-content:center;gap:24px;padding:14px 40px;
@@ -1012,6 +1093,8 @@ footer::before {
 .insta-item:hover .insta-overlay { background:rgba(90,52,71,.5); }
 .insta-overlay svg { width:26px;height:26px;stroke:#fff;stroke-width:1.5;fill:none;opacity:0;transition:opacity 250ms ease; }
 .insta-item:hover .insta-overlay svg { opacity:1; }
+.behold-feed-wrap { width:100%;min-height:220px; }
+.behold-feed-wrap behold-widget { display:block;width:100%; }
 
 /* ─── 23. BADGE DE CONFIANÇA ─── */
 .badge-trust {
@@ -1074,7 +1157,7 @@ footer::before {
   .insta-grid{grid-template-columns:repeat(3,1fr);}
   .footer-grid{grid-template-columns:1fr 1fr;gap:20px 24px;}
   .footer-grid .footer-brand{grid-column:1/-1;}
-  .footer-contato-col{grid-column:1/-1;}
+.footer-contato-col{grid-column:1/-1;} .footer-gov-col{grid-column:1/-1;} .footer-newsletter-col{grid-column:1/-1;}
   .form-row{grid-template-columns:1fr;}
   .form-card{padding:28px 20px;}
   .wa-float{bottom:90px;}
@@ -1495,6 +1578,579 @@ footer::before {
   font-weight:600;
   opacity:1;
 }
+
+/* ═══ ESCALA ÓPTICA 125% — ampliação real de layout, sem zoom/scale global ═══ */
+@media (min-width:860px) {
+  body { font-size:18px; }
+
+  h1 { font-size:clamp(46px,6.6vw,82px); }
+  h2 { font-size:clamp(36px,4.8vw,62px); }
+  h3 { font-size:clamp(27px,3.3vw,43px); }
+  h4 { font-size:clamp(19px,2.1vw,27px); }
+
+  .eyebrow {
+    gap:12px;
+    font-size:12px;
+    letter-spacing:2.8px;
+    margin-bottom:17px;
+  }
+  .eyebrow::before { width:27px; }
+
+  .container {
+    max-width:1180px;
+    padding-inline:26px;
+  }
+  .container-wide {
+    max-width:1480px;
+    padding-inline:26px;
+  }
+  .section { padding-block:clamp(104px,8.5vw,120px); }
+  .section-sm { padding-block:clamp(72px,6vw,82px); }
+  .grid-2 { gap:clamp(54px,5vw,78px); }
+  .grid-3 { gap:clamp(28px,2.5vw,36px); }
+  .grid-4 { gap:clamp(22px,2vw,30px); }
+  .section-header {
+    max-width:720px;
+    margin-bottom:clamp(60px,5vw,70px);
+  }
+  .section-header p {
+    font-size:19px;
+    margin-top:15px;
+    line-height:1.72;
+  }
+
+  #announce-bar {
+    min-height:42px;
+    padding:10px 52px;
+    font-size:14.5px;
+  }
+  .ann-close { width:30px;height:30px;right:16px; }
+
+  .nav-inner {
+    max-width:1180px;
+    height:76px;
+    padding-inline:26px;
+    gap:28px;
+  }
+  .nav-logo { gap:12px; }
+  .nav-logo-icon { width:44px;height:44px; }
+  .nav-logo-text { font-size:24px; }
+  .nav-logo-text small { font-size:9.5px;letter-spacing:2.4px; }
+  .nav-link { font-size:14px;padding:10px 14px; }
+  .nav-cta { padding:12px 24px;font-size:14.5px; }
+
+  .hero-body { padding-block:clamp(132px,11vw,160px) 94px; }
+  .hero-grid {
+    grid-template-columns:minmax(0,1.03fr) minmax(0,.97fr);
+    gap:clamp(34px,4vw,56px);
+  }
+  .hero-h1 {
+    font-size:clamp(48px,6.25vw,80px);
+    margin-bottom:27px;
+  }
+  .hero-sub {
+    max-width:540px;
+    font-size:clamp(20px,2.2vw,23px);
+    line-height:1.72;
+    margin-bottom:42px;
+  }
+  .hero-ctas { gap:17px;margin-bottom:52px; }
+  .hero-trust { gap:24px; }
+  .hero-trust-item { gap:8px;font-size:13.5px; }
+  .hero-trust-item svg { width:18px;height:18px; }
+  .hero-visual { height:590px; }
+  .hero-orb { width:500px;height:500px; }
+  .hero-img-wrap { width:405px;height:485px; }
+  .hero-badge { padding:15px 20px; }
+  .hero-badge-num { font-size:34px; }
+  .hero-badge-label { font-size:11.5px; }
+  .hero-badge-1 { top:16px;right:-12px; }
+  .hero-badge-2 { bottom:54px;left:-16px; }
+
+  .badge-trust {
+    gap:10px;
+    padding:9px 20px;
+    font-size:13px;
+    margin-bottom:24px;
+  }
+  .badge-trust-dot { width:7px;height:7px; }
+
+  .btn-primary,
+  .btn-secondary,
+  .btn-ghost,
+  .btn-gold {
+    min-height:50px;
+    gap:10px;
+    padding:15px 34px;
+    font-size:15.5px;
+  }
+  .btn-sm {
+    min-height:44px!important;
+    padding:12px 25px!important;
+    font-size:14px!important;
+  }
+
+  .aria-card,
+  .aria-card-ivory { padding:clamp(36px,3vw,42px); }
+  .project-card-img,
+  .project-card-img-ph { height:250px; }
+  .project-card-body { padding:32px 30px; }
+  .project-status { font-size:12.5px;padding:6px 14px; }
+  .project-card-link { font-size:14px; }
+  .story-card { padding:36px; }
+  .story-avatar-ph { width:64px;height:64px; }
+  .story-name { font-size:14px; }
+  .story-role { font-size:12.5px; }
+  .team-card { padding:32px 24px; }
+  .team-photo-wrap { width:94px;height:94px;margin-bottom:17px; }
+  .team-name { font-size:18px; }
+  .team-role { font-size:12px; }
+  .tier-card { padding:44px 32px; }
+  .tier-desc { font-size:15.5px; }
+
+  .stat-box { padding:38px 24px; }
+  .stat-num { font-size:clamp(60px,7.8vw,96px);margin-bottom:10px; }
+  .stat-label { font-size:13px;letter-spacing:.65px; }
+
+  .form-card { padding:48px; }
+  .form-card h3 { font-size:34px; }
+  .form-lead { font-size:16.5px;margin-bottom:31px; }
+  .form-row { gap:20px; }
+  .form-group { gap:8px;margin-bottom:20px; }
+  .form-group label { font-size:12.5px;letter-spacing:.9px; }
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    border-radius:18px;
+    padding:16px 21px;
+    font-size:16.5px;
+  }
+  .form-group textarea { min-height:138px; }
+
+  .faq-btn { padding:23px 30px;font-size:17px;gap:20px; }
+  .faq-answer { padding-inline:30px; }
+  .faq-answer p { font-size:16.5px;padding-bottom:25px; }
+  .donate-opt { padding:20px 25px;gap:20px; }
+  .donate-icon { width:52px;height:52px; }
+  .donate-text strong { font-size:16.5px; }
+  .donate-text span { font-size:14px; }
+  .pix-detail { padding:20px 25px;gap:15px; }
+  .pix-qr { width:46px;height:46px; }
+  .pix-info .pix-label { font-size:11.5px; }
+  .pix-info .pix-key { font-size:15px; }
+  .pix-info .pix-name { font-size:12.5px; }
+  .pix-copy { padding:10px 20px;font-size:13.5px; }
+
+  .blockquote-card { padding:34px 40px; }
+  .blockquote-card blockquote { font-size:20px;margin-bottom:19px; }
+  .blockquote-card cite { font-size:14px; }
+
+  .page-hero { padding:clamp(156px,13vw,180px) 0 78px; }
+  .page-hero h1 { max-width:790px;margin-bottom:22px; }
+  .page-hero p { max-width:610px;font-size:21px;line-height:1.75; }
+  .page-hero-bg-orb { width:310px;height:310px; }
+  #page-quemsomos .page-hero, #page-projetos .page-hero, #page-voluntarios .page-hero, #page-parceria .page-hero, #page-produtos .page-hero, #page-impacto .page-hero, #page-contato .page-hero, #page-apoie .page-hero {
+    padding-top:clamp(70px,6vw,86px);
+  }
+  .chip { gap:8px;padding:7px 17px;font-size:13px; }
+  .contact-card { padding:25px 27px;gap:20px; }
+  .contact-card-icon { width:56px;height:56px;border-radius:16px; }
+  .contact-card-label { font-size:11.5px; }
+  .contact-card-value { font-size:17px; }
+
+  footer { padding-top:96px; }
+  .footer-grid { gap:clamp(44px,4vw,60px);margin-bottom:72px; }
+  .footer-brand p { max-width:330px;font-size:16px; }
+  .footer-cnpj { font-size:12px; }
+  .footer-wm-icon { width:46px;height:46px; }
+  .footer-wm-text { font-size:24px; }
+  .footer-wm-text small { font-size:9px; }
+  .social-btn { width:41px;height:41px;border-radius:11px; }
+  .social-btn svg { width:19px;height:19px; }
+  .footer-col h5 { font-size:11.5px;margin-bottom:22px; }
+  .footer-col ul { gap:11px; }
+  .footer-col ul li a { font-size:15.5px; }
+  .footer-contact-item { gap:12px;margin-bottom:12px; }
+  .footer-contact-item svg { width:17px;height:17px; }
+  .footer-contact-item a,
+  .footer-contact-item span { font-size:15px; }
+  .footer-newsletter p { font-size:11.5px; }
+  .footer-nl-form input { padding:12px 16px;font-size:15px; }
+  .footer-nl-form button { padding:12px 16px; }
+  .footer-bottom span,
+  .footer-bottom-links a { font-size:13px; }
+
+  #cookie { max-width:600px;padding:25px 30px;gap:22px; }
+  #cookie p { font-size:15.5px; }
+  .btn-decline,
+  .btn-accept { padding:10px 22px;font-size:13.5px; }
+}
+
+@media (min-width:860px) and (max-width:1024px) {
+  .nav-inner {
+    padding-inline:18px;
+    gap:12px;
+  }
+  .nav-logo { gap:9px; }
+  .nav-logo-icon { width:38px;height:38px; }
+  .nav-logo-text { font-size:20px; }
+  .nav-logo-text small { font-size:8px;letter-spacing:2px; }
+  .nav-links { gap:1px; }
+  .nav-link { padding:9px 9px;font-size:12.5px; }
+  .nav-cta { margin-left:3px;padding:11px 17px;font-size:13px; }
+}
+
+/* Programa ARIA — Mulheres que Lideram */
+.program-details {
+  margin:0 0 72px;padding:clamp(22px,4vw,42px);
+  border:1px solid var(--aria-border-gold);border-radius:var(--r-lg);
+  background:linear-gradient(145deg,var(--aria-cream),var(--aria-ivory));
+  box-shadow:var(--shadow-sm);
+}
+.program-details-header {
+  max-width:780px;margin:0 auto 32px;text-align:center;
+}
+.program-details-header h3 { font-size:clamp(28px,4vw,42px);margin-bottom:12px; }
+.program-details-header p {
+  color:var(--aria-muted);font-size:clamp(14px,1.8vw,17px);line-height:1.75;
+}
+.program-info-grid {
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:20px;margin-bottom:34px;
+}
+.program-info-panel {
+  padding:clamp(20px,3vw,28px);border-radius:var(--r-md);
+  background:#fff;border:1px solid var(--aria-border);
+}
+.program-info-panel h4 { font-size:clamp(20px,2.8vw,25px);margin-bottom:16px; }
+.program-check-list { display:grid;gap:10px; }
+.program-check-list li {
+  position:relative;padding-left:25px;color:var(--aria-muted);
+  font-size:13.5px;line-height:1.6;
+}
+.program-check-list li::before {
+  content:"✓";position:absolute;left:0;top:0;width:18px;height:18px;
+  display:flex;align-items:center;justify-content:center;border-radius:50%;
+  background:var(--aria-wine);color:#fff;font-size:10px;font-weight:700;
+}
+.program-section-title {
+  text-align:center;font-size:clamp(25px,3.8vw,35px);margin:0 0 24px;
+}
+.program-track-grid {
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr));
+  gap:18px;margin-bottom:38px;
+}
+.program-track-card {
+  overflow:hidden;border-radius:var(--r-md);background:#fff;
+  border:1px solid var(--aria-border);box-shadow:var(--shadow-sm);
+}
+.program-track-card header {
+  min-height:92px;padding:20px;background:var(--aria-wine);color:#fff;
+}
+.program-track-card:nth-child(2) header { background:#B77A3F; }
+.program-track-card:nth-child(3) header { background:var(--aria-plum); }
+.program-track-card header span {
+  display:block;margin-bottom:5px;font:700 10px 'Montserrat',sans-serif;
+  text-transform:uppercase;letter-spacing:.8px;opacity:.78;
+}
+.program-track-card header h4 { color:#fff;font-size:19px;margin:0;line-height:1.35; }
+.program-track-content { padding:20px; }
+.program-track-content strong {
+  display:block;margin:0 0 9px;color:var(--aria-brown);
+  font:700 10.5px 'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:.6px;
+}
+.program-track-content ul { display:grid;gap:7px;margin-bottom:18px; }
+.program-track-content li {
+  position:relative;padding-left:14px;color:var(--aria-muted);
+  font-size:12.5px;line-height:1.5;
+}
+.program-track-content li::before {
+  content:"";position:absolute;left:0;top:.62em;width:5px;height:5px;
+  border-radius:50%;background:var(--aria-rose);
+}
+.program-course-note {
+  padding:12px;border-radius:10px;background:var(--aria-cream);
+  color:var(--aria-muted);font-size:11.5px;line-height:1.6;
+}
+.program-journey-grid {
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(min(190px,100%),1fr));
+  gap:14px;margin-bottom:34px;counter-reset:program-stage;
+}
+.program-journey-step {
+  position:relative;padding:54px 18px 20px;border-radius:var(--r-md);
+  background:#fff;border:1px solid var(--aria-border);counter-increment:program-stage;
+}
+.program-journey-step::before {
+  content:counter(program-stage);position:absolute;left:18px;top:16px;
+  width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:var(--aria-wine);color:#fff;font:700 12px 'Montserrat',sans-serif;
+}
+.program-journey-step h4 { font-size:17px;margin-bottom:7px; }
+.program-journey-step span {
+  display:block;margin-bottom:8px;color:var(--aria-wine);
+  font:700 10.5px 'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:.5px;
+}
+.program-journey-step p { color:var(--aria-muted);font-size:12.5px;line-height:1.6; }
+.program-format-card {
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));
+  gap:20px;padding:clamp(20px,3vw,30px);border-radius:var(--r-md);
+  background:var(--aria-plum);color:#fff;
+}
+.program-format-card h4 { color:#fff;font-size:24px;margin-bottom:12px; }
+.program-format-card p { color:rgba(255,255,255,.82);line-height:1.7;font-size:13.5px; }
+.program-format-points { display:grid;gap:10px;align-content:center; }
+.program-format-point {
+  padding:10px 13px;border-radius:10px;background:rgba(255,255,255,.1);
+  color:rgba(255,255,255,.9);font-size:12.5px;line-height:1.5;
+}
+.program-detail-actions {
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  flex-wrap:wrap;margin-top:28px;
+}
+
+/* Calendário e inscrição de voluntários — página Projetos */
+.project-planning-shell {
+  background:var(--aria-cream);border:1px solid var(--aria-border-gold);
+  border-radius:var(--r-lg);padding:clamp(18px,3vw,34px);box-shadow:var(--shadow-sm);
+}
+.project-view-switch {
+  display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px;
+}
+.project-view-button {
+  min-height:44px;padding:10px 18px;border-radius:999px;
+  border:1px solid var(--aria-border-gold);background:var(--aria-ivory);
+  color:var(--aria-brown);font-family:'Montserrat',sans-serif;font-size:13px;
+  font-weight:700;cursor:pointer;transition:background var(--t),color var(--t),border-color var(--t);
+}
+.project-view-button[aria-selected="true"] {
+  background:var(--aria-wine);border-color:var(--aria-wine);color:#fff;
+}
+.project-view-panel[hidden] { display:none; }
+.project-timeline-groups { display:grid;gap:24px; }
+.project-timeline-group {
+  padding:clamp(18px,2.5vw,26px);border-radius:var(--r-md);
+  background:var(--aria-ivory);border:1px solid var(--aria-border);
+}
+.project-timeline-heading {
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  flex-wrap:wrap;margin-bottom:16px;
+}
+.project-timeline-heading h3 { font-size:clamp(21px,2.6vw,27px);margin:0; }
+.project-timeline-count {
+  padding:5px 11px;border-radius:999px;background:var(--aria-card);
+  color:var(--aria-wine);font:700 11px 'Montserrat',sans-serif;
+  text-transform:uppercase;letter-spacing:.7px;
+}
+.project-timeline-items {
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr));gap:14px;
+}
+.project-timeline-card {
+  position:relative;padding:18px 18px 18px 22px;border-radius:var(--r-sm);
+  background:#fff;border:1px solid var(--aria-border);min-width:0;
+}
+.project-timeline-card::before {
+  content:"";position:absolute;left:0;top:12px;bottom:12px;width:4px;
+  border-radius:0 4px 4px 0;background:var(--aria-rose);
+}
+.project-timeline-card.is-future::before { background:var(--aria-gold); }
+.project-timeline-card h4 { font-size:17px;margin:0 0 7px; }
+.project-timeline-card p {
+  color:var(--aria-muted);font-size:13px;line-height:1.6;margin:0;
+}
+.project-timeline-meta {
+  display:block;margin-top:9px;color:var(--aria-wine);
+  font:700 10.5px 'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:.6px;
+}
+.project-empty-state {
+  color:var(--aria-muted);font-size:14px;line-height:1.7;
+  padding:18px;border:1px dashed var(--aria-border-gold);border-radius:var(--r-sm);
+}
+.project-month-toolbar {
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  flex-wrap:wrap;margin-bottom:18px;
+}
+.project-month-toolbar h3 { font-size:clamp(22px,3vw,30px);margin:0;text-transform:capitalize; }
+.project-month-nav { display:flex;gap:8px; }
+.project-month-nav button {
+  width:44px;height:44px;border-radius:50%;border:1px solid var(--aria-border-gold);
+  background:var(--aria-ivory);color:var(--aria-wine);font-size:20px;cursor:pointer;
+}
+.continuous-projects {
+  display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;padding:14px;
+  background:rgba(155,107,140,.08);border-radius:var(--r-sm);
+}
+.continuous-projects strong {
+  width:100%;font:700 11px 'Montserrat',sans-serif;
+  text-transform:uppercase;letter-spacing:.7px;color:var(--aria-brown);
+}
+.continuous-project-pill {
+  padding:6px 10px;border-radius:999px;background:var(--aria-ivory);
+  border:1px solid var(--aria-border-gold);color:var(--aria-wine);
+  font:700 10.5px 'Montserrat',sans-serif;
+}
+.project-calendar-weekdays,
+.project-calendar-grid {
+  display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;
+}
+.project-calendar-weekdays { margin-bottom:6px; }
+.project-calendar-weekdays span {
+  text-align:center;color:var(--aria-muted);
+  font:700 10px 'Montserrat',sans-serif;text-transform:uppercase;
+}
+.project-calendar-day {
+  min-width:0;min-height:92px;padding:8px;border-radius:10px;
+  background:var(--aria-ivory);border:1px solid var(--aria-border);
+}
+.project-calendar-day.is-outside { opacity:.42;background:transparent; }
+.project-calendar-day.is-today { border-color:var(--aria-wine);box-shadow:inset 0 0 0 1px var(--aria-wine); }
+.project-calendar-day-number {
+  display:block;margin-bottom:6px;color:var(--aria-brown);
+  font:700 11px 'Montserrat',sans-serif;
+}
+.project-calendar-event {
+  display:block;width:100%;margin-top:4px;padding:4px 5px;border-radius:6px;
+  background:var(--aria-card);color:var(--aria-wine);
+  font:700 9px/1.3 'Montserrat',sans-serif;overflow-wrap:anywhere;
+}
+.project-calendar-note {
+  margin-top:16px;color:var(--aria-muted);font-size:13px;line-height:1.65;
+}
+.volunteer-project-grid {
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:clamp(20px,3vw,34px);align-items:stretch;
+}
+.volunteer-process-card,
+.volunteer-form-card {
+  border-radius:var(--r-lg);padding:clamp(22px,3vw,34px);
+  border:1px solid var(--aria-border-gold);
+}
+.volunteer-process-card { background:var(--aria-cream); }
+.volunteer-form-card { background:var(--aria-plum);color:#fff; }
+.volunteer-steps { display:grid;gap:14px;margin-top:24px; }
+.volunteer-step { display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start; }
+.volunteer-step-number {
+  width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:var(--aria-wine);color:#fff;font:700 12px 'Montserrat',sans-serif;
+}
+.volunteer-step strong { display:block;color:var(--aria-brown);font-size:14px;margin-bottom:3px; }
+.volunteer-step p { color:var(--aria-muted);font-size:13px;line-height:1.6;margin:0; }
+.volunteer-form-card h3 { color:#fff;margin-bottom:12px; }
+.volunteer-form-card p { color:rgba(255,255,255,.82);line-height:1.75;margin-bottom:18px; }
+.volunteer-form-card ul {
+  display:grid;gap:9px;margin:0 0 24px;padding-left:20px;color:rgba(255,255,255,.88);
+  font-size:13.5px;line-height:1.55;
+}
+.volunteer-form-open {
+  width:100%;min-height:48px;border:0;border-radius:999px;
+  background:#fff;color:var(--aria-wine);
+  font:700 13px 'Montserrat',sans-serif;cursor:pointer;
+  transition:transform var(--t),box-shadow var(--t),background var(--t);
+}
+.volunteer-form-open:hover {
+  transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.18);
+  background:var(--aria-cream);
+}
+.volunteer-form-status {
+  margin:12px 0 0!important;color:rgba(255,255,255,.72)!important;
+  font-size:12px;line-height:1.55;
+}
+.volunteer-questionnaire-modal {
+  position:fixed;inset:0;z-index:12000;display:grid;place-items:center;
+  padding:clamp(10px,2vw,24px);background:rgba(46,29,35,.74);
+  backdrop-filter:blur(5px);
+}
+.volunteer-questionnaire-modal[hidden] { display:none; }
+.volunteer-questionnaire-dialog {
+  width:min(900px,100%);max-height:min(94dvh,920px);overflow:auto;
+  overscroll-behavior:contain;background:var(--aria-ivory);
+  border:1px solid var(--aria-border-gold);border-radius:var(--r-lg);
+  box-shadow:0 28px 80px rgba(31,18,23,.35);
+}
+.volunteer-questionnaire-header {
+  position:sticky;top:0;z-index:2;display:flex;align-items:flex-start;
+  justify-content:space-between;gap:20px;padding:clamp(20px,3vw,30px);
+  background:rgba(250,247,239,.97);border-bottom:1px solid var(--aria-border);
+  backdrop-filter:blur(8px);
+}
+.volunteer-questionnaire-header h2 {
+  font-size:clamp(25px,4vw,36px);margin:3px 0 0;
+}
+.volunteer-questionnaire-close {
+  width:44px;height:44px;flex:0 0 44px;border-radius:50%;
+  border:1px solid var(--aria-border-gold);background:var(--aria-cream);
+  color:var(--aria-wine);font-size:25px;line-height:1;cursor:pointer;
+}
+.volunteer-questionnaire-body { padding:clamp(20px,4vw,38px); }
+.questionnaire-notice {
+  padding:15px 17px;margin-bottom:24px;border-radius:var(--r-sm);
+  background:rgba(198,161,91,.13);border:1px solid rgba(198,161,91,.32);
+  color:var(--aria-brown);font-size:13px;line-height:1.7;
+}
+.questionnaire-section {
+  border:1px solid var(--aria-border);border-radius:var(--r-md);
+  padding:clamp(18px,3vw,28px);margin:0 0 22px;background:#fff;
+}
+.questionnaire-section legend {
+  max-width:100%;padding:0 10px;color:var(--aria-wine);
+  font-family:'Libre Baskerville',serif;font-size:clamp(18px,2.8vw,23px);
+  font-weight:700;
+}
+.questionnaire-help {
+  color:var(--aria-muted);font-size:12.5px;line-height:1.6;margin:-2px 0 16px;
+}
+.questionnaire-choice-grid {
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(min(190px,100%),1fr));
+  gap:10px;margin-bottom:18px;
+}
+.questionnaire-choice {
+  display:flex;align-items:flex-start;gap:10px;min-height:46px;padding:11px 13px;
+  border:1px solid var(--aria-border);border-radius:12px;
+  background:var(--aria-cream);color:var(--aria-brown);
+  font:600 12.5px/1.45 'Montserrat',sans-serif;cursor:pointer;
+}
+.questionnaire-choice input {
+  width:18px;height:18px;flex:0 0 18px;margin:0;accent-color:var(--aria-wine);
+}
+.questionnaire-consent {
+  display:flex;align-items:flex-start;gap:10px;margin-bottom:13px;
+  color:var(--aria-brown);font-size:13px;line-height:1.6;cursor:pointer;
+}
+.questionnaire-consent input {
+  width:18px;height:18px;flex:0 0 18px;margin-top:2px;accent-color:var(--aria-wine);
+}
+.questionnaire-actions {
+  display:flex;justify-content:flex-end;gap:12px;flex-wrap:wrap;margin-top:26px;
+}
+.questionnaire-actions .btn-primary,
+.questionnaire-actions .btn-secondary { min-height:48px; }
+.questionnaire-success {
+  text-align:center;padding:clamp(22px,5vw,46px) 10px;
+}
+.questionnaire-success-icon {
+  width:64px;height:64px;margin:0 auto 18px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--aria-sage);color:#fff;font-size:28px;
+}
+.questionnaire-success h3 { font-size:clamp(24px,4vw,34px);margin-bottom:10px; }
+.questionnaire-success p {
+  max-width:580px;margin:0 auto 22px;color:var(--aria-muted);line-height:1.75;
+}
+
+@media (max-width:540px) {
+  .project-view-button { flex:1 1 140px;padding-inline:12px; }
+  .project-calendar-weekdays,
+  .project-calendar-grid { gap:3px; }
+  .project-calendar-day { min-height:62px;padding:5px;border-radius:7px; }
+  .project-calendar-day-number { font-size:10px;margin-bottom:3px; }
+  .project-calendar-event { padding:3px;font-size:8px; }
+  .continuous-project-pill { width:100%;text-align:center; }
+  .volunteer-questionnaire-dialog { max-height:96dvh;border-radius:18px; }
+  .volunteer-questionnaire-header { padding:18px; }
+  .volunteer-questionnaire-body { padding:16px; }
+  .questionnaire-section { padding:17px 14px; }
+  .questionnaire-actions > * { width:100%;justify-content:center; }
+}
+
 @media (max-width:480px){
   #kupim-badge{
     max-width:min(88vw,420px);
@@ -1699,6 +2355,7 @@ footer::before {
       <a class="nav-link" onclick="showPage('home')" role="button" tabindex="0">Início</a>
       <a class="nav-link" onclick="showPage('quemsomos')" role="button" tabindex="0">Quem Somos</a>
       <a class="nav-link" onclick="showPage('projetos')" role="button" tabindex="0">Projetos</a>
+      <a id="nav-voluntarios" class="nav-link" onclick="showPage('voluntarios')" role="button" tabindex="0">Volunt&aacute;rios</a>
       <a class="nav-link" onclick="showPage('produtos')" role="button" tabindex="0">Produtos</a>
       <a class="nav-link" onclick="showPage('impacto')" role="button" tabindex="0">Impacto</a>
       <a class="nav-link" onclick="showPage('contato')" role="button" tabindex="0">Contato</a>
@@ -1722,6 +2379,7 @@ footer::before {
     <a href="#" onclick="showPage('quemsomos')" role="button" tabindex="0">Quem Somos</a>
     <a href="#" onclick="showPage('projetos')" role="button" tabindex="0">Projetos</a>
     <a href="#" onclick="showPage('produtos')" role="button" tabindex="0">Produtos</a>
+    <a href="#" onclick="showPage('voluntarios')" role="button" tabindex="0">Volunt&aacute;rios</a>
     <a href="#" onclick="showPage('impacto')" role="button" tabindex="0">Impacto</a>
     <a href="#" onclick="showPage('contato')" role="button" tabindex="0">Contato</a>
   </nav>
@@ -1758,7 +2416,7 @@ footer::before {
             <p class="hero-sub">
               O Instituto ARIA apoia o desenvolvimento integral de
               <span class="hero-cycle-word" id="cycle-word" aria-live="polite">mulheres</span>
-              por meio de formação, apoio emocional e proteção animal.
+              por meio de apoio emocional e proteção animal.
             </p>
             <div class="hero-ctas">
               <button class="btn-primary" onclick="showPage('apoie')">
@@ -1868,7 +2526,7 @@ footer::before {
           <div class="stat-label">Parceiros<br>Ativos</div>
         </div>
         <div class="stat-box">
-          <div class="stat-num" data-target="4" data-suffix="a">0</div>
+          <div class="stat-num" data-target="0" data-start-date="2024-03-01">0</div>
           <div class="stat-label">Anos de<br>Atuação</div>
         </div>
       </div>
@@ -1902,7 +2560,7 @@ footer::before {
           </div>
           <div style="margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:16px;">
             <div class="aria-card" style="padding:20px;">
-              <div style="font-family:'Cormorant Garamond',serif;font-size:36px;color:var(--aria-wine);font-weight:500;line-height:1;">5</div>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:36px;color:var(--aria-wine);font-weight:500;line-height:1;">3</div>
               <div style="font-size:13px;color:var(--aria-muted);margin-top:4px;line-height:1.4;">projetos em andamento</div>
             </div>
             <div class="aria-card" style="padding:20px;">
@@ -1956,11 +2614,11 @@ footer::before {
             <span class="project-card-link">Saiba mais →</span>
           </div>
         </div>
-        <div class="project-card fade-up delay-3" onclick="showPage('projetos')" role="button" tabindex="0" aria-label="Ver projeto Rede de Cuidados">
-          <img class="project-card-img" src="assets/material2/aria-mulheres-juntas.png" alt="Atendimento psicossocial — Rede de Cuidados" loading="lazy"/>
+        <div class="project-card fade-up delay-3" onclick="showPage('projetos')" role="button" tabindex="0" aria-label="Ver projeto Rede de Acolhimento">
+          <img class="project-card-img" src="assets/material2/aria-mulheres-juntas.png" alt="Atendimento psicossocial — Rede de Acolhimento" loading="lazy"/>
           <div class="project-card-body">
             <div class="project-status"><span class="status-dot"></span>Ativo</div>
-            <h3>Rede de Cuidados</h3>
+            <h3>Rede de Acolhimento</h3>
             <p>Apoio psicossocial, encaminhamentos e formação em rede para mulheres e famílias em situação de risco.</p>
             <span class="project-card-link">Saiba mais →</span>
           </div>
@@ -1983,24 +2641,24 @@ footer::before {
       <div class="grid-3">
         <div class="story-card fade-up delay-1">
           <div class="story-accent" style="background:var(--aria-rose);"></div>
-          <img src="https://loremflickr.com/54/54/woman,portrait,smile?lock=31" alt="Depoente" style="width:54px;height:54px;border-radius:50%;border:2px solid rgba(198,161,91,.4);object-fit:cover;margin-bottom:16px;" loading="lazy"/>
+          <img src="assets/material2/aria-anonima-maria.png" alt="Ilustração anônima representando a depoente" style="width:54px;height:54px;border-radius:50%;border:2px solid rgba(198,161,91,.4);object-fit:cover;margin-bottom:16px;" loading="lazy"/>
           <p class="story-quote">"Antes de conhecer o ARIA, eu sentia que não havia saída. As oficinas me devolveram a esperança — e hoje tenho meu próprio negócio de artesanato."</p>
           <span class="story-name">Maria*, 34 anos</span>
           <span class="story-role">Participante do Projeto Se Prepara Menina</span>
         </div>
         <div class="story-card fade-up delay-2">
           <div class="story-accent" style="background:var(--aria-gold);"></div>
-          <img src="https://loremflickr.com/54/54/woman,portrait,smile?lock=32" alt="Depoente" style="width:54px;height:54px;border-radius:50%;border:2px solid rgba(198,161,91,.4);object-fit:cover;margin-bottom:16px;" loading="lazy"/>
+          <img src="assets/material2/aria-anonima-ana.png" alt="Ilustração anônima representando a depoente" style="width:54px;height:54px;border-radius:50%;border:2px solid rgba(198,161,91,.4);object-fit:cover;margin-bottom:16px;" loading="lazy"/>
           <p class="story-quote">"O ARIA resgatou meu cachorro quando eu não tinha condição de pagar o veterinário. Eles trataram com tanto amor. Nunca vou esquecer."</p>
           <span class="story-name">Ana*, 27 anos</span>
           <span class="story-role">Beneficiária do Projeto Viralatinha</span>
         </div>
         <div class="story-card fade-up delay-3">
           <div class="story-accent" style="background:var(--aria-sage);"></div>
-          <img src="https://loremflickr.com/54/54/woman,portrait,smile?lock=33" alt="Depoente" style="width:54px;height:54px;border-radius:50%;border:2px solid rgba(198,161,91,.4);object-fit:cover;margin-bottom:16px;" loading="lazy"/>
+          <img src="assets/material2/aria-anonima-carla.png" alt="Ilustração anônima representando a depoente" style="width:54px;height:54px;border-radius:50%;border:2px solid rgba(198,161,91,.4);object-fit:cover;margin-bottom:16px;" loading="lazy"/>
           <p class="story-quote">"O acompanhamento psicossocial foi o que me deu forças para sair de uma relação abusiva. O ARIA me ajudou a reconstruir minha vida."</p>
           <span class="story-name">Carla*, 41 anos</span>
-          <span class="story-role">Atendida pela Rede de Cuidados</span>
+          <span class="story-role">Atendida pela Rede de Acolhimento</span>
         </div>
       </div>
     </div>
@@ -2046,14 +2704,8 @@ footer::before {
         <h2 id="home-insta-h">Siga o Instituto ARIA</h2>
         <p><a href="https://instagram.com/instituto.aria.ia" target="_blank" rel="noopener" style="color:var(--aria-wine);font-weight:600;">@instituto.aria.ia</a> no Instagram</p>
       </div>
-      <div class="insta-grid fade-up delay-1" aria-label="Grade de fotos do Instagram">
-        <!-- 6 placeholders -->
-        <div class="insta-item" aria-label="Oficina de artesanato"><img src="https://loremflickr.com/220/220/crafts,hands,workshop?lock=41" alt="Oficina de artesanato" style="width:100%;height:100%;object-fit:cover;transition:transform 350ms ease;" loading="lazy"/><div class="insta-overlay"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" stroke-width="1.5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="white" stroke="none"/></svg></div></div>
-        <div class="insta-item" aria-label="Animal resgatado"><img src="https://loremflickr.com/220/220/dog,cat,pet?lock=42" alt="Animal resgatado" style="width:100%;height:100%;object-fit:cover;transition:transform 350ms ease;" loading="lazy"/><div class="insta-overlay"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" stroke-width="1.5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="white" stroke="none"/></svg></div></div>
-        <div class="insta-item" aria-label="Evento comunitário"><img src="https://loremflickr.com/220/220/community,event,people?lock=43" alt="Evento comunitário" style="width:100%;height:100%;object-fit:cover;transition:transform 350ms ease;" loading="lazy"/><div class="insta-overlay"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" stroke-width="1.5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="white" stroke="none"/></svg></div></div>
-        <div class="insta-item" aria-label="Roda de conversa"><img src="https://loremflickr.com/220/220/women,circle,conversation?lock=44" alt="Roda de conversa" style="width:100%;height:100%;object-fit:cover;transition:transform 350ms ease;" loading="lazy"/><div class="insta-overlay"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" stroke-width="1.5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="white" stroke="none"/></svg></div></div>
-        <div class="insta-item" aria-label="Flores do projeto"><img src="https://loremflickr.com/220/220/flowers,nature,garden?lock=45" alt="Flores do projeto" style="width:100%;height:100%;object-fit:cover;transition:transform 350ms ease;" loading="lazy"/><div class="insta-overlay"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" stroke-width="1.5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="white" stroke="none"/></svg></div></div>
-        <div class="insta-item" aria-label="Momento de alegria"><img src="https://loremflickr.com/220/220/child,smile,happy?lock=46" alt="Momento de alegria" style="width:100%;height:100%;object-fit:cover;transition:transform 350ms ease;" loading="lazy"/><div class="insta-overlay"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" stroke-width="1.5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="white" stroke="none"/></svg></div></div>
+      <div class="behold-feed-wrap fade-up delay-1" aria-label="Publicações do Instituto ARIA no Instagram">
+        <behold-widget feed-id="78m0roje4uqF1xhy0waM"></behold-widget>
       </div>
       <div style="text-align:center;margin-top:28px;" class="fade-up">
         <a href="https://instagram.com/instituto.aria.ia" target="_blank" rel="noopener" class="btn-secondary">Ver mais no Instagram</a>
@@ -2143,8 +2795,8 @@ footer::before {
     <div class="container">
       <div class="grid-2">
         <div class="fade-up">
-          <div style="width:180px;height:180px;border-radius:50%;background:linear-gradient(148deg,var(--aria-blush),var(--aria-card));border:3px solid var(--aria-border-gold);display:flex;align-items:center;justify-content:center;margin-bottom:24px;box-shadow:var(--shadow-md);" aria-label="Foto de Caroline Semiramis">
-            <svg width="70" height="70" viewBox="0 0 70 70" fill="none" opacity=".5"><circle cx="35" cy="28" r="14" fill="#DFA5A0" fill-opacity=".6"/><path d="M10 62 C10 48 20 42 35 42 C50 42 60 48 60 62" fill="#DFA5A0" fill-opacity=".4"/></svg>
+          <div style="width:min(360px,100%);aspect-ratio:1;border-radius:50%;background:var(--aria-card);border:3px solid var(--aria-border-gold);overflow:hidden;margin-bottom:24px;box-shadow:var(--shadow-md);">
+            <img src="assets/material2/foto_carol.webp" alt="Caroline Semiramis, fundadora do Instituto ARIA" style="width:100%;height:100%;display:block;object-fit:cover;object-position:center;" loading="lazy"/>
           </div>
           <div class="eyebrow">Fundadora &amp; Diretora Executiva</div>
           <h2 id="qs-fund-h">Caroline Semiramis</h2>
@@ -2188,57 +2840,91 @@ footer::before {
         <div class="eyebrow">As pessoas por trás do ARIA</div>
         <h2 id="qs-eq-h">Nossa equipe</h2>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;" class="responsive-grid-3">
-
-        <div class="team-card fade-up delay-1">
+      <div class="team-groups">
+        <section class="team-group fade-up" aria-labelledby="team-founders-h">
+          <div class="team-group-heading">
+            <span class="team-group-number" aria-hidden="true">1</span>
+            <h3 id="team-founders-h" class="team-group-title">Sócios Fundadores</h3>
+          </div>
+          <div class="team-group-grid team-group-grid--founders">
+        <div class="team-card">
           <div class="team-photo-wrap" aria-label="Iniciais de Caroline" style="background:#6F7468;color:#fff;width:78px;height:78px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-weight:700;font-size:22px;letter-spacing:1px;margin:0 auto 10px;">C</div>
           <div class="team-name">Caroline</div>
-          <div class="team-role">Presidente</div>
+          <div class="team-role">Presidente e Fundadora</div>
         </div>
-        <div class="team-card fade-up delay-2">
+          </div>
+        </section>
+
+        <section class="team-group fade-up" aria-labelledby="team-effective-h">
+          <div class="team-group-heading">
+            <span class="team-group-number" aria-hidden="true">2</span>
+            <h3 id="team-effective-h" class="team-group-title">Sócios Efetivos</h3>
+          </div>
+          <div class="team-group-grid">
+        <div class="team-card">
           <div class="team-photo-wrap" aria-label="Iniciais de Érica" style="background:#9B6B8C;color:#fff;width:78px;height:78px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-weight:700;font-size:22px;letter-spacing:1px;margin:0 auto 10px;">É</div>
           <div class="team-name">Érica</div>
           <div class="team-role">Vice-Presidente</div>
         </div>
-        <div class="team-card fade-up delay-3">
+        <div class="team-card">
           <div class="team-photo-wrap" aria-label="Iniciais de Jean" style="background:#B8737D;color:#fff;width:78px;height:78px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-weight:700;font-size:22px;letter-spacing:1px;margin:0 auto 10px;">J</div>
           <div class="team-name">Jean</div>
           <div class="team-role">1º Secretário</div>
         </div>
-        <div class="team-card fade-up delay-1">
+        <div class="team-card">
           <div class="team-photo-wrap" aria-label="Iniciais de Marcio" style="background:#7A8F7B;color:#fff;width:78px;height:78px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-weight:700;font-size:22px;letter-spacing:1px;margin:0 auto 10px;">M</div>
           <div class="team-name">Marcio</div>
           <div class="team-role">2º Secretário</div>
         </div>
-        <div class="team-card fade-up delay-2">
+        <div class="team-card">
           <div class="team-photo-wrap" aria-label="Iniciais de Isis" style="background:#6F7468;color:#fff;width:78px;height:78px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-weight:700;font-size:22px;letter-spacing:1px;margin:0 auto 10px;">I</div>
           <div class="team-name">Isis</div>
           <div class="team-role">1ª Tesoureira</div>
         </div>
-        <div class="team-card fade-up delay-3">
+        <div class="team-card">
           <div class="team-photo-wrap" aria-label="Iniciais de Breno" style="background:#A4957B;color:#fff;width:78px;height:78px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-weight:700;font-size:22px;letter-spacing:1px;margin:0 auto 10px;">B</div>
           <div class="team-name">Breno</div>
           <div class="team-role">2º Tesoureiro</div>
         </div>
-        <div class="team-card fade-up delay-1">
+        <div class="team-card">
           <div class="team-photo-wrap" aria-label="Iniciais de Fernanda" style="background:#DFA5A0;color:#fff;width:78px;height:78px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-weight:700;font-size:22px;letter-spacing:1px;margin:0 auto 10px;">F</div>
           <div class="team-name">Fernanda</div>
           <div class="team-role">Conselheira Fiscal</div>
         </div>
-        <div class="team-card fade-up delay-2">
+        <div class="team-card">
           <div class="team-photo-wrap" aria-label="Iniciais de Handra" style="background:#DFA5A0;color:#fff;width:78px;height:78px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-weight:700;font-size:22px;letter-spacing:1px;margin:0 auto 10px;">H</div>
           <div class="team-name">Handra</div>
           <div class="team-role">Conselheira Fiscal</div>
         </div>
-        <div class="team-card fade-up delay-3">
+        <div class="team-card">
           <div class="team-photo-wrap" aria-label="Iniciais de Márcio Júnior" style="background:#6F7468;color:#fff;width:78px;height:78px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-weight:700;font-size:22px;letter-spacing:1px;margin:0 auto 10px;">MJ</div>
           <div class="team-name">Márcio Júnior</div>
           <div class="team-role">Conselheiro Fiscal</div>
         </div>
-      </div>
-      <div style="text-align:center;margin-top:36px;" class="fade-up">
-        <p style="color:var(--aria-muted);font-size:14px;margin-bottom:16px;">Além da diretoria, contamos com dezenas de voluntários ativos em toda a região.</p>
-        <button class="btn-secondary" onclick="showPage('apoie')">Quero ser voluntário</button>
+          </div>
+        </section>
+
+        <section class="team-group fade-up" aria-labelledby="team-volunteers-h">
+          <div class="team-group-heading">
+            <span class="team-group-number" aria-hidden="true">3</span>
+            <h3 id="team-volunteers-h" class="team-group-title">Voluntários</h3>
+          </div>
+          <div class="team-community-card">
+            <p>Dezenas de voluntários colaboram com os projetos, campanhas, eventos e ações sociais do Instituto ARIA em toda a região.</p>
+            <button class="btn-secondary" onclick="showPage('apoie')">Quero ser voluntário</button>
+          </div>
+        </section>
+
+        <section class="team-group fade-up" aria-labelledby="team-contributor-h">
+          <div class="team-group-heading">
+            <span class="team-group-number" aria-hidden="true">4</span>
+            <h3 id="team-contributor-h" class="team-group-title">Sócio Contribuinte</h3>
+          </div>
+          <div class="team-community-card">
+            <p>Pessoas que fortalecem a continuidade das ações do Instituto ARIA por meio de contribuições e apoio recorrente.</p>
+            <button class="btn-primary" onclick="showPage('apoie')">Quero contribuir</button>
+          </div>
+        </section>
       </div>
     </div>
   </section>
@@ -2250,7 +2936,7 @@ footer::before {
         <div class="eyebrow">Quem caminha conosco</div>
         <h2 id="qs-parc-h">Nossos parceiros</h2>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;">
 
         <div class="aria-card fade-up" style="display:flex;flex-direction:column;gap:10px;">
           <div style="font-size:28px;line-height:1;">🏗️</div>
@@ -2271,16 +2957,6 @@ footer::before {
           <div style="font-size:28px;line-height:1;">🎓</div>
           <div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:14px;color:var(--aria-text);">Faculdade Qualitas</div>
           <p style="font-size:13px;color:var(--aria-muted);line-height:1.65;margin:0;">Recebe animais resgatados nas turmas para exames e atendimentos supervisionados.</p>
-        </div>
-        <div class="aria-card fade-up" style="display:flex;flex-direction:column;gap:10px;">
-          <div style="font-size:28px;line-height:1;">🌱</div>
-          <div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:14px;color:var(--aria-text);">Colégio Pitágoras</div>
-          <p style="font-size:13px;color:var(--aria-muted);line-height:1.65;margin:0;">Parceiro para implantação do Projeto Guardiões do Futuro — alunos como agentes de transformação socioambiental.</p>
-        </div>
-        <div class="aria-card fade-up" style="display:flex;flex-direction:column;gap:10px;">
-          <div style="font-size:28px;line-height:1;">🎵</div>
-          <div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:14px;color:var(--aria-text);">Marauaras</div>
-          <p style="font-size:13px;color:var(--aria-muted);line-height:1.65;margin:0;">Grupo de carimbó formado por mulheres de Mosqueiro — parceria cultural que o Instituto ARIA abraça como frente de incentivo à cultura local.</p>
         </div>
       </div>
     </div>
@@ -2308,7 +2984,7 @@ footer::before {
     <div class="container">
       <h2 id="proj-main-h" class="fade-up" style="text-align:center;margin-bottom:16px;">Projetos em andamento</h2>
       <div class="section-header fade-up" style="margin-bottom:52px;">
-        <p>Cinco frentes de atuação, um único propósito: cuidar de quem mais precisa.</p>
+        <p>Quatro projetos em andamento, um único propósito: cuidar de quem mais precisa.</p>
       </div>
 
       <!-- Se Prepara Menina -->
@@ -2320,7 +2996,7 @@ footer::before {
           <div class="project-status" style="margin-bottom:16px;"><span class="status-dot"></span>Em andamento</div>
           <h2 class="proj-title-nowrap" style="margin-bottom:14px;">Projeto Se Prepara Menina</h2>
           <p style="color:var(--aria-muted);line-height:1.82;margin-bottom:14px;">
-            O Projeto Se Prepara Menina oferece oficinas semanais de artesanato, culinária, empreendedorismo e capacitação digital para mulheres em situação de vulnerabilidade econômica e social. Mais do que renda, o projeto cria laços, reconstrói autoestima e abre portas profissionais.
+            O Projeto Se Prepara Menina oferece oficinas de artesanato, culinária, empreendedorismo e capacitação digital, realizadas uma vez por semana, para mulheres em situação de vulnerabilidade econômica e social. Atualmente, 10 mulheres são atendidas. Mais do que renda, o projeto cria laços, reconstrói autoestima e abre portas profissionais.
           </p>
           <p style="color:var(--aria-muted);line-height:1.82;margin-bottom:22px;">
             As participantes aprendem técnicas de produção artesanal, gestão básica de pequenos negócios e comercialização de seus produtos. Muitas já possuem negócios próprios consolidados.
@@ -2332,11 +3008,11 @@ footer::before {
           </div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;">
             <div class="aria-card" style="padding:16px;">
-              <div style="font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--aria-wine);font-weight:500;">85+</div>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--aria-wine);font-weight:500;">10</div>
               <div style="font-size:12px;color:var(--aria-muted);">Mulheres atendidas</div>
             </div>
             <div class="aria-card" style="padding:16px;">
-              <div style="font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--aria-wine);font-weight:500;">3x</div>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--aria-wine);font-weight:500;">1x</div>
               <div style="font-size:12px;color:var(--aria-muted);">Por semana</div>
             </div>
           </div>
@@ -2350,7 +3026,7 @@ footer::before {
           <div class="project-status" style="margin-bottom:16px;"><span class="status-dot"></span>Em andamento</div>
           <h2 style="margin-bottom:14px;">Projeto Viralatinha</h2>
           <p style="color:var(--aria-muted);line-height:1.82;margin-bottom:14px;">
-            O Viralatinha é nossa resposta à situação de abandono animal em Marituba e região. Já alcançamos <strong>180+ animais</strong>, realizamos <strong>50+ castrações</strong> e, com isso, contribuímos para que mais de <strong>5 milhões de animais</strong> deixassem de nascer nas ruas.
+            O Viralatinha é nossa resposta à situação de abandono animal na Região Metropolitana de Belém. Já alcançamos <strong>180+ animais</strong>, realizamos <strong>50+ castrações</strong> e, com isso, contribuímos para que mais de <strong>5 milhões de animais</strong> deixassem de nascer nas ruas.
           </p>
           <p style="color:var(--aria-muted);line-height:1.82;margin-bottom:22px;">
             Acreditamos que o cuidado com os animais reflete diretamente na qualidade de vida das comunidades. Cada resgate, cada castração e cada adoção responsável é um passo rumo a cidades mais humanas e solidárias.
@@ -2381,19 +3057,16 @@ footer::before {
         </div>
       </div>
 
-      <!-- Rede de Cuidados -->
+      <!-- Rede de Acolhimento -->
       <div class="grid-2" style="margin-bottom:64px;padding-bottom:64px;border-bottom:1px solid var(--aria-border-gold);">
-        <div class="proj-img-contain-wrap" aria-label="Imagem da Rede de Cuidados">
-          <img src="assets/material2/aria-mulheres-juntas.png" alt="Rede de Cuidados — Instituto ARIA" loading="lazy"/>
+        <div class="proj-img-contain-wrap" aria-label="Imagem da Rede de Acolhimento">
+          <img src="assets/material2/aria-mulheres-juntas.png" alt="Rede de Acolhimento — Instituto ARIA" loading="lazy"/>
         </div>
         <div class="fade-up delay-1">
           <div class="project-status" style="margin-bottom:16px;"><span class="status-dot"></span>Em andamento</div>
-          <h2 style="margin-bottom:14px;">Rede de Cuidados</h2>
-          <p style="color:var(--aria-muted);line-height:1.82;margin-bottom:14px;">
-            Apoio psicossocial, orientação jurídica e encaminhamentos para mulheres em situação de violência doméstica ou extrema vulnerabilidade. A Rede articula parceiros institucionais para garantir um cuidado integral.
-          </p>
+          <h2 style="margin-bottom:14px;">Rede de Acolhimento</h2>
           <p style="color:var(--aria-muted);line-height:1.82;margin-bottom:22px;">
-            Trabalhamos em conjunto com o CRAS, a Defensoria Pública e outros órgãos municipais para que nenhuma mulher precise enfrentar sozinha uma situação de risco.
+            Apoio psicossocial, orientação jurídica e encaminhamentos para mulheres em situação de violência doméstica ou extrema vulnerabilidade. A Rede articula parceiros institucionais para garantir um cuidado integral.
           </p>
           <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px;">
             <span class="chip">Apoio psicossocial</span>
@@ -2403,6 +3076,185 @@ footer::before {
         </div>
       </div>
 
+
+      <!-- Programa ARIA — Mulheres que Lideram -->
+      <div class="grid-2" style="margin-bottom:64px;padding-bottom:64px;border-bottom:1px solid var(--aria-border-gold);">
+        <div class="fade-up delay-1" style="order:2;">
+          <div class="project-status" style="margin-bottom:16px;background:rgba(139,74,94,.12);"><span class="status-dot"></span>Inscrições abertas</div>
+          <h2 style="margin-bottom:14px;">Programa ARIA — Mulheres que Lideram</h2>
+          <p style="color:var(--aria-muted);line-height:1.82;margin-bottom:14px;">
+            O Programa ARIA — Mulheres que Lideram é uma formação prática para mulheres que desejam desenvolver habilidades, adquirir experiência profissional e gerar impacto positivo na sociedade. Ao longo de seis meses, as participantes recebem capacitação, mentoria e acompanhamento enquanto atuam em projetos reais do terceiro setor.
+          </p>
+          <p style="color:var(--aria-muted);line-height:1.82;margin-bottom:22px;">
+            Com modelo híbrido, o programa combina atividades em home office, um encontro presencial mensal e encontros temáticos de liderança feminina. Ao final da jornada, as participantes recebem certificado e constroem experiências para seu portfólio profissional.
+          </p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px;">
+            <span class="chip">Formação prática</span>
+            <span class="chip chip-sage">Mentoria</span>
+            <span class="chip chip-gold">Projetos reais</span>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:24px;">
+            <div class="aria-card" style="padding:16px;">
+              <div style="font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--aria-wine);font-weight:500;">6</div>
+              <div style="font-size:12px;color:var(--aria-muted);">Meses de duração</div>
+            </div>
+            <div class="aria-card" style="padding:16px;">
+              <div style="font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--aria-wine);font-weight:500;">3</div>
+              <div style="font-size:12px;color:var(--aria-muted);">Trilhas de atuação</div>
+            </div>
+            <div class="aria-card" style="padding:16px;">
+              <div style="font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--aria-wine);font-weight:500;">1x</div>
+              <div style="font-size:12px;color:var(--aria-muted);">Encontro presencial/mês</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <a class="btn-primary" href="https://bit.ly/aria-mulheres-que-lideram" target="_blank" rel="noopener">Inscreva-se no programa</a>
+            <button class="btn-secondary" type="button" onclick="document.getElementById('program-mulheres-detalhes').scrollIntoView({behavior:'smooth'})">Conheça as trilhas</button>
+          </div>
+        </div>
+        <div class="proj-img-contain-wrap fade-up" aria-label="Imagem do Programa ARIA Mulheres que Lideram">
+          <img src="assets/material2/aria-mulheres-que-lideram.png"
+               alt="Mulheres diversas em diálogo e posição de liderança — Programa ARIA Mulheres que Lideram"
+               loading="lazy"/>
+        </div>
+      </div>
+
+      <section id="program-mulheres-detalhes" class="program-details fade-up" aria-labelledby="program-mulheres-detalhes-h">
+        <div class="program-details-header">
+          <div class="eyebrow">Formação, experiência e liderança</div>
+          <h3 id="program-mulheres-detalhes-h">Uma jornada para transformar o terceiro setor</h3>
+          <p>Capacitação, prática supervisionada e desenvolvimento profissional para mulheres da Região Metropolitana de Belém, Pará.</p>
+        </div>
+
+        <div class="program-info-grid">
+          <div class="program-info-panel">
+            <h4>Quem pode se inscrever?</h4>
+            <ul class="program-check-list">
+              <li>Estudantes universitárias;</li>
+              <li>Mulheres recém-formadas;</li>
+              <li>Mulheres em transição de carreira;</li>
+              <li>Mulheres que desejam adquirir experiência profissional e fazer a diferença.</li>
+            </ul>
+          </div>
+          <div class="program-info-panel">
+            <h4>O que você vai encontrar</h4>
+            <ul class="program-check-list">
+              <li>Formação e capacitação;</li>
+              <li>Mentoria com profissionais experientes;</li>
+              <li>Atuação em projetos reais;</li>
+              <li>Desenvolvimento de competências;</li>
+              <li>Certificado e portfólio profissional;</li>
+              <li>Rede de contatos e oportunidades.</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 class="program-section-title">Trilhas de atuação</h3>
+        <div class="program-track-grid">
+          <article class="program-track-card">
+            <header>
+              <span>Trilha 1</span>
+              <h4>Comunicação e Marketing Social</h4>
+            </header>
+            <div class="program-track-content">
+              <strong>Áreas de atuação</strong>
+              <ul>
+                <li>Redes sociais e produção de conteúdo;</li>
+                <li>Design e identidade visual;</li>
+                <li>Campanhas e divulgação;</li>
+                <li>Site institucional;</li>
+                <li>Comunicação de eventos e ações do Instituto.</li>
+              </ul>
+              <div class="program-course-note">
+                Indicada para Marketing, Publicidade e Propaganda, Jornalismo, Design Gráfico, Comunicação Social, Produção Multimídia e áreas correlatas.
+              </div>
+            </div>
+          </article>
+
+          <article class="program-track-card">
+            <header>
+              <span>Trilha 2</span>
+              <h4>Gestão de Projetos e Captação</h4>
+            </header>
+            <div class="program-track-content">
+              <strong>Áreas de atuação</strong>
+              <ul>
+                <li>Pesquisa de editais públicos e privados;</li>
+                <li>Elaboração e inscrição de projetos;</li>
+                <li>Levantamento de oportunidades de financiamento;</li>
+                <li>Organização de documentos e cronogramas;</li>
+                <li>Elaboração de relatórios técnicos.</li>
+              </ul>
+              <div class="program-course-note">
+                Indicada para Administração, Administração Pública, Gestão Pública, Direito, Economia, Relações Internacionais, Serviço Social e áreas correlatas.
+              </div>
+            </div>
+          </article>
+
+          <article class="program-track-card">
+            <header>
+              <span>Trilha 3</span>
+              <h4>Gestão Financeira e Prestação de Contas</h4>
+            </header>
+            <div class="program-track-content">
+              <strong>Áreas de atuação</strong>
+              <ul>
+                <li>Atualização de planilhas financeiras;</li>
+                <li>Organização de documentos e comprovantes;</li>
+                <li>Prestação de contas de projetos;</li>
+                <li>Elaboração de relatórios e indicadores;</li>
+                <li>Apresentações para reuniões.</li>
+              </ul>
+              <div class="program-course-note">
+                Indicada para Ciências Contábeis, Administração, Economia, Gestão Financeira, Engenharia de Produção e áreas correlatas.
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <h3 class="program-section-title">Sua jornada de aprendizado</h3>
+        <div class="program-journey-grid">
+          <article class="program-journey-step">
+            <span>2 semanas</span>
+            <h4>Integração</h4>
+            <p>Apresentação institucional, governança, ética, ferramentas digitais, LGPD e comunicação.</p>
+          </article>
+          <article class="program-journey-step">
+            <span>1 mês</span>
+            <h4>Formação</h4>
+            <p>Capacitações técnicas e desenvolvimento de habilidades essenciais.</p>
+          </article>
+          <article class="program-journey-step">
+            <span>4 meses</span>
+            <h4>Atuação prática</h4>
+            <p>Projetos reais com supervisão, entregas, relatórios e construção de portfólio.</p>
+          </article>
+          <article class="program-journey-step">
+            <span>Etapa final</span>
+            <h4>Encerramento e certificação</h4>
+            <p>Apresentação dos projetos, avaliação, certificação e entrada no Banco de Talentos.</p>
+          </article>
+        </div>
+
+        <div class="program-format-card">
+          <div>
+            <h4>Como é o programa?</h4>
+            <p>Uma experiência híbrida com acompanhamento durante toda a jornada e encontros que conectam formação profissional, liderança feminina e impacto social.</p>
+          </div>
+          <div class="program-format-points">
+            <div class="program-format-point"><strong>Duração:</strong> 6 meses.</div>
+            <div class="program-format-point"><strong>Modelo híbrido:</strong> atividades em home office e 1 encontro presencial mensal.</div>
+            <div class="program-format-point"><strong>Acompanhamento:</strong> orientação e supervisão durante todo o programa.</div>
+            <div class="program-format-point"><strong>Conclusão:</strong> certificado e carta de recomendação para participantes de destaque.</div>
+            <div class="program-format-point"><strong>Liderança feminina:</strong> encontros mensais sobre carreira, comunicação, gestão do tempo, currículo e empreendedorismo.</div>
+          </div>
+        </div>
+
+        <div class="program-detail-actions">
+          <a class="btn-primary" href="https://bit.ly/aria-mulheres-que-lideram" target="_blank" rel="noopener">Inscreva-se agora</a>
+          <a class="btn-secondary" href="assets/material2/encarte-aria-mulheres-que-lideram.jfif" target="_blank" rel="noopener">Ver encarte completo</a>
+        </div>
+      </section>
 
       <!-- Projetos emergentes -->
       <div class="section-header fade-up section-iniciativas" style="margin-bottom:36px;">
@@ -2447,7 +3299,624 @@ footer::before {
     </div>
   </section>
 
+  <!-- CALENDÁRIO DE PROJETOS -->
+  <section class="section plant-zone" style="background:var(--aria-bg);" aria-labelledby="project-calendar-h">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="eyebrow">Agenda e trajetória</div>
+        <h2 id="project-calendar-h">Calendário de projetos</h2>
+        <p>Acompanhe os projetos contínuos e, quando confirmadas, as datas de ações, encontros e eventos.</p>
+      </div>
+
+      <div class="project-planning-shell fade-up">
+        <div class="project-view-switch" role="tablist" aria-label="Visualização do calendário de projetos">
+          <button class="project-view-button" type="button" role="tab" id="project-timeline-tab"
+                  aria-selected="true" aria-controls="project-timeline-panel"
+                  onclick="setProjectCalendarView('timeline')">Linha do tempo</button>
+          <button class="project-view-button" type="button" role="tab" id="project-month-tab"
+                  aria-selected="false" aria-controls="project-month-panel"
+                  onclick="setProjectCalendarView('month')">Calendário mensal</button>
+        </div>
+
+        <div id="project-timeline-panel" class="project-view-panel" role="tabpanel" aria-labelledby="project-timeline-tab">
+          <div class="project-timeline-groups">
+            <div class="project-timeline-group">
+              <div class="project-timeline-heading">
+                <h3>Em andamento</h3>
+                <span class="project-timeline-count">4 iniciativas atuais</span>
+              </div>
+              <div class="project-timeline-items">
+                <article class="project-timeline-card">
+                  <h4>Se Prepara Menina</h4>
+                  <p>Formação, empreendedorismo e geração de renda para mulheres.</p>
+                  <span class="project-timeline-meta">Contínuo · 1 encontro por semana</span>
+                </article>
+                <article class="project-timeline-card">
+                  <h4>Viralatinha</h4>
+                  <p>Resgate, castração e adoção responsável na Região Metropolitana de Belém.</p>
+                  <span class="project-timeline-meta">Contínuo · ações conforme demanda</span>
+                </article>
+                <article class="project-timeline-card">
+                  <h4>Rede de Acolhimento</h4>
+                  <p>Apoio psicossocial, orientação e encaminhamento para mulheres.</p>
+                  <span class="project-timeline-meta">Contínuo · atendimento permanente</span>
+                </article>
+                <article class="project-timeline-card">
+                  <h4>Mulheres que Lideram</h4>
+                  <p>Formação prática, mentoria e atuação em projetos reais do terceiro setor.</p>
+                  <span class="project-timeline-meta">Turma de 6 meses · inscrições abertas · início a confirmar</span>
+                </article>
+              </div>
+            </div>
+
+            <div class="project-timeline-group">
+              <div class="project-timeline-heading">
+                <h3>Futuros</h3>
+                <span class="project-timeline-count">3 iniciativas</span>
+              </div>
+              <div class="project-timeline-items">
+                <article class="project-timeline-card is-future">
+                  <h4>Guardiões do Futuro</h4>
+                  <p>Formação de jovens como agentes de transformação socioambiental.</p>
+                  <span class="project-timeline-meta">Em desenvolvimento · início a confirmar</span>
+                </article>
+                <article class="project-timeline-card is-future">
+                  <h4>O Universo ARIA</h4>
+                  <p>Canal de conteúdo sobre empoderamento, bem-estar animal e impacto social.</p>
+                  <span class="project-timeline-meta">Em breve · início a confirmar</span>
+                </article>
+                <article class="project-timeline-card is-future">
+                  <h4>Horta Comunitária</h4>
+                  <p>Horta urbana para produção de alimentos e geração de renda complementar.</p>
+                  <span class="project-timeline-meta">Em planejamento · início a confirmar</span>
+                </article>
+              </div>
+            </div>
+
+            <div class="project-timeline-group">
+              <div class="project-timeline-heading">
+                <h3>Passados</h3>
+                <span class="project-timeline-count">Histórico</span>
+              </div>
+              <div class="project-empty-state">
+                Ainda não há projetos encerrados cadastrados. Este espaço receberá o histórico, os períodos de realização e os principais resultados.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="project-month-panel" class="project-view-panel" role="tabpanel" aria-labelledby="project-month-tab" hidden>
+          <div class="project-month-toolbar">
+            <h3 id="project-month-label"></h3>
+            <div class="project-month-nav" aria-label="Navegar entre os meses">
+              <button type="button" onclick="changeProjectMonth(-1)" aria-label="Mês anterior">‹</button>
+              <button type="button" onclick="changeProjectMonth(1)" aria-label="Próximo mês">›</button>
+            </div>
+          </div>
+          <div class="continuous-projects">
+            <strong>Projetos contínuos ativos neste mês</strong>
+            <span class="continuous-project-pill">Se Prepara Menina</span>
+            <span class="continuous-project-pill">Viralatinha</span>
+            <span class="continuous-project-pill">Rede de Acolhimento</span>
+          </div>
+          <div class="project-calendar-weekdays" aria-hidden="true">
+            <span>D</span><span>S</span><span>T</span><span>Q</span><span>Q</span><span>S</span><span>S</span>
+          </div>
+          <div id="project-calendar-grid" class="project-calendar-grid" aria-label="Dias e ações do mês"></div>
+          <p id="project-calendar-note" class="project-calendar-note" aria-live="polite"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSCRIÇÃO DE VOLUNTÁRIOS -->
+  <section class="section plant-zone" style="background:var(--aria-ivory);" aria-labelledby="project-volunteer-h">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="eyebrow">Faça parte</div>
+        <h2 id="project-volunteer-h">Inscrição para voluntários</h2>
+        <p>Um primeiro contato simples para conhecermos seu perfil, sua disponibilidade e como você gostaria de colaborar.</p>
+      </div>
+
+      <div class="volunteer-project-grid">
+        <div class="volunteer-process-card fade-up">
+          <h3 style="margin-bottom:10px;">Como será a inscrição</h3>
+          <p style="color:var(--aria-muted);line-height:1.75;margin:0;">
+            Nesta etapa inicial, não solicitaremos CPF, endereço completo, documentos, currículo ou contato de emergência.
+          </p>
+          <div class="volunteer-steps">
+            <div class="volunteer-step">
+              <span class="volunteer-step-number">1</span>
+              <div>
+                <strong>Dados básicos</strong>
+                <p>Nome, idade, cidade e meios de contato.</p>
+              </div>
+            </div>
+            <div class="volunteer-step">
+              <span class="volunteer-step-number">2</span>
+              <div>
+                <strong>Questionário de perfil</strong>
+                <p>Interesses, habilidades, disponibilidade, modalidade e motivação para participar.</p>
+              </div>
+            </div>
+            <div class="volunteer-step">
+              <span class="volunteer-step-number">3</span>
+              <div>
+                <strong>Retorno da equipe</strong>
+                <p>Entraremos em contato para apresentar oportunidades compatíveis e orientar os próximos passos.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="volunteer-form-card fade-up delay-1">
+          <div class="eyebrow" style="color:var(--aria-blush);">Google Forms</div>
+          <h3>Quero ser voluntário</h3>
+          <p>A inscrição será aberta para pessoas a partir de 16 anos e ficará centralizada em um formulário de fácil acompanhamento.</p>
+          <ul>
+            <li>Inscrição inicial com dados essenciais;</li>
+            <li>Questionário geral para conhecermos o perfil do candidato;</li>
+            <li>Consentimento para tratamento dos dados pessoais;</li>
+            <li>Para candidatos de 16 e 17 anos, a autorização do responsável poderá ser solicitada na etapa seguinte.</li>
+          </ul>
+          <button class="volunteer-form-open" type="button" onclick="openVolunteerQuestionnaire()" aria-describedby="volunteer-form-status">
+            Abrir questionário do candidato
+          </button>
+          <p id="volunteer-form-status" class="volunteer-form-status">
+            Prévia funcional no site. As respostas ainda não são enviadas nem armazenadas.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="volunteer-questionnaire-modal" class="volunteer-questionnaire-modal" hidden
+       onclick="closeVolunteerQuestionnaireFromBackdrop(event)">
+    <div class="volunteer-questionnaire-dialog" role="dialog" aria-modal="true"
+         aria-labelledby="volunteer-questionnaire-title" aria-describedby="volunteer-questionnaire-description">
+      <header class="volunteer-questionnaire-header">
+        <div>
+          <div class="eyebrow">Pré-inscrição de voluntariado</div>
+          <h2 id="volunteer-questionnaire-title">Questionário do candidato</h2>
+        </div>
+        <button class="volunteer-questionnaire-close" type="button"
+                onclick="closeVolunteerQuestionnaire()" aria-label="Fechar questionário">×</button>
+      </header>
+
+      <div class="volunteer-questionnaire-body">
+        <div id="volunteer-questionnaire-description" class="questionnaire-notice">
+          Este é o modelo que será transferido para o Google Forms. Nesta versão de prévia, nenhuma resposta é enviada ou armazenada. O Instituto ARIA aceita candidatos a partir de 16 anos.
+        </div>
+
+        <form id="volunteer-questionnaire-form" onsubmit="submitVolunteerQuestionnaire(event)">
+          <fieldset class="questionnaire-section">
+            <legend>1. Dados básicos</legend>
+            <p class="questionnaire-help">Informações essenciais para identificação e contato inicial.</p>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="candidate-name">Nome completo *</label>
+                <input type="text" id="candidate-name" name="nome_completo" required autocomplete="name" placeholder="Seu nome completo">
+              </div>
+              <div class="form-group">
+                <label for="candidate-age">Idade *</label>
+                <input type="number" id="candidate-age" name="idade" required min="16" max="100" inputmode="numeric" placeholder="A partir de 16 anos">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="candidate-email">E-mail *</label>
+                <input type="email" id="candidate-email" name="email" required autocomplete="email" placeholder="seu@email.com">
+              </div>
+              <div class="form-group">
+                <label for="candidate-whatsapp">WhatsApp *</label>
+                <input type="tel" id="candidate-whatsapp" name="whatsapp" required autocomplete="tel" placeholder="(91) 99999-9999">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="candidate-city">Cidade e estado *</label>
+              <input type="text" id="candidate-city" name="cidade_estado" required autocomplete="address-level2" placeholder="Ex.: Marituba, PA">
+            </div>
+            <p class="questionnaire-help">Candidatos de 16 e 17 anos poderão precisar apresentar autorização do responsável apenas na etapa seguinte.</p>
+          </fieldset>
+
+          <fieldset class="questionnaire-section">
+            <legend>2. Disponibilidade</legend>
+            <p class="questionnaire-help">Ajude-nos a entender quando e de que forma você pode colaborar.</p>
+
+            <div class="form-group">
+              <label>Modalidade de preferência *</label>
+              <div class="questionnaire-choice-grid">
+                <label class="questionnaire-choice"><input type="radio" name="modalidade" value="Presencial" required> Presencial</label>
+                <label class="questionnaire-choice"><input type="radio" name="modalidade" value="Remota"> Remota</label>
+                <label class="questionnaire-choice"><input type="radio" name="modalidade" value="Ambas"> Presencial e remota</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Dias disponíveis</label>
+              <div class="questionnaire-choice-grid">
+                <label class="questionnaire-choice"><input type="checkbox" name="dias" value="Segunda-feira"> Segunda-feira</label>
+                <label class="questionnaire-choice"><input type="checkbox" name="dias" value="Terça-feira"> Terça-feira</label>
+                <label class="questionnaire-choice"><input type="checkbox" name="dias" value="Quarta-feira"> Quarta-feira</label>
+                <label class="questionnaire-choice"><input type="checkbox" name="dias" value="Quinta-feira"> Quinta-feira</label>
+                <label class="questionnaire-choice"><input type="checkbox" name="dias" value="Sexta-feira"> Sexta-feira</label>
+                <label class="questionnaire-choice"><input type="checkbox" name="dias" value="Sábado"> Sábado</label>
+                <label class="questionnaire-choice"><input type="checkbox" name="dias" value="Domingo"> Domingo</label>
+                <label class="questionnaire-choice"><input type="checkbox" name="dias" value="A combinar"> A combinar</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Turnos disponíveis</label>
+              <div class="questionnaire-choice-grid">
+                <label class="questionnaire-choice"><input type="checkbox" name="turnos" value="Manhã"> Manhã</label>
+                <label class="questionnaire-choice"><input type="checkbox" name="turnos" value="Tarde"> Tarde</label>
+                <label class="questionnaire-choice"><input type="checkbox" name="turnos" value="Noite"> Noite</label>
+                <label class="questionnaire-choice"><input type="checkbox" name="turnos" value="Flexível"> Horário flexível</label>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="candidate-frequency">Frequência disponível *</label>
+                <select id="candidate-frequency" name="frequencia" required>
+                  <option value="">Selecione...</option>
+                  <option>Semanal</option>
+                  <option>Quinzenal</option>
+                  <option>Mensal</option>
+                  <option>Ações pontuais</option>
+                  <option>A combinar</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="candidate-start">Quando poderia começar?</label>
+                <input type="date" id="candidate-start" name="inicio_disponibilidade">
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="questionnaire-section">
+            <legend>3. Perfil e interesses</legend>
+            <p class="questionnaire-help">Não é necessário ter experiência anterior. Queremos conhecer suas afinidades e motivações.</p>
+
+            <div class="form-group">
+              <label>Áreas em que gostaria de colaborar</label>
+              <div class="questionnaire-choice-grid">
+                <label class="questionnaire-choice"><input type="checkbox" name="areas" value="Apoio social"> Apoio social</label>
+                <label class="questionnaire-choice"><input type="checkbox" name="areas" value="Educação e formação"> Educação e formação</label>
+                <label class="questionnaire-choice"><input type="checkbox" name="areas" value="Proteção animal"> Proteção animal</label>
+                <label class="questionnaire-choice"><input type="checkbox" name="areas" value="Comunicação e design"> Comunicação e design</label>
+                <label class="questionnaire-choice"><input type="checkbox" name="areas" value="Eventos e campanhas"> Eventos e campanhas</label>
+                <label class="questionnaire-choice"><input type="checkbox" name="areas" value="Captação de recursos"> Captação de recursos</label>
+                <label class="questionnaire-choice"><input type="checkbox" name="areas" value="Apoio administrativo"> Apoio administrativo</label>
+                <label class="questionnaire-choice"><input type="checkbox" name="areas" value="Saúde ou orientação profissional"> Saúde ou orientação profissional</label>
+                <label class="questionnaire-choice"><input type="checkbox" name="areas" value="Outra"> Outra área</label>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="candidate-experience">Já realizou trabalho voluntário? *</label>
+                <select id="candidate-experience" name="experiencia_voluntaria" required>
+                  <option value="">Selecione...</option>
+                  <option>Sim, atualmente</option>
+                  <option>Sim, anteriormente</option>
+                  <option>Não, seria minha primeira experiência</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="candidate-project">Interesse inicial em projeto</label>
+                <select id="candidate-project" name="projeto_interesse">
+                  <option value="">Ainda não sei</option>
+                  <option>Se Prepara Menina</option>
+                  <option>Viralatinha</option>
+                  <option>Rede de Acolhimento</option>
+                  <option>Iniciativas futuras</option>
+                  <option>Onde houver necessidade</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="candidate-skills">Quais habilidades, conhecimentos ou experiências você gostaria de compartilhar?</label>
+              <textarea id="candidate-skills" name="habilidades" placeholder="Conte brevemente sobre o que você sabe fazer ou gostaria de desenvolver..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="candidate-motivation">Por que você deseja ser voluntário no Instituto ARIA? *</label>
+              <textarea id="candidate-motivation" name="motivacao" required minlength="20" placeholder="Conte um pouco sobre sua motivação e o impacto que gostaria de ajudar a construir..."></textarea>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="candidate-source">Como conheceu o Instituto ARIA?</label>
+                <select id="candidate-source" name="como_conheceu">
+                  <option value="">Selecione...</option>
+                  <option>Instagram ou outra rede social</option>
+                  <option>Indicação de amigos ou familiares</option>
+                  <option>Evento ou ação do Instituto</option>
+                  <option>Escola, faculdade ou empresa</option>
+                  <option>Pesquisa na internet</option>
+                  <option>Outro meio</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="candidate-accessibility">Necessidade de acessibilidade</label>
+                <textarea id="candidate-accessibility" name="acessibilidade" style="min-height:92px;" placeholder="Opcional. Informe apenas o que considerar necessário para sua participação."></textarea>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="questionnaire-section">
+            <legend>4. Confirmações e consentimentos</legend>
+            <p class="questionnaire-help">Consentimentos separados para facilitar a futura configuração no Google Forms.</p>
+
+            <label class="questionnaire-consent">
+              <input type="checkbox" name="confirmacao_idade" required>
+              <span>Confirmo que tenho pelo menos 16 anos e que as informações fornecidas são verdadeiras. *</span>
+            </label>
+            <label class="questionnaire-consent">
+              <input type="checkbox" name="consentimento_dados" required>
+              <span>Autorizo o Instituto ARIA a utilizar estes dados exclusivamente para analisar minha candidatura e entrar em contato sobre oportunidades de voluntariado. *</span>
+            </label>
+            <label class="questionnaire-consent">
+              <input type="checkbox" name="comunicacoes_opcionais">
+              <span>Desejo receber, opcionalmente, notícias sobre projetos, campanhas e oportunidades futuras do Instituto ARIA.</span>
+            </label>
+          </fieldset>
+
+          <div class="questionnaire-actions">
+            <button class="btn-secondary" type="button" onclick="closeVolunteerQuestionnaire()">Cancelar</button>
+            <button class="btn-primary" type="submit">Concluir questionário (prévia)</button>
+          </div>
+        </form>
+
+        <div id="volunteer-questionnaire-success" class="questionnaire-success" hidden aria-live="polite">
+          <div class="questionnaire-success-icon" aria-hidden="true">✓</div>
+          <h3>Questionário concluído</h3>
+          <p>
+            A estrutura está pronta para ser reproduzida no Google Forms. Como esta é uma prévia local, as respostas preenchidas não foram enviadas nem armazenadas.
+          </p>
+          <div class="questionnaire-actions" style="justify-content:center;">
+            <button class="btn-secondary" type="button" onclick="reviewVolunteerQuestionnaire()">Revisar respostas</button>
+            <button class="btn-primary" type="button" onclick="closeVolunteerQuestionnaire()">Fechar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div><!-- /page-projetos -->
+
+<!-- ============================================================ -->
+<!-- PAGE: VOLUNTARIOS                                            -->
+<!-- ============================================================ -->
+<div id="page-voluntarios" class="page">
+
+  <div class="page-spacer"></div>
+
+  <section class="page-hero plant-zone">
+    <div class="page-hero-bg-orb" aria-hidden="true"></div>
+    <div class="container">
+      <div class="eyebrow fade-up">Fa&ccedil;a parte do ARIA</div>
+      <h1 class="fade-up delay-1">Seja um <em>Volunt&aacute;rio</em></h1>
+      <p class="fade-up delay-2">O voluntariado &eacute; o cora&ccedil;&atilde;o do Instituto ARIA. S&atilde;o pessoas comuns, com dons extraordin&aacute;rios, que dedicam seu tempo e talento para transformar vidas em Marituba e regi&atilde;o. Aqui voc&ecirc; encontra as oportunidades abertas, entende como funciona o processo e d&aacute; o primeiro passo para fazer parte dessa rede de cuidado.</p>
+      <div class="hero-ctas fade-up delay-3" style="margin-top:50px;">
+        <button class="btn-primary" onclick="openVolunteerQuestionnaire()">Quero me inscrever</button>
+        <button class="btn-secondary" onclick="document.getElementById('vol-oportunidades').scrollIntoView({behavior:'smooth'})">Ver oportunidades</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- POR QUE SER VOLUNTARIO -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="eyebrow">Impacto real</div>
+        <h2>Por que ser volunt&aacute;rio no ARIA?</h2>
+        <p>Mais do que ajudar, voc&ecirc; cresce, aprende e constr&oacute;i la&ccedil;os verdadeiros.</p>
+      </div>
+      <div class="grid-3" style="margin-top:40px;">
+        <div class="aria-card-ivory fade-up" style="text-align:center;">
+          <div style="font-size:36px;margin-bottom:16px;">&#127919;</div>
+          <h3 style="font-size:18px;margin-bottom:10px;">Impacto Concreto</h3>
+          <p style="font-size:14px;color:var(--aria-muted);line-height:1.75;">Cada hora de dedica&ccedil;&atilde;o sua chega diretamente a fam&iacute;lias e animais que precisam. Voc&ecirc; v&ecirc; o resultado do seu trabalho acontecer.</p>
+        </div>
+        <div class="aria-card-ivory fade-up delay-1" style="text-align:center;">
+          <div style="font-size:36px;margin-bottom:16px;">&#127807;</div>
+          <h3 style="font-size:18px;margin-bottom:10px;">Aprendizado e Crescimento</h3>
+          <p style="font-size:14px;color:var(--aria-muted);line-height:1.75;">Desenvolva habilidades pr&aacute;ticas, construa portf&oacute;lio e amplie sua vis&atilde;o de mundo ao lado de pessoas que acreditam na transforma&ccedil;&atilde;o social.</p>
+        </div>
+        <div class="aria-card-ivory fade-up delay-2" style="text-align:center;">
+          <div style="font-size:36px;margin-bottom:16px;">&#10084;&#65039;</div>
+          <h3 style="font-size:18px;margin-bottom:10px;">Comunidade e Pertin&ecirc;ncia</h3>
+          <p style="font-size:14px;color:var(--aria-muted);line-height:1.75;">Fa&ccedil;a parte de uma rede de cuidado coletivo. No ARIA, voc&ecirc; n&atilde;o &eacute; apenas um colaborador &mdash; voc&ecirc; &eacute; parte da fam&iacute;lia.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPORTUNIDADES ABERTAS -->
+  <section class="section" id="vol-oportunidades" style="background:var(--aria-cream);">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="eyebrow">Vagas abertas</div>
+        <h2>Oportunidades para Volunt&aacute;rios</h2>
+        <p>Escolha a &aacute;rea que mais combina com voc&ecirc;. Todas as vagas s&atilde;o para atua&ccedil;&atilde;o em Marituba &mdash; PA, com possibilidade de atividades h&iacute;bridas.</p>
+      </div>
+      <div class="grid-3" style="margin-top:40px;">
+
+        <article class="aria-card-ivory fade-up" style="display:flex;flex-direction:column;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+            <div style="width:42px;height:42px;border-radius:12px;background:rgba(184,115,125,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#B8737D" stroke-width="1.5"><rect x="2" y="3" width="16" height="12" rx="2"/><path d="M6 8h8M6 12h5"/></svg>
+            </div>
+            <h3 style="font-size:16px;margin:0;">Comunica&ccedil;&atilde;o e Marketing Social</h3>
+          </div>
+          <p style="font-size:13.5px;color:var(--aria-muted);line-height:1.75;flex:1;">Produ&ccedil;&atilde;o de conte&uacute;do para redes sociais, design gr&aacute;fico, campanhas de divulga&ccedil;&atilde;o e comunicado de eventos e a&ccedil;&otilde;es do Instituto.</p>
+          <div style="margin:14px 0;padding:12px;background:var(--aria-ivory);border-radius:8px;font-size:12.5px;color:var(--aria-muted);">
+            <strong style="color:var(--aria-brown);display:block;margin-bottom:6px;">Perfil indicado</strong>
+            Marketing, Publicidade, Jornalismo, Design Gr&aacute;fico, Comunica&ccedil;&atilde;o Social
+          </div>
+          <button class="btn-primary" style="width:100%;margin-top:auto;" onclick="openVolunteerQuestionnaire()">Quero me inscrever</button>
+        </article>
+
+        <article class="aria-card-ivory fade-up delay-1" style="display:flex;flex-direction:column;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+            <div style="width:42px;height:42px;border-radius:12px;background:rgba(198,161,91,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#C6A15B" stroke-width="1.5"><path d="M10 2l2 6h6l-5 3.6 1.9 6L10 14l-4.9 3.6 1.9-6L2 8h6z"/></svg>
+            </div>
+            <h3 style="font-size:16px;margin:0;">Gest&atilde;o de Projetos e Capta&ccedil;&atilde;o</h3>
+          </div>
+          <p style="font-size:13.5px;color:var(--aria-muted);line-height:1.75;flex:1;">Apoio na elabora&ccedil;&atilde;o de projetos sociais, presta&ccedil;&atilde;o de contas, capta&ccedil;&atilde;o de recursos e planejamento estrat&eacute;gico das a&ccedil;&otilde;es do Instituto.</p>
+          <div style="margin:14px 0;padding:12px;background:var(--aria-ivory);border-radius:8px;font-size:12.5px;color:var(--aria-muted);">
+            <strong style="color:var(--aria-brown);display:block;margin-bottom:6px;">Perfil indicado</strong>
+            Administra&ccedil;&atilde;o, Gest&atilde;o P&uacute;blica, Direito, Economia, Relaciones P&uacute;blicas
+          </div>
+          <button class="btn-primary" style="width:100%;margin-top:auto;" onclick="openVolunteerQuestionnaire()">Quero me inscrever</button>
+        </article>
+
+        <article class="aria-card-ivory fade-up delay-2" style="display:flex;flex-direction:column;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+            <div style="width:42px;height:42px;border-radius:12px;background:rgba(139,74,94,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#8B4A5E" stroke-width="1.5"><path d="M10 2C6.69 2 4 4.69 4 8c0 4.5 6 10 6 10s6-5.5 6-10c0-3.31-2.69-6-6-6zm0 8a2 2 0 110-4 2 2 0 010 4z"/></svg>
+            </div>
+            <h3 style="font-size:16px;margin:0;">Assist&ecirc;ncia Social e Acolhimento</h3>
+          </div>
+          <p style="font-size:13.5px;color:var(--aria-muted);line-height:1.75;flex:1;">Apoio nos atendimentos psicossociais, orienta&ccedil;&atilde;o e encaminhamento de fam&iacute;lias e mulheres em situa&ccedil;&atilde;o de vulnerabilidade. Atua&ccedil;&atilde;o direta com o p&uacute;blico atendido.</p>
+          <div style="margin:14px 0;padding:12px;background:var(--aria-ivory);border-radius:8px;font-size:12.5px;color:var(--aria-muted);">
+            <strong style="color:var(--aria-brown);display:block;margin-bottom:6px;">Perfil indicado</strong>
+            Servi&ccedil;o Social, Psicologia, Pedagogia, Direito, &Aacute;reas da Sa&uacute;de
+          </div>
+          <button class="btn-primary" style="width:100%;margin-top:auto;" onclick="openVolunteerQuestionnaire()">Quero me inscrever</button>
+        </article>
+
+        <article class="aria-card-ivory fade-up delay-1" style="display:flex;flex-direction:column;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+            <div style="width:42px;height:42px;border-radius:12px;background:rgba(93,139,58,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#5D8B3A" stroke-width="1.5"><circle cx="10" cy="8" r="4"/><path d="M4 17c0-3.31 2.69-5 6-5s6 1.69 6 5"/><path d="M14 4c1.5.5 3 2 3 4"/></svg>
+            </div>
+            <h3 style="font-size:16px;margin:0;">Cuidado e Prote&ccedil;&atilde;o Animal &mdash; Viralatinha</h3>
+          </div>
+          <p style="font-size:13.5px;color:var(--aria-muted);line-height:1.75;flex:1;">Apoio nas campanhas de castração, resgates, cuidados b&aacute;sicos e lar tempor&aacute;rio para animais em situa&ccedil;&atilde;o de abandono. Atua&ccedil;&atilde;o no Projeto Viralatinha.</p>
+          <div style="margin:14px 0;padding:12px;background:var(--aria-ivory);border-radius:8px;font-size:12.5px;color:var(--aria-muted);">
+            <strong style="color:var(--aria-brown);display:block;margin-bottom:6px;">Perfil indicado</strong>
+            Medicina Veterin&aacute;ria, Zootecnia, Biologia e amantes de animais
+          </div>
+          <button class="btn-primary" style="width:100%;margin-top:auto;" onclick="openVolunteerQuestionnaire()">Quero me inscrever</button>
+        </article>
+
+        <article class="aria-card-ivory fade-up delay-2" style="display:flex;flex-direction:column;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+            <div style="width:42px;height:42px;border-radius:12px;background:rgba(111,116,104,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#6F7468" stroke-width="1.5"><rect x="2" y="3" width="16" height="14" rx="2"/><path d="M6 7h8M6 11h5"/><path d="M14 14l2 2 3-3" stroke-linecap="round"/></svg>
+            </div>
+            <h3 style="font-size:16px;margin:0;">Educa&ccedil;&atilde;o e Forma&ccedil;&atilde;o &mdash; ARIA Educa</h3>
+          </div>
+          <p style="font-size:13.5px;color:var(--aria-muted);line-height:1.75;flex:1;">Mentoria, oficinas e forma&ccedil;&atilde;o para jovens e mulheres do programa ARIA Educa. Compartilhe seu conhecimento e experi&ecirc;ncia para ampliar horizontes e oportunidades.</p>
+          <div style="margin:14px 0;padding:12px;background:var(--aria-ivory);border-radius:8px;font-size:12.5px;color:var(--aria-muted);">
+            <strong style="color:var(--aria-brown);display:block;margin-bottom:6px;">Perfil indicado</strong>
+            Professores, profissionais de qualquer &aacute;rea dispostos a ensinar
+          </div>
+          <button class="btn-primary" style="width:100%;margin-top:auto;" onclick="openVolunteerQuestionnaire()">Quero me inscrever</button>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- COMO FUNCIONA -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="eyebrow">Passo a passo</div>
+        <h2>Como funciona o processo</h2>
+        <p>Simples, transparente e acolhedor. Do primeiro contato &agrave; integra&ccedil;&atilde;o na equipe.</p>
+      </div>
+      <div class="volunteer-project-grid" style="margin-top:40px;">
+        <div class="volunteer-process-card fade-up">
+          <div class="eyebrow">Processo de sele&ccedil;&atilde;o</div>
+          <h3>Etapas da inscri&ccedil;&atilde;o</h3>
+          <div class="volunteer-steps">
+            <div class="volunteer-step">
+              <span class="volunteer-step-number">1</span>
+              <div>
+                <strong>Preenchimento do question&aacute;rio</strong>
+                <p>Clique em &ldquo;Quero me inscrever&rdquo; e preencha o formul&aacute;rio com seus dados, &aacute;rea de interesse e disponibilidade de hor&aacute;rio. Leva menos de 5 minutos.</p>
+              </div>
+            </div>
+            <div class="volunteer-step">
+              <span class="volunteer-step-number">2</span>
+              <div>
+                <strong>An&aacute;lise e contato</strong>
+                <p>Nossa equipe analisa sua inscri&ccedil;&atilde;o e entra em contato pelo WhatsApp em at&eacute; 5 dias &uacute;teis para uma conversa r&aacute;pida e acolhedora.</p>
+              </div>
+            </div>
+            <div class="volunteer-step">
+              <span class="volunteer-step-number">3</span>
+              <div>
+                <strong>Integra&ccedil;&atilde;o e in&iacute;cio</strong>
+                <p>Voc&ecirc; participa de uma orienta&ccedil;&atilde;o inicial, conhece a equipe e j&aacute; come&ccedil;a a fazer a diferen&ccedil;a. Bem-vindo(a) ao ARIA.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="volunteer-form-card fade-up delay-1">
+          <h3>Quero ser volunt&aacute;rio</h3>
+          <p>Preencha o question&aacute;rio de pr&eacute;-inscri&ccedil;&atilde;o e d&ecirc; o primeiro passo para fazer parte do Instituto ARIA. Nossa equipe entrar&aacute; em contato em breve.</p>
+          <ul>
+            <li>&#128336; Disponibilidade flex&iacute;vel</li>
+            <li>&#127968; Atua&ccedil;&atilde;o em Marituba &mdash; PA</li>
+            <li>&#128172; Acompanhamento durante toda a jornada</li>
+          </ul>
+          <button class="volunteer-form-open" type="button" onclick="openVolunteerQuestionnaire()" aria-describedby="volunteer-form-status">Iniciar inscri&ccedil;&atilde;o</button>
+          <p id="volunteer-form-status-vol" class="volunteer-form-status"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEPOIMENTOS -->
+  <section class="section" style="background:var(--aria-cream);">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="eyebrow">Quem j&aacute; faz parte</div>
+        <h2>Vozes do voluntariado</h2>
+      </div>
+      <div class="grid-3" style="margin-top:40px;">
+        <div class="blockquote-card fade-up">
+          <blockquote>&ldquo;O voluntariado nos ensina que pequenas a&ccedil;&otilde;es podem gerar grandes mudan&ccedil;as. Nem sempre conseguimos ver o resultado imediato, mas cada sorriso, cada obrigada, vale por muito.&rdquo;</blockquote>
+          <cite>&#127801; Volunt&aacute;ria &mdash; Instituto ARIA</cite>
+        </div>
+        <div class="blockquote-card fade-up delay-1">
+          <blockquote>&ldquo;Entrei como volunt&aacute;ria achando que viria apenas ajudar. Sa&iacute; transformada. A comunidade me ensinou mais do que qualquer sala de aula.&rdquo;</blockquote>
+          <cite>&#127800; Volunt&aacute;ria &mdash; Instituto ARIA</cite>
+        </div>
+        <div class="blockquote-card fade-up delay-2">
+          <blockquote>&ldquo;Ser volunt&aacute;ria no ARIA &eacute; sentir que voc&ecirc; pertence a algo maior. &Eacute; saber que sua presen&ccedil;a importa, que o seu tempo tem valor e que juntos podemos muito mais.&rdquo;</blockquote>
+          <cite>&#127825; Volunt&aacute;ria &mdash; Instituto ARIA</cite>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="section">
+    <div class="container" style="text-align:center;">
+      <div class="fade-up">
+        <div class="eyebrow">D&ecirc; o primeiro passo</div>
+        <h2 style="max-width:560px;margin:0 auto 16px;">Pronto para transformar vidas &mdash; incluindo a sua?</h2>
+        <p style="color:var(--aria-muted);font-size:17px;max-width:480px;margin:0 auto 36px;line-height:1.75;">Cada volunt&aacute;rio que chega ao ARIA traz consigo uma hist&oacute;ria. Vamos construir a sua aqui.</p>
+        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+          <button class="btn-primary" onclick="openVolunteerQuestionnaire()">Quero me inscrever agora</button>
+          <button class="btn-secondary" onclick="showPage('apoie')">Quero apoiar financeiramente</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /page-voluntarios -->
+
 
 <!-- ╔══════════════════════════════════╗ -->
 <!-- ║  PÁGINA: PRODUTOS               ║ -->
@@ -2646,76 +4115,32 @@ footer::before {
   <!-- MÉTRICAS PRINCIPAIS -->
   <section style="background:var(--aria-plum);padding:0;" aria-label="Principais métricas de impacto">
     <div class="container-wide">
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);border-left:1px solid rgba(255,255,255,.07);">
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);border-left:1px solid rgba(255,255,255,.07);">
         <div class="stat-box" style="border-right:1px solid rgba(255,255,255,.07);">
-          <div class="stat-num" data-target="180">0</div>
+          <div style="display:flex; justify-content:center; align-items:baseline;"><div class="stat-num" data-target="200">0</div><span style="font-size:38px; font-weight:600; font-family:'Cormorant Garamond', serif; margin-left:2px; color:var(--aria-gold);">+</span></div>
           <div class="stat-label">Famílias<br>Atendidas</div>
         </div>
         <div class="stat-box" style="border-right:1px solid rgba(255,255,255,.07);">
-          <div class="stat-num" data-target="1200">0</div>
+          <div style="display:flex; justify-content:center; align-items:baseline;"><div class="stat-num" data-target="250">0</div><span style="font-size:38px; font-weight:600; font-family:'Cormorant Garamond', serif; margin-left:2px; color:var(--aria-gold);">+</span></div>
           <div class="stat-label">Atendimentos<br>Realizados</div>
         </div>
         <div class="stat-box" style="border-right:1px solid rgba(255,255,255,.07);">
-          <div class="stat-num" data-target="60">0</div>
+          <div class="stat-num" data-target="180">0</div>
           <div class="stat-label">Animais<br>Resgatados</div>
         </div>
-        <div class="stat-box">
-          <div class="stat-num" data-target="40">0</div>
+        <div class="stat-box" style="border-right:1px solid rgba(255,255,255,.07);">
+          <div style="display:flex; justify-content:center; align-items:baseline;"><div class="stat-num" data-target="100">0</div><span style="font-size:38px; font-weight:600; font-family:'Cormorant Garamond', serif; margin-left:2px; color:var(--aria-gold);">+</span></div>
           <div class="stat-label">Adoções<br>Realizadas</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" data-target="50">0</div>
+          <div class="stat-label">Animais<br>Castrados</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SOBRE O IMPACTO -->
-  <section class="section plant-zone" style="background:var(--aria-ivory);" aria-labelledby="imp-sobre-h">
-    <div class="container">
-      <div class="grid-2">
-        <div class="fade-up">
-          <div class="eyebrow">Nossa metodologia</div>
-          <h2 id="imp-sobre-h">Como medimos<br>o que fazemos</h2>
-          <p style="color:var(--aria-muted);line-height:1.82;margin:16px 0 14px;">
-            O ARIA adota uma abordagem de monitoramento participativo: as próprias pessoas atendidas contribuem para avaliar os resultados dos projetos. Utilizamos indicadores qualitativos e quantitativos, revisados trimestralmente.
-          </p>
-          <p style="color:var(--aria-muted);line-height:1.82;margin-bottom:24px;">
-            Nossos relatórios de impacto são públicos e disponíveis para qualquer pessoa que queira acompanhar o uso dos recursos doados. Transparência não é apenas um valor — é uma prática cotidiana no ARIA.
-          </p>
-          <button class="btn-primary" onclick="showPage('apoie')">Veja como apoiar</button>
-        </div>
-        <div class="fade-up delay-1">
-          <div style="display:flex;flex-direction:column;gap:16px;">
-            <div style="background:var(--aria-card);border-radius:var(--r-md);padding:22px 24px;border:1px solid var(--aria-border-gold);">
-              <div style="display:flex;align-items:center;gap:16px;">
-                <div style="font-family:'Cormorant Garamond',serif;font-size:42px;color:var(--aria-wine);font-weight:500;line-height:1;flex-shrink:0;">87%</div>
-                <div>
-                  <div style="font-family:'Libre Baskerville',serif;font-size:14px;font-weight:700;color:var(--aria-brown);margin-bottom:4px;">Relatam melhora na autoestima</div>
-                  <div style="font-size:12.5px;color:var(--aria-muted);">Participantes do Projeto Se Prepara Menina após 3 meses</div>
-                </div>
-              </div>
-            </div>
-            <div style="background:var(--aria-card);border-radius:var(--r-md);padding:22px 24px;border:1px solid var(--aria-border-gold);">
-              <div style="display:flex;align-items:center;gap:16px;">
-                <div style="font-family:'Cormorant Garamond',serif;font-size:42px;color:var(--aria-wine);font-weight:500;line-height:1;flex-shrink:0;">92%</div>
-                <div>
-                  <div style="font-family:'Libre Baskerville',serif;font-size:14px;font-weight:700;color:var(--aria-brown);margin-bottom:4px;">Taxa de satisfação geral</div>
-                  <div style="font-size:12.5px;color:var(--aria-muted);">Avaliação anual com beneficiários diretos</div>
-                </div>
-              </div>
-            </div>
-            <div style="background:var(--aria-card);border-radius:var(--r-md);padding:22px 24px;border:1px solid var(--aria-border-gold);">
-              <div style="display:flex;align-items:center;gap:16px;">
-                <div style="font-family:'Cormorant Garamond',serif;font-size:42px;color:var(--aria-wine);font-weight:500;line-height:1;flex-shrink:0;">R$0</div>
-                <div>
-                  <div style="font-family:'Libre Baskerville',serif;font-size:14px;font-weight:700;color:var(--aria-brown);margin-bottom:4px;">Irregularidades nos 4 anos</div>
-                  <div style="font-size:12.5px;color:var(--aria-muted);">Auditoria independente anual desde a fundação</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- SOBRE O IMPACTO (Removido) -->
 
   <!-- DEPOIMENTOS DO PROJETO SE PREPARA MENINA -->
   <section class="section plant-zone" style="background:var(--aria-bg);" aria-labelledby="imp-dep-h">
@@ -2889,19 +4314,22 @@ footer::before {
           <p style="font-size:13px;color:var(--aria-muted);">Publicamos relatórios completos de atividades e financeiros todos os anos.</p>
         </div>
         <div class="aria-card-ivory" style="text-align:center;padding:28px;">
-          <div style="width:48px;height:48px;border-radius:14px;background:rgba(111,116,104,.1);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#6F7468" stroke-width="1.5"><circle cx="11" cy="11" r="9"/><path d="M8 11l2 2 4-4"/></svg>
-          </div>
-          <h4 style="margin-bottom:8px;font-size:16px;">Auditoria independente</h4>
-          <p style="font-size:13px;color:var(--aria-muted);">Auditados por empresa externa desde o primeiro ano de operação.</p>
-        </div>
-        <div class="aria-card-ivory" style="text-align:center;padding:28px;">
           <div style="width:48px;height:48px;border-radius:14px;background:rgba(184,115,125,.1);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;" aria-hidden="true">
             <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#B8737D" stroke-width="1.5"><path d="M11 2L3 7v5c0 4 3.5 8 8 9 4.5-1 8-5 8-9V7L11 2z"/></svg>
+          </div>
+          <h4 style="margin-bottom:8px;font-size:16px;">Prestação de Contas</h4>
+          <p style="font-size:13px;color:var(--aria-muted);">Estatuto Social e Ata de Constituição disponíveis publicamente para consulta.</p>
+        </div>
+        <div class="aria-card-ivory" style="text-align:center;padding:28px;">
+          <div style="width:48px;height:48px;border-radius:14px;background:rgba(111,116,104,.1);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#6F7468" stroke-width="1.5"><circle cx="11" cy="11" r="9"/><path d="M8 11l2 2 4-4"/></svg>
           </div>
           <h4 style="margin-bottom:8px;font-size:16px;">CNPJ regular</h4>
           <p style="font-size:13px;color:var(--aria-muted);">CNPJ: 67.555.170/0001-03. Situação regular na Receita Federal.</p>
         </div>
+      </div>
+      <div class="fade-up delay-2" style="text-align:center;margin-top:40px;">
+        <button class="btn-primary" onclick="showPage('quemsomos')">Acessar seção Governança</button>
       </div>
     </div>
   </section>
@@ -3052,8 +4480,8 @@ footer::before {
           <h3 id="apoie-vol-h">Quero ser voluntário</h3>
           <p class="form-lead">Preencha o formulário e entraremos em contato em até 3 dias úteis.</p>
           <div style="background:var(--aria-plum);color:#fff;border-radius:var(--r-sm);padding:12px 16px;margin-bottom:20px;font-size:13px;line-height:1.65;">
-            📍 <strong>Vagas presenciais</strong> em: Barcarena · Belém · Ananindeua · Benevides · Marituba · Santa Bárbara · Mosqueiro · Abaetetuba<br>
-            💻 <strong>Vagas remotas</strong>: comunicação, design, captação de recursos e mais.
+            <strong>Vagas presenciais</strong> em: Barcarena · Belém · Ananindeua · Benevides · Marituba · Santa Bárbara · Mosqueiro · Abaetetuba<br>
+            <strong>Vagas remotas</strong>: comunicação, design, captação de recursos e mais.
           </div>
           <form onsubmit="event.preventDefault();this.innerHTML='<p style=\'text-align:center;color:var(--aria-wine);font-size:18px;padding:20px;\'>✓ Obrigada! Entraremos em contato em breve.</p>';" novalidate>
             <div class="form-row">
@@ -3138,20 +4566,20 @@ footer::before {
         <div class="form-card fade-up">
           <h3 id="cont-main-h">Envie sua mensagem</h3>
           <p class="form-lead">Respondemos em até 48 horas nos dias úteis.</p>
-          <form onsubmit="event.preventDefault();this.innerHTML='<p style=\'text-align:center;color:var(--aria-wine);font-size:18px;padding:20px;\'>✓ Mensagem recebida! Falaremos em breve.</p>';" novalidate>
+          <form action="mailto:caroline.semiramis@gmail.com" method="POST" enctype="text/plain">
             <div class="form-row">
               <div class="form-group">
                 <label for="c-nome">Nome *</label>
-                <input type="text" id="c-nome" required placeholder="Seu nome" autocomplete="name">
+                <input type="text" id="c-nome" name="nome" required placeholder="Seu nome" autocomplete="name">
               </div>
               <div class="form-group">
                 <label for="c-email">E-mail *</label>
-                <input type="email" id="c-email" required placeholder="seu@email.com" autocomplete="email">
+                <input type="email" id="c-email" name="email" required placeholder="seu@email.com" autocomplete="email">
               </div>
             </div>
             <div class="form-group">
               <label for="c-assunto">Assunto</label>
-              <select id="c-assunto">
+              <select id="c-assunto" name="assunto">
                 <option value="">Selecione...</option>
                 <option>Quero fazer uma doação</option>
                 <option>Quero ser voluntário</option>
@@ -3163,7 +4591,7 @@ footer::before {
             </div>
             <div class="form-group">
               <label for="c-msg">Mensagem *</label>
-              <textarea id="c-msg" required placeholder="Como podemos te ajudar?"></textarea>
+              <textarea id="c-msg" name="mensagem" required placeholder="Como podemos te ajudar?"></textarea>
             </div>
             <button type="submit" class="btn-primary form-submit">Enviar mensagem</button>
           </form>
@@ -3176,8 +4604,8 @@ footer::before {
 
           <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:32px;">
             <div class="contact-card">
-              <div class="contact-card-icon" style="background:rgba(37,211,102,.12);" aria-hidden="true">
-                <img src="assets/material2/whatsapp.png" alt="" style="width:26px;height:26px;object-fit:contain;display:block;"/>
+              <div class="contact-card-icon" style="background:var(--aria-wine);padding:0;" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" aria-hidden="true" class="social-icon-wa"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.004 2.003C6.477 2.003 2 6.48 2 12.008c0 1.77.462 3.433 1.268 4.88L2.05 21.949l5.205-1.197A9.955 9.955 0 0012.004 22c5.526 0 10.003-4.477 10.003-10.004C22.007 6.478 17.53 2.003 12.004 2.003zm0 18.343a8.293 8.293 0 01-4.228-1.156l-.303-.18-3.088.71.734-3.007-.197-.309A8.292 8.292 0 013.71 12.008c0-4.578 3.724-8.303 8.294-8.303 4.571 0 8.296 3.725 8.296 8.303 0 4.578-3.725 8.338-8.296 8.338z"/></svg>
               </div>
               <div>
                 <div class="contact-card-label">WhatsApp</div>
@@ -3236,14 +4664,10 @@ footer::before {
           <!-- Social -->
           <h4 style="font-size:16px;margin-bottom:14px;">Redes sociais</h4>
           <div style="display:flex;gap:10px;">
-            <a href="https://instagram.com/instituto.aria.ia" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram do Instituto ARIA">
-              <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" fill="currentColor"/><circle cx="12" cy="12" r="4" fill="white"/><circle cx="17.5" cy="6.5" r="1.5" fill="white"/><rect x="2" y="2" width="20" height="20" rx="5" fill="url(#ig)" fill-opacity=".85"/><defs><linearGradient id="ig" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#F58529"/><stop offset="50%" style="stop-color:#DD2A7B"/><stop offset="100%" style="stop-color:#8134AF"/></linearGradient></defs><circle cx="12" cy="12" r="4" fill="white"/><circle cx="17.5" cy="6.5" r="1.5" fill="white"/></svg>
-            </a>
-            <a href="https://facebook.com/instituto.aria.ia" target="_blank" rel="noopener" class="social-btn" aria-label="Facebook do Instituto ARIA">
-              <svg viewBox="0 0 24 24" fill="#1877F2"><path d="M22 12C22 6.48 17.52 2 12 2S2 6.48 2 12c0 5 3.66 9.12 8.44 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.09 0 2.23.19 2.23.19v2.46h-1.26c-1.24 0-1.62.77-1.62 1.56V12h2.76l-.44 2.89h-2.32v6.99C18.34 21.12 22 17 22 12z"/></svg>
-            </a>
+            <a href="https://instagram.com/instituto.aria.ia" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram do Instituto ARIA" style="background:var(--aria-wine);"><img src="assets/material2/instagram-branco.png" alt="" aria-hidden="true" class="social-icon-ig"/></a>
+            <a href="https://facebook.com/instituto.aria.ia" target="_blank" rel="noopener" class="social-btn" aria-label="Facebook do Instituto ARIA" style="background:var(--aria-wine);"><img src="assets/material2/facebook-branco.png" alt="" aria-hidden="true" class="social-icon-fb"/></a>
             <a href="https://wa.me/5591987671010" target="_blank" rel="noopener" class="social-btn" aria-label="WhatsApp do Instituto ARIA" style="background:var(--aria-wine);">
-              <img src="assets/material2/whatsapp.png" alt="" aria-hidden="true" style="width:18px;height:18px;object-fit:contain;display:block;"/>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" aria-hidden="true" class="social-icon-wa"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.004 2.003C6.477 2.003 2 6.48 2 12.008c0 1.77.462 3.433 1.268 4.88L2.05 21.949l5.205-1.197A9.955 9.955 0 0012.004 22c5.526 0 10.003-4.477 10.003-10.004C22.007 6.478 17.53 2.003 12.004 2.003zm0 18.343a8.293 8.293 0 01-4.228-1.156l-.303-.18-3.088.71.734-3.007-.197-.309A8.292 8.292 0 013.71 12.008c0-4.578 3.724-8.303 8.294-8.303 4.571 0 8.296 3.725 8.296 8.303 0 4.578-3.725 8.338-8.296 8.338z"/></svg>
             </a>
           </div>
 
@@ -3331,6 +4755,75 @@ footer::before {
   </div>
 </div><!-- /page-privacidade -->
 
+<!-- ============================================================ -->
+<!-- PAGE: PARCERIA                                               -->
+<!-- ============================================================ -->
+<div id="page-parceria" class="page">
+
+  <div class="page-spacer"></div>
+
+  <section class="page-hero plant-zone">
+    <div class="page-hero-bg-orb" aria-hidden="true"></div>
+    <div class="container">
+      <div class="eyebrow fade-up">Responsabilidade Social &amp; ESG</div>
+      <h1 class="fade-up delay-1">Seja uma <em>Empresa Parceira</em></h1>
+      <p class="fade-up delay-2">Ao apoiar o Instituto ARIA, sua empresa integra uma iniciativa de impacto social real e mensur&aacute;vel em Marituba e regi&atilde;o.</p>
+    </div>
+  </section>
+
+  <!-- CARTA DE PARCERIA -->
+  <section class="section" style="background:var(--aria-cream);">
+    <div class="container">
+      <div class="aria-card-ivory fade-up" style="max-width:840px;margin:0 auto;padding:clamp(32px,6vw,64px);border:1px solid rgba(198,161,91,.25);box-shadow:0 12px 36px rgba(111,78,55,.06);position:relative;">
+        
+        <div style="text-align:center;margin-bottom:40px;padding-bottom:24px;border-bottom:1px solid rgba(198,161,91,.2);">
+          <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--aria-gold);margin-bottom:12px;">Instituto ARIA &mdash; Carta Institucional</div>
+          <h2 style="font-size:clamp(22px,3.5vw,28px);margin:0;color:var(--aria-brown);">PARCERIA PARA TRANSFORMA&Ccedil;&Atilde;O SOCIAL</h2>
+        </div>
+
+        <div style="font-size:16px;line-height:1.85;color:var(--aria-muted);display:flex;flex-direction:column;gap:20px;">
+          <p>Prezados(as) Senhores(as),</p>
+          
+          <p>O <strong style="color:var(--aria-brown);">Instituto ARIA</strong> &eacute; uma organiza&ccedil;&atilde;o sem fins lucrativos sediada em Marituba, no Par&aacute;, dedicada ao desenvolvimento integral de mulheres e fam&iacute;lias em situa&ccedil;&atilde;o de vulnerabilidade, com atua&ccedil;&atilde;o tamb&eacute;m em prote&ccedil;&atilde;o e bem-estar animal. Nosso prop&oacute;sito resume-se em uma frase que guia todas as nossas a&ccedil;&otilde;es: <em style="color:var(--aria-brown);font-weight:600;">acolher para cuidar, cuidar para transformar</em>.</p>
+          
+          <p>Atuamos diretamente com mulheres, fam&iacute;lias e animais que necessitam de apoio, oferecendo programas de acolhimento, capacita&ccedil;&atilde;o e cuidado que geram autonomia e dignidade a m&eacute;dio e longo prazo &mdash; n&atilde;o assist&ecirc;ncia pontual.</p>
+          
+          <p>Para ampliar nosso alcance em Marituba e regi&atilde;o, buscamos parceria com empresas comprometidas com responsabilidade social e desenvolvimento sustent&aacute;vel.</p>
+          
+          <p>Ao apoiar o Instituto ARIA, sua empresa passa a integrar de forma concreta uma iniciativa de impacto social real e mensur&aacute;vel, fortalecendo sua imagem institucional perante clientes, colaboradores, fornecedores e a comunidade, e demonstrando compromisso efetivo com pr&aacute;ticas de responsabilidade social e <strong style="color:var(--aria-brown);">ESG</strong> (<em style="color:var(--aria-brown);">Environmental, Social and Governance</em>).</p>
+          
+          <p>Al&eacute;m do retorno institucional e social, dependendo da natureza do projeto e do enquadramento legal da empresa patrocinadora, a parceria pode se beneficiar de incentivos fiscais previstos na legisla&ccedil;&atilde;o brasileira, como os aplic&aacute;veis a projetos voltados &agrave; assist&ecirc;ncia social, &agrave; inf&acirc;ncia e &agrave; mulher, entre outras modalidades espec&iacute;ficas.</p>
+          
+          <p>Os recursos recebidos s&atilde;o aplicados integralmente nas atividades do Instituto ARIA, com presta&ccedil;&atilde;o de contas transparente e acompanhamento cont&iacute;nuo dos resultados, permitindo que nossos parceiros vejam de perto o impacto gerado por sua contribui&ccedil;&atilde;o.</p>
+          
+          <p>Gostar&iacute;amos de apresentar nossos projetos em mais detalhes e mostrar como sua empresa pode fazer parte dessa transforma&ccedil;&atilde;o, contribuindo para uma sociedade mais justa &mdash; para as pessoas e para os animais que cuidamos.</p>
+          
+          <p>Contamos com seu apoio.</p>
+
+          <div style="margin-top:24px;padding-top:24px;border-top:1px dashed rgba(198,161,91,.3);">
+            <p style="margin-bottom:4px;">Atenciosamente,</p>
+            <strong style="color:var(--aria-brown);font-size:18px;display:block;">Instituto ARIA</strong>
+            <span style="font-size:13.5px;color:var(--aria-gold);">Acolher para cuidar, cuidar para transformar.</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="text-align:center;margin-top:48px;" class="fade-up delay-1">
+        <h3 style="margin-bottom:16px;">Pronto para construirmos essa parceria?</h3>
+        <p style="color:var(--aria-muted);margin-bottom:28px;">Nossa equipe de rela&ccedil;&otilde;es institucionais est&aacute; &agrave; disposi&ccedil;&atilde;o para apresentar nossas propostas.</p>
+        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+          <a href="https://wa.me/5591987671010" target="_blank" rel="noopener" class="btn-primary" style="text-decoration:none;">Falar pelo WhatsApp</a>
+          <a href="mailto:caroline.semiramis@gmail.com?subject=Parceria%20Institucional%20-%20Empresa" class="btn-secondary" style="text-decoration:none;">Enviar um E-mail</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</div><!-- /page-parceria -->
+
+
 <!-- ╔══════════════════════════════════╗ -->
 <!-- ║  FOOTER                         ║ -->
 <!-- ╚══════════════════════════════════╝ -->
@@ -3387,15 +4880,20 @@ footer::before {
         </div>
         <p>Acolher para cuidar, cuidar para transformar. Uma organização dedicada ao desenvolvimento integral de pessoas e ao respeito pela vida animal.</p>
         <p class="footer-cnpj">CNPJ: 67.555.170/0001-03<br>Marituba, Pará — Brasil</p>
-        <div class="footer-social" aria-label="Redes sociais">
-          <a class="social-btn" href="https://instagram.com/instituto.aria.ia" target="_blank" rel="noopener" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" fill="white"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4" fill="#3D2334"/><circle cx="16.5" cy="7.5" r="1.3" fill="#3D2334"/></svg>
-          </a>
-          <a class="social-btn" href="https://facebook.com/instituto.aria.ia" target="_blank" rel="noopener" aria-label="Facebook">
-            <svg viewBox="0 0 24 24" fill="white"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
-          </a>
+        <div class="footer-newsletter">
+          <p>Newsletter</p>
+          <div class="footer-nl-form">
+            <input type="email" placeholder="Seu e-mail" aria-label="E-mail para newsletter">
+            <button aria-label="Assinar newsletter">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M2 8h12M9 3l5 5-5 5"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="footer-social" aria-label="Redes sociais" style="margin-top:24px;">
+          <a class="social-btn" href="https://instagram.com/instituto.aria.ia" target="_blank" rel="noopener" aria-label="Instagram" style="background:var(--aria-wine);"><img src="assets/material2/instagram-branco.png" alt="" aria-hidden="true" class="social-icon-ig"/></a>
+          <a class="social-btn" href="https://facebook.com/instituto.aria.ia" target="_blank" rel="noopener" aria-label="Facebook" style="background:var(--aria-wine);"><img src="assets/material2/facebook-branco.png" alt="" aria-hidden="true" class="social-icon-fb"/></a>
           <a class="social-btn" href="https://wa.me/5591987671010" target="_blank" rel="noopener" aria-label="WhatsApp" style="background:var(--aria-wine);">
-            <img src="assets/material2/whatsapp.png" alt="" aria-hidden="true" style="width:18px;height:18px;object-fit:contain;display:block;"/>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" aria-hidden="true" class="social-icon-wa"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.004 2.003C6.477 2.003 2 6.48 2 12.008c0 1.77.462 3.433 1.268 4.88L2.05 21.949l5.205-1.197A9.955 9.955 0 0012.004 22c5.526 0 10.003-4.477 10.003-10.004C22.007 6.478 17.53 2.003 12.004 2.003zm0 18.343a8.293 8.293 0 01-4.228-1.156l-.303-.18-3.088.71.734-3.007-.197-.309A8.292 8.292 0 013.71 12.008c0-4.578 3.724-8.303 8.294-8.303 4.571 0 8.296 3.725 8.296 8.303 0 4.578-3.725 8.338-8.296 8.338z"/></svg>
           </a>
         </div>
       </div>
@@ -3407,6 +4905,7 @@ footer::before {
           <li><a href="#" onclick="showPage('home')" role="button" tabindex="0">Início</a></li>
           <li><a href="#" onclick="showPage('quemsomos')" role="button" tabindex="0">Quem Somos</a></li>
           <li><a href="#" onclick="showPage('projetos')" role="button" tabindex="0">Projetos</a></li>
+          <li><a href="#" onclick="showPage('voluntarios')" role="button" tabindex="0">Volunt&aacute;rios</a></li>
           <li><a href="#" onclick="showPage('produtos')" role="button" tabindex="0">Produtos</a></li>
           <li><a href="#" onclick="showPage('impacto')" role="button" tabindex="0">Impacto</a></li>
           <li><a href="#" onclick="showPage('apoie')" role="button" tabindex="0">Apoie</a></li>
@@ -3421,42 +4920,43 @@ footer::before {
         <ul>
           <li><a href="#" onclick="showPage('projetos')" role="button" tabindex="0">Se Prepara Menina</a></li>
           <li><a href="#" onclick="showPage('projetos')" role="button" tabindex="0">Viralatinha</a></li>
-          <li><a href="#" onclick="showPage('projetos')" role="button" tabindex="0">Rede de Cuidados</a></li>
+          <li><a href="#" onclick="showPage('projetos')" role="button" tabindex="0">Rede de Acolhimento</a></li>
           <li><a href="#" onclick="showPage('projetos')" role="button" tabindex="0">ARIA Educa</a></li>
           <li><a href="#" onclick="showPage('projetos')" role="button" tabindex="0">Horta Comunitária</a></li>
         </ul>
       </div>
 
       <!-- Contato + newsletter -->
+      <!-- Contato -->
       <div class="footer-col footer-contato-col">
-        <h5>Contato</h5>
+        <h5 style="padding-left:24px;">Contato</h5>
         <div class="footer-contact-item">
           <svg viewBox="0 0 16 16"><path d="M8 1C5.24 1 3 3.24 3 6c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>
-          <span>Marituba – PA, Brasil</span>
+          <span>Marituba - PA, Brasil</span>
         </div>
         <div class="footer-contact-item">
           <svg viewBox="0 0 16 16"><rect x="1" y="2.5" width="14" height="11" rx="1.5"/><path d="M1 5.5l7 4 7-4"/></svg>
           <a href="mailto:caroline.semiramis@gmail.com">caroline.semiramis@gmail.com</a>
         </div>
-		<div class="footer-contact-item" style="display: flex; align-items: flex-start; gap: 8px;">
-		  <svg viewBox="0 0 16 16" width="16" height="16" style="margin-top: 4px;"><path d="M14 11l-2.5-2.5-1.5 1.5c-1-1-2-2-3-3l1.5-1.5L6 3 4 5c0 4 7 11 7 11l3-3z"/></svg>
-		  
-		  <div style="display: flex; flex-direction: column; gap: 4px;">
-			<a href="https://wa.me/5591987671010" target="_blank" rel="noopener">(91) 9.8767-1010</a>
-			<a href="https://wa.me/5591982558088" target="_blank" rel="noopener">(91) 9.8255-8088</a>
-		  </div>
-		</div>
-		</div>
-        <div class="footer-newsletter">
-          <p>Newsletter</p>
-          <div class="footer-nl-form">
-            <input type="email" placeholder="Seu e-mail" aria-label="E-mail para newsletter">
-            <button aria-label="Assinar newsletter">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M2 8h12M9 3l5 5-5 5"/></svg>
-            </button>
+        <div class="footer-contact-item" style="display: flex; align-items: flex-start; gap: 8px;">
+          <svg viewBox="0 0 16 16" width="16" height="16" style="margin-top: 4px;"><path d="M14 11l-2.5-2.5-1.5 1.5c-1-1-2-2-3-3l1.5-1.5L6 3 4 5c0 4 7 11 7 11l3-3z"/></svg>
+          <div style="display: flex; flex-direction: column; gap: 4px;">
+            <a href="https://wa.me/5591987671010" target="_blank" rel="noopener">(91) 9.8767-1010</a>
+            <a href="https://wa.me/5591982558088" target="_blank" rel="noopener">(91) 9.8255-8088</a>
           </div>
         </div>
       </div>
+
+      <div class="footer-col footer-gov-col">
+        <h5>Governan&ccedil;a &amp; Parcerias</h5>
+        <ul>
+          <li><a href="#" onclick="showPage('parceria')" role="button" tabindex="0" style="color:var(--aria-gold);font-weight:600;">&#129309; Seja uma Empresa Parceira</a></li>
+          <li><a href="#" role="button" tabindex="0">Relatório Anual 2025</a></li>
+          <li><a href="#" role="button" tabindex="0">Programação 2026</a></li>
+          <li><a href="#" role="button" tabindex="0">Atas de Conselho Fiscal</a></li>
+        </ul>
+      </div>
+
     </div>
 
     <!-- Footer bottom -->
@@ -3538,8 +5038,8 @@ function showPage(id) {
 
 function updateActiveLink(id) {
   const map = {
-    home: 0, quemsomos: 1, projetos: 2, produtos: 3, impacto: 4,
-    contato: 5, apoie: 5, restrita: 6, privacidade: 6
+    home: 0, quemsomos: 1, projetos: 2, voluntarios: 3, produtos: 4, impacto: 5,
+    contato: 6, apoie: 6, restrita: 7, privacidade: 7
   };
   document.querySelectorAll('.nav-link').forEach((l, i) => {
     l.classList.toggle('active-link', i === map[id]);
@@ -3652,7 +5152,7 @@ function updateNavTop() {
   const nav = document.getElementById('sticky-nav');
   if (!nav) return;
   const annH = getAnnH();
-  const navH = 66; // altura fixa da nav
+  const navH = nav.offsetHeight || 66;
   nav.style.top = annH + 'px';
   document.querySelectorAll('.page-spacer').forEach(el => {
     el.style.height = (annH + navH) + 'px';
@@ -3668,6 +5168,17 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 /* ─── COUNTER ANIMATION ─── */
+function completedYearsSince(dateString) {
+  const [year, month, day] = dateString.split('-').map(Number);
+  const today = new Date();
+  let years = today.getFullYear() - year;
+  const anniversaryHasPassed =
+    today.getMonth() + 1 > month ||
+    (today.getMonth() + 1 === month && today.getDate() >= day);
+  if (!anniversaryHasPassed) years--;
+  return Math.max(0, years);
+}
+
 function animateCounters() {
   const activePageId = document.querySelector('.page.active')?.id;
   const counters = document.querySelectorAll(`#${activePageId} .stat-num[data-target]`);
@@ -3679,7 +5190,9 @@ function animateCounters() {
       const el = entry.target;
       if (el.dataset.counted) return;
       el.dataset.counted = '1';
-      const target = parseInt(el.dataset.target, 10);
+      const target = el.dataset.startDate
+        ? completedYearsSince(el.dataset.startDate)
+        : parseInt(el.dataset.target, 10);
       const suffix = el.dataset.suffix || '';
       const dur = 1400;
       const start = performance.now();
@@ -3704,7 +5217,7 @@ function animateCounters() {
 
 /* ─── WORD CYCLE (hero) ─── */
 (function wordCycle() {
-  const words = ['mulheres', 'crianças', 'famílias', 'comunidades'];
+  const words = ['mulheres', 'crianças', 'comunidades'];
   let idx = 0;
   function cycle() {
     const el = document.getElementById('cycle-word');
@@ -3726,6 +5239,11 @@ document.addEventListener('keydown', (e) => {
 
 /* ─── INICIALIZAÇÃO ─── */
 document.addEventListener('DOMContentLoaded', () => {
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+  window.scrollTo(0, 0);
+  showPage('home');
   updateNavTop();
   // nav visível desde o carregamento
   const navEl = document.getElementById('sticky-nav');
@@ -4037,13 +5555,21 @@ window.showPage = function(id) {
 
       var isMobile = window.innerWidth < 1100;
       var pool = isMobile ? ANCHOR_POOL_MOBILE : ANCHOR_POOL_DESKTOP;
+      var heroContent = document.querySelector('.hero-body > .container');
+      var heroIsLifted = heroContent && getComputedStyle(heroContent).transform !== 'none';
+      var heroLift = window.innerWidth >= 769 && heroIsLifted
+        ? parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hero-content-lift')) || 0
+        : 0;
 
       // Separa pool em lateral (opacidade 1) e interior (ghost)
       var lateralPts = [];
       var interiorPts = [];
       zones.forEach(function (zoneEl) {
         pool.forEach(function (anchor) {
-          var pt = { zone: zoneEl, x: anchor.x, y: anchor.y, textSafe: anchor.textSafe !== false };
+          var y = heroLift && zoneEl.classList.contains('hero-section')
+            ? 'calc(' + anchor.y + ' - ' + heroLift + 'px)'
+            : anchor.y;
+          var pt = { zone: zoneEl, x: anchor.x, y: y, textSafe: anchor.textSafe !== false };
           if (pt.textSafe) lateralPts.push(pt);
           else             interiorPts.push(pt);
         });
@@ -4650,5 +6176,549 @@ window.showPage = function(id) {
   })();
 </script>
 
+<script>
+  (function(){
+    var projectMonthCursor = new Date();
+    projectMonthCursor.setDate(1);
+
+    /*
+      Adicione aqui as ações com data confirmada.
+      Exemplo:
+      { date: '2026-08-15', project: 'Viralatinha', title: 'Feira de adoção' }
+    */
+    var projectActionEvents = [];
+
+    function projectDateKey(year, month, day){
+      return year + '-' + String(month + 1).padStart(2, '0') + '-' + String(day).padStart(2, '0');
+    }
+
+    function renderProjectCalendar(){
+      var label = document.getElementById('project-month-label');
+      var grid = document.getElementById('project-calendar-grid');
+      var note = document.getElementById('project-calendar-note');
+      if(!label || !grid || !note) return;
+
+      var year = projectMonthCursor.getFullYear();
+      var month = projectMonthCursor.getMonth();
+      var firstWeekday = new Date(year, month, 1).getDay();
+      var monthDays = new Date(year, month + 1, 0).getDate();
+      var previousMonthDays = new Date(year, month, 0).getDate();
+      var today = new Date();
+      var eventsInMonth = 0;
+
+      label.textContent = new Intl.DateTimeFormat('pt-BR', {
+        month: 'long',
+        year: 'numeric'
+      }).format(projectMonthCursor);
+
+      grid.innerHTML = '';
+
+      for(var cell = 0; cell < 42; cell++){
+        var displayedDay = cell - firstWeekday + 1;
+        var displayedMonth = month;
+        var displayedYear = year;
+        var outside = false;
+
+        if(displayedDay < 1){
+          displayedMonth = month - 1;
+          if(displayedMonth < 0){
+            displayedMonth = 11;
+            displayedYear--;
+          }
+          displayedDay = previousMonthDays + displayedDay;
+          outside = true;
+        } else if(displayedDay > monthDays){
+          displayedDay -= monthDays;
+          displayedMonth = month + 1;
+          if(displayedMonth > 11){
+            displayedMonth = 0;
+            displayedYear++;
+          }
+          outside = true;
+        }
+
+        var key = projectDateKey(displayedYear, displayedMonth, displayedDay);
+        var dayEvents = projectActionEvents.filter(function(event){ return event.date === key; });
+        if(!outside) eventsInMonth += dayEvents.length;
+
+        var day = document.createElement('div');
+        day.className = 'project-calendar-day' + (outside ? ' is-outside' : '');
+        if(
+          displayedYear === today.getFullYear() &&
+          displayedMonth === today.getMonth() &&
+          displayedDay === today.getDate()
+        ){
+          day.className += ' is-today';
+        }
+        day.setAttribute('aria-label', new Intl.DateTimeFormat('pt-BR', {
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric'
+        }).format(new Date(displayedYear, displayedMonth, displayedDay)));
+
+        var number = document.createElement('span');
+        number.className = 'project-calendar-day-number';
+        number.textContent = displayedDay;
+        day.appendChild(number);
+
+        dayEvents.forEach(function(event){
+          var eventElement = document.createElement('span');
+          eventElement.className = 'project-calendar-event';
+          eventElement.textContent = event.title;
+          eventElement.title = event.project + ' — ' + event.title;
+          day.appendChild(eventElement);
+        });
+
+        grid.appendChild(day);
+      }
+
+      note.textContent = eventsInMonth
+        ? eventsInMonth + (eventsInMonth === 1 ? ' ação confirmada neste mês.' : ' ações confirmadas neste mês.')
+        : 'Nenhuma ação com data específica cadastrada para este mês. Os projetos contínuos seguem ativos conforme suas agendas.';
+    }
+
+    window.setProjectCalendarView = function(view){
+      var timelineButton = document.getElementById('project-timeline-tab');
+      var monthButton = document.getElementById('project-month-tab');
+      var timelinePanel = document.getElementById('project-timeline-panel');
+      var monthPanel = document.getElementById('project-month-panel');
+      var showMonth = view === 'month';
+      if(!timelineButton || !monthButton || !timelinePanel || !monthPanel) return;
+
+      timelineButton.setAttribute('aria-selected', String(!showMonth));
+      monthButton.setAttribute('aria-selected', String(showMonth));
+      timelinePanel.hidden = showMonth;
+      monthPanel.hidden = !showMonth;
+      if(showMonth) renderProjectCalendar();
+    };
+
+    window.changeProjectMonth = function(offset){
+      projectMonthCursor.setMonth(projectMonthCursor.getMonth() + offset);
+      renderProjectCalendar();
+    };
+
+    renderProjectCalendar();
+  })();
+</script>
+
+<script>
+  (function(){
+    var questionnairePreviousFocus = null;
+    var questionnairePreviousOverflow = '';
+
+    window.openVolunteerQuestionnaire = function(){
+      var modal = document.getElementById('volunteer-questionnaire-modal');
+      var form = document.getElementById('volunteer-questionnaire-form');
+      var success = document.getElementById('volunteer-questionnaire-success');
+      if(!modal || !form || !success) return;
+
+      questionnairePreviousFocus = document.activeElement;
+      questionnairePreviousOverflow = document.body.style.overflow;
+      form.hidden = false;
+      success.hidden = true;
+      modal.hidden = false;
+      document.body.style.overflow = 'hidden';
+
+      requestAnimationFrame(function(){
+        var firstField = document.getElementById('candidate-name');
+        if(firstField) firstField.focus();
+      });
+    };
+
+    window.closeVolunteerQuestionnaire = function(){
+      var modal = document.getElementById('volunteer-questionnaire-modal');
+      if(!modal) return;
+      modal.hidden = true;
+      document.body.style.overflow = questionnairePreviousOverflow;
+      if(questionnairePreviousFocus && typeof questionnairePreviousFocus.focus === 'function'){
+        questionnairePreviousFocus.focus();
+      }
+    };
+
+    window.closeVolunteerQuestionnaireFromBackdrop = function(event){
+      if(event.target === event.currentTarget) closeVolunteerQuestionnaire();
+    };
+
+    window.submitVolunteerQuestionnaire = function(event){
+      event.preventDefault();
+      var form = event.currentTarget;
+      var success = document.getElementById('volunteer-questionnaire-success');
+      if(!form || !success) return;
+
+      if(!form.checkValidity()){
+        form.reportValidity();
+        return;
+      }
+
+      form.hidden = true;
+      success.hidden = false;
+      success.setAttribute('tabindex', '-1');
+      success.focus();
+      success.scrollIntoView({ block: 'start' });
+    };
+
+    window.reviewVolunteerQuestionnaire = function(){
+      var form = document.getElementById('volunteer-questionnaire-form');
+      var success = document.getElementById('volunteer-questionnaire-success');
+      if(!form || !success) return;
+      success.hidden = true;
+      form.hidden = false;
+      var firstField = document.getElementById('candidate-name');
+      if(firstField) firstField.focus();
+    };
+
+    document.addEventListener('keydown', function(event){
+      var modal = document.getElementById('volunteer-questionnaire-modal');
+      if(event.key === 'Escape' && modal && !modal.hidden){
+        closeVolunteerQuestionnaire();
+      }
+    });
+  })();
+</script>
+
+<script>
+  (() => {
+    const d = document, s = d.createElement('script');
+    s.type = 'module';
+    s.src = 'https://w.behold.so/widget.js';
+    d.head.append(s);
+  })();
+</script>
+
+<!-- ╔══════════════════════════════════════════════════╗ -->
+<!-- ║  CIPÓ FLUTUANTE — CTA "FAÇA PARTE / VOLUNTÁRIO"   ║ -->
+<!-- ╚══════════════════════════════════════════════════╝ -->
+<style>
+  /* ─── Keyframes originais da arte cipo-voluntarios (renomeados p/ evitar conflito) ─── */
+  @keyframes vineGrowStem { 0% { stroke-dashoffset: 1200; } 100% { stroke-dashoffset: 0; } }
+  @keyframes vineBreatheLeafLeft { 0%,100% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(-6deg) scale(1.04); } }
+  @keyframes vineBreatheLeafRight { 0%,100% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(6deg) scale(1.04); } }
+  @keyframes vineBloomFlower {
+    0% { transform: scale(0); opacity: 0; }
+    60% { transform: scale(1.25); opacity: 1; }
+    80% { transform: scale(0.95); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  @keyframes vineSwingSign { 0%,100% { transform: rotate(-2.5deg); } 50% { transform: rotate(2.5deg); } }
+  @keyframes vinePulseGlow {
+    0%,100% { filter: drop-shadow(0 4px 12px rgba(139,74,94,0.15)); }
+    50% { filter: drop-shadow(0 6px 20px rgba(198,161,91,0.35)); }
+  }
+
+  .vine-stem-main { fill:none; stroke:#4A7A35; stroke-width:6; stroke-linecap:round; stroke-linejoin:round;
+    stroke-dasharray:1200; stroke-dashoffset:0; animation: vineGrowStem 2.2s cubic-bezier(.25,1,.5,1) forwards; }
+  .vine-stem-secondary { fill:none; stroke:#6D9B4A; stroke-width:3.5; stroke-linecap:round;
+    stroke-dasharray:800; stroke-dashoffset:0; animation: vineGrowStem 2.5s .3s cubic-bezier(.25,1,.5,1) forwards; }
+  .vine-tendril { fill:none; stroke:#9A7535; stroke-width:2; stroke-linecap:round; opacity:.85; }
+  .vine-leaf-l { transform-origin:center; animation: vineBreatheLeafLeft 4s ease-in-out infinite; }
+  .vine-leaf-r { transform-origin:center; animation: vineBreatheLeafRight 4.5s ease-in-out infinite; }
+  .vine-flower { transform-origin:center; transform:scale(0); animation: vineBloomFlower .9s cubic-bezier(.34,1.56,.64,1) forwards; }
+  .vine-flower-1 { animation-delay:1.2s; } .vine-flower-2 { animation-delay:1.7s; }
+  .vine-flower-3 { animation-delay:2.2s; } .vine-flower-4 { animation-delay:2.6s; }
+
+  .vine-sign-wrapper { transform-origin:430px 240px; animation: vineSwingSign 5s ease-in-out infinite; cursor:pointer; }
+  .vine-sign-card { fill:#FFF8EE; stroke:#C6A15B; stroke-width:2.5; animation: vinePulseGlow 4s infinite; transition:fill .3s ease, stroke .3s ease; }
+  .vine-sign-wrapper:hover .vine-sign-card { fill:#FFF2DD; stroke:#8B4A5E; }
+  .vine-sign-text-title { font-family:'Montserrat',sans-serif,Arial; font-size:13px; font-weight:700; fill:#8B4A5E; letter-spacing:2px; text-transform:uppercase; text-anchor:middle; }
+  .vine-sign-text-main { font-family:'Montserrat',sans-serif,Arial; font-size:20px; font-weight:800; fill:#4A7A35; text-anchor:middle; }
+  .vine-sign-text-sub { font-family:'Montserrat',sans-serif,Arial; font-size:11px; font-weight:600; fill:#C6A15B; text-anchor:middle; }
+
+  /* ─── Camada / posicionamento ─── */
+  #vine-cta-layer{ position:fixed; inset:0; width:100vw; height:100vh; pointer-events:none; z-index:850;
+    opacity:0; transition:opacity .7s ease; overflow:hidden; }
+  #vine-cta-layer.vine-visible{ opacity:1; }
+  #vine-cta-layer.vine-hidden{ opacity:0; }
+  .vine-rig{ position:absolute; left:0; top:0; overflow:visible; pointer-events:none; transform-origin:0 0; }
+  .vine-rig.vine-secondary{ opacity:.28; }
+  .vine-rig .vine-sign-wrapper{ pointer-events:auto; }
+  .vine-rig.dragging .vine-sign-wrapper{ animation-play-state:paused; cursor:grabbing; }
+  .vine-rig.dragging .vine-sign-card{ fill:#FFF2DD; stroke:#8B4A5E; }
+
+  @media (max-width: 900px), (hover:none) and (pointer:coarse){
+    #vine-cta-layer{ display:none; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .vine-leaf-l, .vine-leaf-r, .vine-flower, .vine-sign-wrapper, .vine-stem-main, .vine-stem-secondary{ animation:none !important; }
+  }
+</style>
+
+<div id="vine-cta-layer" aria-hidden="false">
+
+  <!-- Cipó secundário ocasional (cipo-voluntarios-1, cores originais, opacidade máx. .28, sem placa) -->
+  <svg id="vine-secondary-svg" class="vine-rig vine-secondary" width="600" height="450" viewBox="0 0 600 450" xmlns="http://www.w3.org/2000/svg" style="display:none;">
+    <g id="vine-secondary-content">
+      <path class="vine-tendril" d="M 120,70 Q 110,40 130,30 T 140,50"/>
+      <path class="vine-tendril" d="M 260,180 Q 240,160 250,140 T 275,155"/>
+      <path class="vine-tendril" d="M 380,210 Q 410,180 430,200 T 415,230"/>
+      <path class="vine-stem-main" d="M 40,20 C 90,80 60,180 160,200 C 260,220 300,100 390,150 C 460,190 440,280 430,240"/>
+      <path class="vine-stem-secondary" d="M 40,25 C 70,100 100,160 170,185 C 240,210 280,130 370,165 C 420,185 435,220 425,235"/>
+      <g class="vine-leaf-l" style="animation-delay:.1s;">
+        <path d="M 80,60 C 50,50 30,70 40,90 C 60,100 80,80 80,60 Z" fill="#5D8B3A" opacity=".95"/>
+        <path d="M 80,60 Q 55,70 42,88" stroke="#A3C285" stroke-width="1.5" fill="none"/>
+      </g>
+      <g class="vine-leaf-r" style="animation-delay:.4s;">
+        <path d="M 95,110 C 130,95 150,120 135,145 C 110,150 90,130 95,110 Z" fill="#4A7A35"/>
+        <path d="M 95,110 Q 120,120 133,142" stroke="#A3C285" stroke-width="1.5" fill="none"/>
+      </g>
+      <g class="vine-leaf-l" style="animation-delay:.7s;">
+        <path d="M 170,195 C 150,230 180,260 210,245 C 220,220 195,190 170,195 Z" fill="#5D8B3A"/>
+        <path d="M 170,195 Q 185,225 208,242" stroke="#A3C285" stroke-width="1.5" fill="none"/>
+      </g>
+      <g class="vine-leaf-r" style="animation-delay:1.1s;">
+        <path d="M 240,215 C 230,175 260,150 285,170 C 290,195 265,220 240,215 Z" fill="#6D9B4A" opacity=".9"/>
+        <path d="M 240,215 Q 265,185 283,172" stroke="#A3C285" stroke-width="1.5" fill="none"/>
+      </g>
+      <g class="vine-leaf-l" style="animation-delay:1.5s;">
+        <path d="M 320,130 C 310,90 340,70 365,90 C 370,115 345,135 320,130 Z" fill="#4A7A35"/>
+        <path d="M 320,130 Q 340,95 363,92" stroke="#A3C285" stroke-width="1.5" fill="none"/>
+      </g>
+      <g class="vine-leaf-r" style="animation-delay:1.8s;">
+        <path d="M 380,155 C 410,130 440,155 425,185 C 400,195 375,175 380,155 Z" fill="#5D8B3A"/>
+        <path d="M 380,155 Q 405,160 423,182" stroke="#A3C285" stroke-width="1.5" fill="none"/>
+      </g>
+      <g class="vine-flower vine-flower-1" transform="translate(130,140)">
+        <circle cx="-8" cy="0" r="7" fill="#DFA5A0" opacity=".9"/><circle cx="8" cy="0" r="7" fill="#DFA5A0" opacity=".9"/>
+        <circle cx="0" cy="-8" r="7" fill="#DFA5A0" opacity=".9"/><circle cx="0" cy="8" r="7" fill="#DFA5A0" opacity=".9"/>
+        <circle cx="0" cy="0" r="6" fill="#8B4A5E"/><circle cx="0" cy="0" r="3" fill="#C6A15B"/>
+      </g>
+      <g class="vine-flower vine-flower-2" transform="translate(265,185) scale(1.1)">
+        <circle cx="-9" cy="-3" r="8" fill="#8B4A5E" opacity=".85"/><circle cx="9" cy="-3" r="8" fill="#8B4A5E" opacity=".85"/>
+        <circle cx="-5" cy="8" r="8" fill="#8B4A5E" opacity=".85"/><circle cx="5" cy="8" r="8" fill="#8B4A5E" opacity=".85"/>
+        <circle cx="0" cy="-9" r="8" fill="#8B4A5E" opacity=".85"/><circle cx="0" cy="0" r="7" fill="#FFF8EE"/><circle cx="0" cy="0" r="4" fill="#C6A15B"/>
+      </g>
+    </g>
+  </svg>
+
+  <!-- Cipó principal (cipo-voluntarios-2), com a placa arrastável -->
+  <svg id="vine-main-svg" class="vine-rig" width="600" height="450" viewBox="0 0 600 450" xmlns="http://www.w3.org/2000/svg">
+    <path class="vine-tendril" d="M 120,70 Q 110,40 130,30 150,20 140,50"/>
+    <path class="vine-tendril" d="m 260,180 q -20,-20 -10,-40 10,-20 25,15"/>
+    <path class="vine-tendril" d="m 380,210 q 30,-30 50,-10 20,20 -15,30"/>
+    <path class="vine-stem-main" d="m 40,20 c 50,60 20,160 120,180 100,20 140,-100 230,-50 70,40 50,130 40,90" style="stroke:#c98f95;fill:none"/>
+    <path class="vine-stem-secondary" d="m 40,25 c 30,75 60,135 130,160 70,25 110,-55 200,-20 50,20 65,55 55,70" style="stroke:#9aa87e;fill:none"/>
+
+    <g class="vine-leaf-l" style="animation-delay:.1s;">
+      <path d="M 80,60 C 50,50 30,70 40,90 60,100 80,80 80,60 Z" fill="#8a9a6f"/>
+      <path d="M 80,60 Q 55,70 42,88" stroke="#e9efd9" stroke-width="1.5" fill="none"/>
+    </g>
+    <g class="vine-leaf-r" style="animation-delay:.4s;">
+      <path d="m 95,110 c 35,-15 55,10 40,35 -25,5 -45,-15 -40,-35 z" fill="#748561"/>
+      <path d="m 95,110 q 25,10 38,32" stroke="#e9efd9" stroke-width="1.5" fill="none"/>
+    </g>
+    <g class="vine-leaf-l" style="animation-delay:.7s;">
+      <path d="m 170,195 c -20,35 10,65 40,50 10,-25 -15,-55 -40,-50 z" fill="#8a9a6f"/>
+      <path d="m 170,195 q 15,30 38,47" stroke="#e9efd9" stroke-width="1.5" fill="none"/>
+    </g>
+    <g class="vine-leaf-r" style="animation-delay:1.1s;">
+      <path d="m 240,215 c -10,-40 20,-65 45,-45 5,25 -20,50 -45,45 z" fill="#93a377"/>
+      <path d="m 240,215 q 25,-30 43,-43" stroke="#e9efd9" stroke-width="1.5" fill="none"/>
+    </g>
+    <g class="vine-leaf-l" style="animation-delay:1.5s;">
+      <path d="m 320,130 c -10,-40 20,-60 45,-40 5,25 -20,45 -45,40 z" fill="#748561"/>
+      <path d="M 320,130 Q 340,95 363,92" stroke="#e9efd9" stroke-width="1.5" fill="none"/>
+    </g>
+    <g class="vine-leaf-r" style="animation-delay:1.8s;">
+      <path d="m 380,155 c 30,-25 60,0 45,30 -25,10 -50,-10 -45,-30 z" fill="#8a9a6f"/>
+      <path d="m 380,155 q 25,5 43,27" stroke="#e9efd9" stroke-width="1.5" fill="none"/>
+    </g>
+
+    <g class="vine-flower vine-flower-1" transform="translate(130,140)">
+      <circle cx="-8" cy="0" r="7" fill="#DFA5A0" opacity=".9"/><circle cx="8" cy="0" r="7" fill="#DFA5A0" opacity=".9"/>
+      <circle cx="0" cy="-8" r="7" fill="#DFA5A0" opacity=".9"/><circle cx="0" cy="8" r="7" fill="#DFA5A0" opacity=".9"/>
+      <circle cx="0" cy="0" r="6" fill="#8B4A5E"/><circle cx="0" cy="0" r="3" fill="#C6A15B"/>
+    </g>
+    <g class="vine-flower vine-flower-2" transform="matrix(1.1,0,0,1.1,265,185)">
+      <circle cx="-9" cy="-3" r="8" fill="#8B4A5E" opacity=".85"/><circle cx="9" cy="-3" r="8" fill="#8B4A5E" opacity=".85"/>
+      <circle cx="-5" cy="8" r="8" fill="#8B4A5E" opacity=".85"/><circle cx="5" cy="8" r="8" fill="#8B4A5E" opacity=".85"/>
+      <circle cx="0" cy="-9" r="8" fill="#8B4A5E" opacity=".85"/><circle cx="0" cy="0" r="7" fill="#FFF8EE"/><circle cx="0" cy="0" r="4" fill="#C6A15B"/>
+    </g>
+    <g class="vine-flower vine-flower-3" transform="matrix(0.9,0,0,0.9,345,105)">
+      <circle cx="-7" cy="0" r="6" fill="#DFA5A0"/><circle cx="7" cy="0" r="6" fill="#DFA5A0"/>
+      <circle cx="0" cy="-7" r="6" fill="#DFA5A0"/><circle cx="0" cy="7" r="6" fill="#DFA5A0"/>
+      <circle cx="0" cy="0" r="5" fill="#8B4A5E"/><circle cx="0" cy="0" r="2.5" fill="#C6A15B"/>
+    </g>
+
+    <!-- Placa pendurada na ponta — arrastável, foco por teclado -->
+    <g class="vine-sign-wrapper" id="vine-cta-sign" role="button" tabindex="0" aria-label="Faça parte, Voluntário — clique para saber mais, ou arraste para mover a placa">
+      <line x1="430" y1="240" x2="385" y2="280" stroke="#9A7535" stroke-width="2.5" stroke-dasharray="4 2"/>
+      <line x1="430" y1="240" x2="475" y2="280" stroke="#9A7535" stroke-width="2.5" stroke-dasharray="4 2"/>
+      <circle cx="430" cy="240" r="5" fill="#8B4A5E"/>
+      <g transform="translate(330,280)">
+        <rect class="vine-sign-card" x="0" y="0" width="200" height="110" rx="16"/>
+        <rect x="8" y="8" width="184" height="94" rx="12" fill="none" stroke="#E8D5B7" stroke-width="1.2" stroke-dasharray="6 4" opacity=".8"/>
+        <circle cx="15" cy="15" r="3.5" fill="#9A7535" opacity=".6"/><circle cx="185" cy="15" r="3.5" fill="#9A7535" opacity=".6"/>
+        <circle cx="15" cy="95" r="3.5" fill="#9A7535" opacity=".6"/><circle cx="185" cy="95" r="3.5" fill="#9A7535" opacity=".6"/>
+        <text class="vine-sign-text-title" x="100" y="38">🌱 FAÇA PARTE</text>
+        <text class="vine-sign-text-main" x="100" y="66">VOLUNTÁRIO</text>
+        <text class="vine-sign-text-sub" x="100" y="88">✦ Clique aqui e saiba mais ✦</text>
+      </g>
+    </g>
+  </svg>
+</div>
+
+<script>
+(function(){
+  var layer      = document.getElementById('vine-cta-layer');
+  var mainSvg    = document.getElementById('vine-main-svg');
+  var secSvg     = document.getElementById('vine-secondary-svg');
+  var signG      = document.getElementById('vine-cta-sign');
+  var navBtn     = document.getElementById('nav-voluntarios');
+  if(!layer || !navBtn || !mainSvg) return;
+
+  // Ponto onde o cipó "nasce" (base do caule) e ponto que deve apontar para a placa,
+  // ambos em coordenadas locais do próprio SVG (viewBox 0 0 600 450).
+  var LOCAL_ANCHOR = { x: 40, y: 20 };
+  var LOCAL_AIM     = { x: 430, y: 335 }; // centro do cartão da placa
+  var localDx = LOCAL_AIM.x - LOCAL_ANCHOR.x;
+  var localDy = LOCAL_AIM.y - LOCAL_ANCHOR.y;
+  var localLen = Math.hypot(localDx, localDy);
+  var localAngle = Math.atan2(localDy, localDx) * 180 / Math.PI;
+
+  var currentTarget = null; // {x,y} em coords de tela
+  var userPositioned = false;
+  var hideForPage = false;
+  var isDragging = false;
+  var dragMoved = false;
+
+  function rand(a,b){ return Math.random()*(b-a)+a; }
+  function clamp(v,a,b){ return Math.min(Math.max(v,a),b); }
+  function isNavVisible(){ return navBtn.offsetParent !== null && navBtn.getBoundingClientRect().width > 0; }
+  function navPos(){
+    var r = navBtn.getBoundingClientRect();
+    return { x: r.left + r.width/2, y: r.bottom };
+  }
+
+  function applyRig(svgEl, from, target, minScale, maxScale){
+    var dx = target.x - from.x, dy = target.y - from.y;
+    var len = Math.hypot(dx,dy) || 1;
+    var angle = Math.atan2(dy,dx) * 180/Math.PI;
+    var scale = clamp(len/localLen, minScale, maxScale);
+    var rotation = angle - localAngle;
+    svgEl.style.transform =
+      'translate(' + from.x + 'px,' + from.y + 'px) rotate(' + rotation.toFixed(2) + 'deg) ' +
+      'scale(' + scale.toFixed(3) + ') translate(' + (-LOCAL_ANCHOR.x) + 'px,' + (-LOCAL_ANCHOR.y) + 'px)';
+  }
+
+  function replayEntrance(svgEl){
+    svgEl.querySelectorAll('.vine-stem-main, .vine-stem-secondary, .vine-flower').forEach(function(el){
+      el.style.animation = 'none';
+      el.getBoundingClientRect(); // força reflow
+      el.style.animation = '';
+    });
+  }
+
+  function pickRandomTarget(from){
+    var vw = window.innerWidth, vh = window.innerHeight;
+    var ex, ey, tries = 0;
+    do {
+      ex = rand(vw*0.16, vw*0.82);
+      ey = rand(vh*0.32, vh*0.78);
+      tries++;
+    } while (Math.hypot(ex-from.x, ey-from.y) < Math.min(vw,vh)*0.3 && tries < 8);
+    return { x: ex, y: ey };
+  }
+
+  function buildMain(fresh){
+    if(!isNavVisible()){ layer.style.display = 'none'; return; }
+    layer.style.display = '';
+
+    var from = navPos();
+    if (!userPositioned || !currentTarget) {
+      currentTarget = pickRandomTarget(from);
+    } else {
+      currentTarget.x = clamp(currentTarget.x, 50, window.innerWidth - 50);
+      currentTarget.y = clamp(currentTarget.y, 70, window.innerHeight - 50);
+    }
+    applyRig(mainSvg, from, currentTarget, 0.6, 1.65);
+    if (fresh) replayEntrance(mainSvg);
+    maybeBuildSecondary(from);
+  }
+
+  function maybeBuildSecondary(from){
+    if (Math.random() > 0.4) { secSvg.style.display = 'none'; return; }
+    secSvg.style.display = '';
+    secSvg.style.opacity = rand(0.14, 0.28).toFixed(2);
+    var target = pickRandomTarget(from);
+    applyRig(secSvg, from, target, 0.55, 1.6);
+    replayEntrance(secSvg);
+  }
+
+  function applyVisibility(){
+    if (hideForPage || !isNavVisible()) { layer.classList.remove('vine-visible'); return; }
+    layer.classList.add('vine-visible');
+    layer.classList.remove('vine-hidden');
+  }
+
+  function goToVolunteers(){
+    if (dragMoved) { dragMoved = false; return; }
+    if (typeof showPage === 'function') showPage('voluntarios');
+  }
+  signG.addEventListener('click', goToVolunteers);
+  signG.addEventListener('keydown', function(e){
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goToVolunteers(); return; }
+    var step = 16, moved = false;
+    if (!currentTarget) currentTarget = navPos();
+    if (e.key === 'ArrowUp')    { currentTarget.y -= step; moved = true; }
+    if (e.key === 'ArrowDown')  { currentTarget.y += step; moved = true; }
+    if (e.key === 'ArrowLeft')  { currentTarget.x -= step; moved = true; }
+    if (e.key === 'ArrowRight') { currentTarget.x += step; moved = true; }
+    if (moved) { userPositioned = true; applyRig(mainSvg, navPos(), currentTarget, 0.6, 1.65); }
+  });
+
+  // ─── Arrastar a placa (o cipó inteiro gira/escala com a base presa no botão) ───
+  signG.addEventListener('pointerdown', function(e){
+    isDragging = true; dragMoved = false;
+    mainSvg.classList.add('dragging');
+    signG.setPointerCapture(e.pointerId);
+    e.preventDefault();
+  });
+  signG.addEventListener('pointermove', function(e){
+    if (!isDragging) return;
+    dragMoved = true; userPositioned = true;
+    currentTarget = { x: e.clientX, y: e.clientY };
+    applyRig(mainSvg, navPos(), currentTarget, 0.55, 2.1);
+  });
+  function endDrag(e){
+    if (!isDragging) return;
+    isDragging = false;
+    mainSvg.classList.remove('dragging');
+    // reencaixa dentro dos limites "normais" de escala ao soltar
+    applyRig(mainSvg, navPos(), currentTarget, 0.6, 1.65);
+    try { signG.releasePointerCapture(e.pointerId); } catch(err){}
+  }
+  signG.addEventListener('pointerup', endDrag);
+  signG.addEventListener('pointercancel', endDrag);
+
+  // ─── Some no scroll, reaparece após 3s parado ───
+  var scrollTimer = null;
+  window.addEventListener('scroll', function(){
+    if (hideForPage || isDragging) return;
+    layer.classList.add('vine-hidden');
+    layer.classList.remove('vine-visible');
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(function(){ buildMain(true); applyVisibility(); }, 3000);
+  }, { passive: true });
+
+  var resizeTimer = null;
+  window.addEventListener('resize', function(){
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function(){ buildMain(false); applyVisibility(); }, 200);
+  });
+
+  if (typeof showPage === 'function' && !showPage.__vinePatched) {
+    var originalShowPage = showPage;
+    window.showPage = function(id){
+      originalShowPage(id);
+      hideForPage = (id === 'voluntarios');
+      applyVisibility();
+    };
+    window.showPage.__vinePatched = true;
+  }
+
+  setTimeout(function(){ buildMain(true); applyVisibility(); }, 900);
+})();
+</script>
+
 </body>
+
 </html>
