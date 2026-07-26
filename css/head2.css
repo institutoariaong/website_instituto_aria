@@ -1,0 +1,81 @@
+/* ═══ JARDIM ANIMADO — plantas que nascem ao rolar a página ═══ */
+.plant-zone { position: relative; overflow: visible; }
+
+.sprite-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+.plant-point {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  /* Plantas sempre acima de QUALQUER elemento do site,
+     incluindo announce-bar, navbar, e todos os fixed/sticky */
+  z-index: 9999;
+}
+.plant-point .plant-slot {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 46px;
+  margin-left: -23px;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.plant-graphic {
+  width: 100%;
+  height: auto;
+  display: block;
+  transform-origin: bottom center;
+  transform: scale(1, 0);
+  opacity: 0;
+  transition:
+    transform 0.9s cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity 0.5s ease-out;
+  filter: drop-shadow(0 2px 3px rgba(59,37,26,.10));
+}
+
+.plant-graphic.born {
+  opacity: 1;
+  transform: scale(var(--size-scale, 1));
+  animation: aria-plant-sway var(--sway-dur, 4s) ease-in-out infinite;
+  animation-delay: var(--sway-delay, 0s);
+}
+@keyframes aria-plant-sway {
+  0%, 100% { rotate: -2.2deg; }
+  50% { rotate: 2.2deg; }
+}
+
+.plant-graphic.clicked {
+  animation: aria-plant-shake 0.5s ease !important;
+}
+@keyframes aria-plant-shake {
+  0% { rotate: -2deg; }
+  20% { rotate: 10deg; }
+  40% { rotate: -8deg; }
+  60% { rotate: 6deg; }
+  80% { rotate: -4deg; }
+  100% { rotate: -2deg; }
+}
+
+/* Hover do mouse também dispara a animação de "balançar" da planta —
+   só em dispositivos com hover real (mouse), para não conflitar com o
+   toque em telas sensíveis (que já usa o clique/drag). Não se aplica a
+   pontos decorativos (nav/rodapé), pois o slot ali tem pointer-events:none. */
+@media (hover: hover) and (pointer: fine) {
+  .plant-point:not(.deco) .plant-slot:hover .plant-graphic.born {
+    animation: aria-plant-shake 0.5s ease !important;
+  }
+}
+
+/* Pontos decorativos (nav/rodapé): não interferem em cliques */
+.plant-point .plant-slot { -webkit-tap-highlight-color: transparent; }
+.plant-point.deco .plant-slot { pointer-events: none; cursor: default; }
+/* Ghost: planta sobre área de texto — quase transparente, z-index baixo */
+.plant-point.ghost { z-index: 1; }
+.plant-point.ghost .plant-slot { opacity: 0.4; }
+.plant-point.nav-deco .plant-slot { width: 28px; margin-left: -14px; }
+/* Plantas com pata de pet (plant-2, plant-11, plant-22) precisam de slot mais largo */
+.plant-slot.wide { width: 72px; margin-left: -36px; }
+.plant-point.nav-deco .plant-slot.wide { width: 42px; margin-left: -21px; }
+.nav-zone { overflow: visible; }
