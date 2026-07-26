@@ -174,7 +174,7 @@
       <h1 class="fade-up delay-1">Seja um <em>Volunt&aacute;rio</em></h1>
       <p class="fade-up delay-2">O voluntariado &eacute; o cora&ccedil;&atilde;o do Instituto ARIA. S&atilde;o pessoas comuns, com dons extraordin&aacute;rios, que dedicam seu tempo e talento para transformar vidas em Marituba e regi&atilde;o. Aqui voc&ecirc; encontra as oportunidades abertas, entende como funciona o processo e d&aacute; o primeiro passo para fazer parte dessa rede de cuidado.</p>
       <div class="hero-ctas fade-up delay-3" style="margin-top:50px;">
-        <button class="btn-primary" onclick="openVolunteerQuestionnaire()">Quero me inscrever</button>
+        <button class="btn-primary" onclick="showPage('inscricao')">Quero me inscrever</button>
         <button class="btn-secondary" onclick="document.getElementById('vol-oportunidades').scrollIntoView({behavior:'smooth'})">Ver oportunidades</button>
       </div>
     </div>
@@ -230,7 +230,7 @@
             <strong style="color:var(--aria-brown);display:block;margin-bottom:6px;">Perfil indicado</strong>
             Marketing, Publicidade, Jornalismo, Design Gr&aacute;fico, Comunica&ccedil;&atilde;o Social
           </div>
-          <button class="btn-primary" style="width:100%;margin-top:auto;" onclick="openVolunteerQuestionnaire()">Quero me inscrever</button>
+          <button class="btn-primary" style="width:100%;margin-top:auto;" onclick="showPage('inscricao')">Quero me inscrever</button>
         </article>
 
         <article class="aria-card-ivory fade-up delay-1" style="display:flex;flex-direction:column;">
@@ -245,7 +245,7 @@
             <strong style="color:var(--aria-brown);display:block;margin-bottom:6px;">Perfil indicado</strong>
             Administra&ccedil;&atilde;o, Gest&atilde;o P&uacute;blica, Direito, Economia, Relaciones P&uacute;blicas
           </div>
-          <button class="btn-primary" style="width:100%;margin-top:auto;" onclick="openVolunteerQuestionnaire()">Quero me inscrever</button>
+          <button class="btn-primary" style="width:100%;margin-top:auto;" onclick="showPage('inscricao')">Quero me inscrever</button>
         </article>
 
         <article class="aria-card-ivory fade-up delay-2" style="display:flex;flex-direction:column;">
@@ -260,7 +260,7 @@
             <strong style="color:var(--aria-brown);display:block;margin-bottom:6px;">Perfil indicado</strong>
             Servi&ccedil;o Social, Psicologia, Pedagogia, Direito, &Aacute;reas da Sa&uacute;de
           </div>
-          <button class="btn-primary" style="width:100%;margin-top:auto;" onclick="openVolunteerQuestionnaire()">Quero me inscrever</button>
+          <button class="btn-primary" style="width:100%;margin-top:auto;" onclick="showPage('inscricao')">Quero me inscrever</button>
         </article>
 
         <article class="aria-card-ivory fade-up delay-1" style="display:flex;flex-direction:column;">
@@ -275,7 +275,7 @@
             <strong style="color:var(--aria-brown);display:block;margin-bottom:6px;">Perfil indicado</strong>
             Medicina Veterin&aacute;ria, Zootecnia, Biologia e amantes de animais
           </div>
-          <button class="btn-primary" style="width:100%;margin-top:auto;" onclick="openVolunteerQuestionnaire()">Quero me inscrever</button>
+          <button class="btn-primary" style="width:100%;margin-top:auto;" onclick="showPage('inscricao')">Quero me inscrever</button>
         </article>
 
         <article class="aria-card-ivory fade-up delay-2" style="display:flex;flex-direction:column;">
@@ -290,7 +290,7 @@
             <strong style="color:var(--aria-brown);display:block;margin-bottom:6px;">Perfil indicado</strong>
             Professores, profissionais de qualquer &aacute;rea dispostos a ensinar
           </div>
-          <button class="btn-primary" style="width:100%;margin-top:auto;" onclick="openVolunteerQuestionnaire()">Quero me inscrever</button>
+          <button class="btn-primary" style="width:100%;margin-top:auto;" onclick="showPage('inscricao')">Quero me inscrever</button>
         </article>
 
       </div>
@@ -341,7 +341,7 @@
             <li>&#127968; Atua&ccedil;&atilde;o em Marituba &mdash; PA</li>
             <li>&#128172; Acompanhamento durante toda a jornada</li>
           </ul>
-          <button class="volunteer-form-open" type="button" onclick="openVolunteerQuestionnaire()" aria-describedby="volunteer-form-status">Iniciar inscri&ccedil;&atilde;o</button>
+          <button class="volunteer-form-open" type="button" onclick="showPage('inscricao')" aria-describedby="volunteer-form-status">Iniciar inscri&ccedil;&atilde;o</button>
           <p id="volunteer-form-status-vol" class="volunteer-form-status"></p>
         </div>
       </div>
@@ -380,7 +380,7 @@
         <h2 style="max-width:560px;margin:0 auto 16px;">Pronto para transformar vidas &mdash; incluindo a sua?</h2>
         <p style="color:var(--aria-muted);font-size:17px;max-width:480px;margin:0 auto 36px;line-height:1.75;">Cada volunt&aacute;rio que chega ao ARIA traz consigo uma hist&oacute;ria. Vamos construir a sua aqui.</p>
         <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
-          <button class="btn-primary" onclick="openVolunteerQuestionnaire()">Quero me inscrever agora</button>
+          <button class="btn-primary" onclick="showPage('inscricao')">Quero me inscrever agora</button>
           <a href="apoie.html" class="btn-secondary">Quero apoiar financeiramente</a>
         </div>
       </div>
@@ -629,9 +629,11 @@
         <rect x="8" y="8" width="184" height="94" rx="12" fill="none" stroke="#E8D5B7" stroke-width="1.2" stroke-dasharray="6 4" opacity=".8"/>
         <circle cx="15" cy="15" r="3.5" fill="#9A7535" opacity=".6"/><circle cx="185" cy="15" r="3.5" fill="#9A7535" opacity=".6"/>
         <circle cx="15" cy="95" r="3.5" fill="#9A7535" opacity=".6"/><circle cx="185" cy="95" r="3.5" fill="#9A7535" opacity=".6"/>
-        <text class="vine-sign-text-title" x="100" y="38">🌱 FAÇA PARTE</text>
-        <text class="vine-sign-text-main" x="100" y="66">VOLUNTÁRIO</text>
-        <text class="vine-sign-text-sub" x="100" y="88">✦ Clique aqui e saiba mais ✦</text>
+        <g id="vine-sign-text-layer">
+          <text id="vine-sign-title" class="vine-sign-text-title" x="100" y="38">🌱 FAÇA PARTE</text>
+          <text id="vine-sign-main" class="vine-sign-text-main" x="100" y="66">VOLUNTÁRIO</text>
+          <text id="vine-sign-sub" class="vine-sign-text-sub" x="100" y="88">✦ Clique aqui e saiba mais ✦</text>
+        </g>
       </g>
     </g>
   </svg>

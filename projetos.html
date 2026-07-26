@@ -654,7 +654,7 @@
             <li>Consentimento para tratamento dos dados pessoais;</li>
             <li>Para candidatos de 16 e 17 anos, a autorização do responsável poderá ser solicitada na etapa seguinte.</li>
           </ul>
-          <button class="volunteer-form-open" type="button" onclick="openVolunteerQuestionnaire()" aria-describedby="volunteer-form-status">
+          <button class="volunteer-form-open" type="button" onclick="showPage('inscricao')" aria-describedby="volunteer-form-status">
             Abrir questionário do candidato
           </button>
           <p id="volunteer-form-status" class="volunteer-form-status">
@@ -664,222 +664,6 @@
       </div>
     </div>
   </section>
-
-  <div id="volunteer-questionnaire-modal" class="volunteer-questionnaire-modal" hidden
-       onclick="closeVolunteerQuestionnaireFromBackdrop(event)">
-    <div class="volunteer-questionnaire-dialog" role="dialog" aria-modal="true"
-         aria-labelledby="volunteer-questionnaire-title" aria-describedby="volunteer-questionnaire-description">
-      <header class="volunteer-questionnaire-header">
-        <div>
-          <div class="eyebrow">Pré-inscrição de voluntariado</div>
-          <h2 id="volunteer-questionnaire-title">Questionário do candidato</h2>
-        </div>
-        <button class="volunteer-questionnaire-close" type="button"
-                onclick="closeVolunteerQuestionnaire()" aria-label="Fechar questionário">×</button>
-      </header>
-
-      <div class="volunteer-questionnaire-body">
-        <div id="volunteer-questionnaire-description" class="questionnaire-notice">
-          Este é o modelo que será transferido para o Google Forms. Nesta versão de prévia, nenhuma resposta é enviada ou armazenada. O Instituto ARIA aceita candidatos a partir de 16 anos.
-        </div>
-
-        <form id="volunteer-questionnaire-form" onsubmit="submitVolunteerQuestionnaire(event)">
-          <fieldset class="questionnaire-section">
-            <legend>1. Dados básicos</legend>
-            <p class="questionnaire-help">Informações essenciais para identificação e contato inicial.</p>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="candidate-name">Nome completo *</label>
-                <input type="text" id="candidate-name" name="nome_completo" required autocomplete="name" placeholder="Seu nome completo">
-              </div>
-              <div class="form-group">
-                <label for="candidate-age">Idade *</label>
-                <input type="number" id="candidate-age" name="idade" required min="16" max="100" inputmode="numeric" placeholder="A partir de 16 anos">
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="candidate-email">E-mail *</label>
-                <input type="email" id="candidate-email" name="email" required autocomplete="email" placeholder="seu@email.com">
-              </div>
-              <div class="form-group">
-                <label for="candidate-whatsapp">WhatsApp *</label>
-                <input type="tel" id="candidate-whatsapp" name="whatsapp" required autocomplete="tel" placeholder="(91) 99999-9999">
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="candidate-city">Cidade e estado *</label>
-              <input type="text" id="candidate-city" name="cidade_estado" required autocomplete="address-level2" placeholder="Ex.: Marituba, PA">
-            </div>
-            <p class="questionnaire-help">Candidatos de 16 e 17 anos poderão precisar apresentar autorização do responsável apenas na etapa seguinte.</p>
-          </fieldset>
-
-          <fieldset class="questionnaire-section">
-            <legend>2. Disponibilidade</legend>
-            <p class="questionnaire-help">Ajude-nos a entender quando e de que forma você pode colaborar.</p>
-
-            <div class="form-group">
-              <label>Modalidade de preferência *</label>
-              <div class="questionnaire-choice-grid">
-                <label class="questionnaire-choice"><input type="radio" name="modalidade" value="Presencial" required> Presencial</label>
-                <label class="questionnaire-choice"><input type="radio" name="modalidade" value="Remota"> Remota</label>
-                <label class="questionnaire-choice"><input type="radio" name="modalidade" value="Ambas"> Presencial e remota</label>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label>Dias disponíveis</label>
-              <div class="questionnaire-choice-grid">
-                <label class="questionnaire-choice"><input type="checkbox" name="dias" value="Segunda-feira"> Segunda-feira</label>
-                <label class="questionnaire-choice"><input type="checkbox" name="dias" value="Terça-feira"> Terça-feira</label>
-                <label class="questionnaire-choice"><input type="checkbox" name="dias" value="Quarta-feira"> Quarta-feira</label>
-                <label class="questionnaire-choice"><input type="checkbox" name="dias" value="Quinta-feira"> Quinta-feira</label>
-                <label class="questionnaire-choice"><input type="checkbox" name="dias" value="Sexta-feira"> Sexta-feira</label>
-                <label class="questionnaire-choice"><input type="checkbox" name="dias" value="Sábado"> Sábado</label>
-                <label class="questionnaire-choice"><input type="checkbox" name="dias" value="Domingo"> Domingo</label>
-                <label class="questionnaire-choice"><input type="checkbox" name="dias" value="A combinar"> A combinar</label>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label>Turnos disponíveis</label>
-              <div class="questionnaire-choice-grid">
-                <label class="questionnaire-choice"><input type="checkbox" name="turnos" value="Manhã"> Manhã</label>
-                <label class="questionnaire-choice"><input type="checkbox" name="turnos" value="Tarde"> Tarde</label>
-                <label class="questionnaire-choice"><input type="checkbox" name="turnos" value="Noite"> Noite</label>
-                <label class="questionnaire-choice"><input type="checkbox" name="turnos" value="Flexível"> Horário flexível</label>
-              </div>
-            </div>
-
-            <div class="form-row">
-              <div class="form-group">
-                <label for="candidate-frequency">Frequência disponível *</label>
-                <select id="candidate-frequency" name="frequencia" required>
-                  <option value="">Selecione...</option>
-                  <option>Semanal</option>
-                  <option>Quinzenal</option>
-                  <option>Mensal</option>
-                  <option>Ações pontuais</option>
-                  <option>A combinar</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="candidate-start">Quando poderia começar?</label>
-                <input type="date" id="candidate-start" name="inicio_disponibilidade">
-              </div>
-            </div>
-          </fieldset>
-
-          <fieldset class="questionnaire-section">
-            <legend>3. Perfil e interesses</legend>
-            <p class="questionnaire-help">Não é necessário ter experiência anterior. Queremos conhecer suas afinidades e motivações.</p>
-
-            <div class="form-group">
-              <label>Áreas em que gostaria de colaborar</label>
-              <div class="questionnaire-choice-grid">
-                <label class="questionnaire-choice"><input type="checkbox" name="areas" value="Apoio social"> Apoio social</label>
-                <label class="questionnaire-choice"><input type="checkbox" name="areas" value="Educação e formação"> Educação e formação</label>
-                <label class="questionnaire-choice"><input type="checkbox" name="areas" value="Proteção animal"> Proteção animal</label>
-                <label class="questionnaire-choice"><input type="checkbox" name="areas" value="Comunicação e design"> Comunicação e design</label>
-                <label class="questionnaire-choice"><input type="checkbox" name="areas" value="Eventos e campanhas"> Eventos e campanhas</label>
-                <label class="questionnaire-choice"><input type="checkbox" name="areas" value="Captação de recursos"> Captação de recursos</label>
-                <label class="questionnaire-choice"><input type="checkbox" name="areas" value="Apoio administrativo"> Apoio administrativo</label>
-                <label class="questionnaire-choice"><input type="checkbox" name="areas" value="Saúde ou orientação profissional"> Saúde ou orientação profissional</label>
-                <label class="questionnaire-choice"><input type="checkbox" name="areas" value="Outra"> Outra área</label>
-              </div>
-            </div>
-
-            <div class="form-row">
-              <div class="form-group">
-                <label for="candidate-experience">Já realizou trabalho voluntário? *</label>
-                <select id="candidate-experience" name="experiencia_voluntaria" required>
-                  <option value="">Selecione...</option>
-                  <option>Sim, atualmente</option>
-                  <option>Sim, anteriormente</option>
-                  <option>Não, seria minha primeira experiência</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="candidate-project">Interesse inicial em projeto</label>
-                <select id="candidate-project" name="projeto_interesse">
-                  <option value="">Ainda não sei</option>
-                  <option>Se Prepara Menina</option>
-                  <option>Viralatinha</option>
-                  <option>Rede de Acolhimento</option>
-                  <option>Iniciativas futuras</option>
-                  <option>Onde houver necessidade</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="candidate-skills">Quais habilidades, conhecimentos ou experiências você gostaria de compartilhar?</label>
-              <textarea id="candidate-skills" name="habilidades" placeholder="Conte brevemente sobre o que você sabe fazer ou gostaria de desenvolver..."></textarea>
-            </div>
-
-            <div class="form-group">
-              <label for="candidate-motivation">Por que você deseja ser voluntário no Instituto ARIA? *</label>
-              <textarea id="candidate-motivation" name="motivacao" required minlength="20" placeholder="Conte um pouco sobre sua motivação e o impacto que gostaria de ajudar a construir..."></textarea>
-            </div>
-
-            <div class="form-row">
-              <div class="form-group">
-                <label for="candidate-source">Como conheceu o Instituto ARIA?</label>
-                <select id="candidate-source" name="como_conheceu">
-                  <option value="">Selecione...</option>
-                  <option>Instagram ou outra rede social</option>
-                  <option>Indicação de amigos ou familiares</option>
-                  <option>Evento ou ação do Instituto</option>
-                  <option>Escola, faculdade ou empresa</option>
-                  <option>Pesquisa na internet</option>
-                  <option>Outro meio</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="candidate-accessibility">Necessidade de acessibilidade</label>
-                <textarea id="candidate-accessibility" name="acessibilidade" style="min-height:92px;" placeholder="Opcional. Informe apenas o que considerar necessário para sua participação."></textarea>
-              </div>
-            </div>
-          </fieldset>
-
-          <fieldset class="questionnaire-section">
-            <legend>4. Confirmações e consentimentos</legend>
-            <p class="questionnaire-help">Consentimentos separados para facilitar a futura configuração no Google Forms.</p>
-
-            <label class="questionnaire-consent">
-              <input type="checkbox" name="confirmacao_idade" required>
-              <span>Confirmo que tenho pelo menos 16 anos e que as informações fornecidas são verdadeiras. *</span>
-            </label>
-            <label class="questionnaire-consent">
-              <input type="checkbox" name="consentimento_dados" required>
-              <span>Autorizo o Instituto ARIA a utilizar estes dados exclusivamente para analisar minha candidatura e entrar em contato sobre oportunidades de voluntariado. *</span>
-            </label>
-            <label class="questionnaire-consent">
-              <input type="checkbox" name="comunicacoes_opcionais">
-              <span>Desejo receber, opcionalmente, notícias sobre projetos, campanhas e oportunidades futuras do Instituto ARIA.</span>
-            </label>
-          </fieldset>
-
-          <div class="questionnaire-actions">
-            <button class="btn-secondary" type="button" onclick="closeVolunteerQuestionnaire()">Cancelar</button>
-            <button class="btn-primary" type="submit">Concluir questionário (prévia)</button>
-          </div>
-        </form>
-
-        <div id="volunteer-questionnaire-success" class="questionnaire-success" hidden aria-live="polite">
-          <div class="questionnaire-success-icon" aria-hidden="true">✓</div>
-          <h3>Questionário concluído</h3>
-          <p>
-            A estrutura está pronta para ser reproduzida no Google Forms. Como esta é uma prévia local, as respostas preenchidas não foram enviadas nem armazenadas.
-          </p>
-          <div class="questionnaire-actions" style="justify-content:center;">
-            <button class="btn-secondary" type="button" onclick="reviewVolunteerQuestionnaire()">Revisar respostas</button>
-            <button class="btn-primary" type="button" onclick="closeVolunteerQuestionnaire()">Fechar</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
 </div><!-- /page-projetos -->
 
@@ -1122,9 +906,11 @@
         <rect x="8" y="8" width="184" height="94" rx="12" fill="none" stroke="#E8D5B7" stroke-width="1.2" stroke-dasharray="6 4" opacity=".8"/>
         <circle cx="15" cy="15" r="3.5" fill="#9A7535" opacity=".6"/><circle cx="185" cy="15" r="3.5" fill="#9A7535" opacity=".6"/>
         <circle cx="15" cy="95" r="3.5" fill="#9A7535" opacity=".6"/><circle cx="185" cy="95" r="3.5" fill="#9A7535" opacity=".6"/>
-        <text class="vine-sign-text-title" x="100" y="38">🌱 FAÇA PARTE</text>
-        <text class="vine-sign-text-main" x="100" y="66">VOLUNTÁRIO</text>
-        <text class="vine-sign-text-sub" x="100" y="88">✦ Clique aqui e saiba mais ✦</text>
+        <g id="vine-sign-text-layer">
+          <text id="vine-sign-title" class="vine-sign-text-title" x="100" y="38">🌱 FAÇA PARTE</text>
+          <text id="vine-sign-main" class="vine-sign-text-main" x="100" y="66">VOLUNTÁRIO</text>
+          <text id="vine-sign-sub" class="vine-sign-text-sub" x="100" y="88">✦ Clique aqui e saiba mais ✦</text>
+        </g>
       </g>
     </g>
   </svg>

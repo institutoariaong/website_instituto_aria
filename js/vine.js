@@ -1,6 +1,5 @@
 (function(){
   var layer   = document.getElementById('vine-cta-layer');
-  var svg     = document.getElementById('vine-cta-svg');
   var ropeOut = document.getElementById('vine-rope-outer');
   var ropeIn  = document.getElementById('vine-rope-inner');
   var leavesLayer  = document.getElementById('vine-leaves-layer');
@@ -18,38 +17,49 @@
   var SEG_LEN      = 30;
   var GRAVITY      = 0.55;
   var CONSTRAINT_ITERATIONS = 5;
-  var CONSTRAINT_STIFFNESS  = 0.42;  // < 0.5 = corda um pouco "mole", sem repuxar
-  var DAMPING      = 0.90;           // bem mais atrito que um cipó "elástico" — mata oscilação rápido
-  var MAX_STEP     = 3.2;            // clamp de velocidade por frame — evita qualquer solavanco
+  var CONSTRAINT_STIFFNESS  = 0.42;
+  var DAMPING      = 0.90;
+  var MAX_STEP     = 3.2;
   var windPhase = Math.random() * 1000;
 
-  var ANCHOR_OFFSET_X = 20; // 20px depois do botão "Apoie o ARIA", no cabeçalho
-  var anchor = { x: 0, y: 0 };       // posição alvo real (recalculada a cada frame)
-  var anchorSim = { x: 0, y: 0 };    // posição usada na simulação — persegue `anchor` devagar
-  var ANCHOR_TAU = 1.8; // segundos — leva ~3×tau (~5-6s) pra convergir na posição nova
+  var ANCHOR_OFFSET_X = 170; // mais para a direita do botão "Apoie o ARIA"
+  var ANCHOR_OFFSET_Y = -226; // mais para cima do botão
+  var anchor = { x: 0, y: 0 };
+  var anchorSim = { x: 0, y: 0 };
+  var ANCHOR_TAU = 1.8;
 
   var points = [];
   var isDragging = false, dragMoved = false;
   var hideForPage = false;
 
-  function isApoieVisible(){
-    return apoieBtn.offsetParent !== null && apoieBtn.getBoundingClientRect().width > 0;
+  function isMobileWidth(){
+    return window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
   }
 
   function computeAnchorTarget(){
     var r = apoieBtn.getBoundingClientRect();
-    return { x: r.right + ANCHOR_OFFSET_X, y: r.top + r.height / 2 };
+    if (!r || r.width === 0) {
+      return { x: window.innerWidth - 120, y: 90 };
+    }
+    return { x: r.right + ANCHOR_OFFSET_X, y: r.top + r.height / 2 + ANCHOR_OFFSET_Y };
   }
 
   function initPoints(){
     anchor = computeAnchorTarget();
     anchorSim.x = anchor.x; anchorSim.y = anchor.y;
+    var birthY = anchorSim.y - 34;
     points = [];
     for (var i = 0; i < NUM_POINTS; i++) {
-      var y = anchorSim.y + i * SEG_LEN;
-      points.push({ x: anchorSim.x, y: y, oldx: anchorSim.x, oldy: y, pinned: i === 0 });
+      points.push({
+        x: anchorSim.x + i * 0.4, y: birthY,
+        oldx: anchorSim.x + i * 0.4, oldy: birthY,
+        pinned: i === 0
+      });
     }
     buildOrnaments();
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ layer.classList.add('vine-born'); });
+    });
   }
 
   // ─── Folhas/flores reais, distribuídas ao longo da corda ───
@@ -107,13 +117,29 @@
     }
   }
 
+  // ─── Retração proporcional à velocidade de scroll ───
+  var retractAmount = 0;
+  var RETRACT_STRENGTH = 0.55, RETRACT_SPEED_FULL = 1400;
+  var RETRACT_RISE_TAU = 0.12, RETRACT_FALL_TAU = 1.7;
+  var lastScrollY = window.scrollY || 0;
+  function updateRetract(dt){
+    var currentScrollY = window.scrollY || 0;
+    var speed = Math.abs(currentScrollY - lastScrollY) / Math.max(dt, 0.001);
+    lastScrollY = currentScrollY;
+    var target = Math.min(speed / RETRACT_SPEED_FULL, 1);
+    var tau = (target > retractAmount) ? RETRACT_RISE_TAU : RETRACT_FALL_TAU;
+    var alpha = 1 - Math.exp(-dt / tau);
+    retractAmount += (target - retractAmount) * alpha;
+  }
+
   function applyConstraints(){
+    var segLenNow = SEG_LEN * (1 - retractAmount * RETRACT_STRENGTH);
     for (var iter = 0; iter < CONSTRAINT_ITERATIONS; iter++) {
       for (var i = 0; i < points.length - 1; i++) {
         var p1 = points[i], p2 = points[i + 1];
         var dx = p2.x - p1.x, dy = p2.y - p1.y;
         var dist = Math.sqrt(dx * dx + dy * dy) || 0.0001;
-        var diff = (dist - SEG_LEN) / dist;
+        var diff = (dist - segLenNow) / dist;
         var offX = dx * CONSTRAINT_STIFFNESS * diff;
         var offY = dy * CONSTRAINT_STIFFNESS * diff;
         if (!p1.pinned) { p1.x += offX; p1.y += offY; }
@@ -166,15 +192,55 @@
     signCardGroup.setAttribute('transform', 'translate(' + cardX + ',' + cardY + ') rotate(' + swing + ' 100 -40)');
   }
 
+  // ─── Texto da placa muda suavemente conforme a página ───
+  var textLayer = document.getElementById('vine-sign-text-layer');
+  var titleEl = document.getElementById('vine-sign-title');
+  var mainEl  = document.getElementById('vine-sign-main');
+  var subEl   = document.getElementById('vine-sign-sub');
+  var onVolPage = false;
+  var TEXT_FADE_MS = 220;
+  function setSignMode(isVolPage){
+    if (!textLayer || !titleEl || !mainEl || !subEl) return;
+    var wantTitle = isVolPage ? '🌱 VENHA AJUDAR' : '🌱 FAÇA PARTE';
+    var wantMain  = isVolPage ? 'QUERO ME INSCREVER' : 'VOLUNTÁRIO';
+    var wantSub   = isVolPage ? '✦ Clique e preencha o formulário ✦' : '✦ Clique aqui e saiba mais ✦';
+    var wantMainSize = isVolPage ? '14px' : '20px';
+    if (titleEl.textContent === wantTitle && mainEl.textContent === wantMain) return;
+    textLayer.classList.add('vine-text-fading');
+    setTimeout(function(){
+      titleEl.textContent = wantTitle;
+      mainEl.textContent = wantMain;
+      subEl.textContent = wantSub;
+      mainEl.style.fontSize = wantMainSize;
+      textLayer.classList.remove('vine-text-fading');
+    }, TEXT_FADE_MS);
+  }
+
   // ─── Clique navega, arraste reposiciona (sem soltar "estilingue") ───
+  function goHref(){
+    return onVolPage ? 'inscricao.html' : 'voluntarios.html';
+  }
   function goToVolunteers(){
     if (dragMoved) { dragMoved = false; return; }
-    if (typeof showPage === 'function') showPage('voluntarios');
+    var href = goHref();
+    if (typeof window.ARIA_navigate === 'function') { window.ARIA_navigate(href, false); }
+    else { window.location.href = href; }
   }
   signG.addEventListener('click', goToVolunteers);
   signG.addEventListener('keydown', function(e){
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goToVolunteers(); }
   });
+
+  // ─── Arraste: se puxar além do limite, a placa "foge" da tela e desce devagar ───
+  var RETREAT_THRESHOLD = 50;
+  var RETREAT_FADE_MS = 260;
+  var pointsReady = false;
+  function triggerRetreat(){
+    layer.classList.remove('vine-born');
+    setTimeout(function(){
+      initPoints();
+    }, RETREAT_FADE_MS);
+  }
 
   signG.addEventListener('pointerdown', function(e){
     isDragging = true; dragMoved = false;
@@ -187,7 +253,6 @@
     dragMoved = true;
     var last = points[points.length - 1];
     last.x = e.clientX; last.y = e.clientY;
-    // sem transferir velocidade de arraste pra corda — evita o "estica e volta rápido"
     last.oldx = last.x; last.oldy = last.y;
   });
   function endDrag(e){
@@ -195,35 +260,34 @@
     isDragging = false;
     signG.classList.remove('dragging');
     var last = points[points.length - 1];
-    last.oldx = last.x; last.oldy = last.y; // zera qualquer velocidade residual do solto
+    var below = last.y - anchorSim.y;
+    last.oldx = last.x; last.oldy = last.y;
     try { signG.releasePointerCapture(e.pointerId); } catch(err){}
+    if (below > RETREAT_THRESHOLD * (NUM_POINTS * 0.7)) {
+      triggerRetreat();
+    }
   }
   signG.addEventListener('pointerup', endDrag);
   signG.addEventListener('pointercancel', endDrag);
 
   function applyVisibility(){
-    layer.style.display = (hideForPage || !isApoieVisible()) ? 'none' : '';
+    layer.style.display = (hideForPage || isMobileWidth()) ? 'none' : '';
   }
 
-  if (typeof showPage === 'function' && !showPage.__vinePatched) {
-    var originalShowPage = showPage;
-    window.showPage = function(id){
-      originalShowPage(id);
-      hideForPage = (id === 'voluntarios');
-      applyVisibility();
-    };
-    window.showPage.__vinePatched = true;
+  function updatePageState(page){
+    onVolPage = (page === 'voluntarios' || page === 'inscricao');
+    hideForPage = false; // o cipó também aparece na página de Voluntários/Inscrição
+    setSignMode(onVolPage);
+    applyVisibility();
   }
 
-  // Na navegação SPA (fetch+swap), showPage nem sempre é o gatilho — um clique
-  // num link comum <a href="voluntarios.html"> também troca de página. O motor
-  // (js/spa-nav.js) dispara 'aria:navigated' com o data-page de destino após
-  // cada troca, então recalculamos hideForPage a partir dele. Isso evita que a
-  // vinha fique "presa" escondida depois de passar por voluntarios.html.
+  // Estado inicial, a partir do data-page já presente no <body>.
+  updatePageState(document.body.getAttribute('data-page'));
+
+  // A cada troca de página pelo motor SPA (js/spa-nav.js), reavalia o modo da placa.
   document.addEventListener('aria:navigated', function(ev){
     var page = ev && ev.detail && ev.detail.page;
-    hideForPage = (page === 'voluntarios');
-    applyVisibility();
+    updatePageState(page);
   });
 
   var resizeTimer = null;
@@ -233,22 +297,20 @@
   });
 
   var lastT = performance.now();
-  var pointsReady = false;
   function loop(t){
     var dt = Math.min((t - lastT) / 1000, 0.05);
     lastT = t;
-    var visible = isApoieVisible() && !hideForPage;
-    // se auto-corrige a cada frame — não depende de um único check no carregamento
+    var visible = !isMobileWidth();
     applyVisibility();
     if (visible) {
       if (!pointsReady) { initPoints(); pointsReady = true; }
       updateAnchor(dt);
+      updateRetract(dt);
       updatePoints(t);
       applyConstraints();
       render();
     }
     requestAnimationFrame(loop);
   }
-
   requestAnimationFrame(loop);
 })();

@@ -171,42 +171,6 @@
   })();
 
   (function(){
-    var questionnairePreviousFocus = null;
-    var questionnairePreviousOverflow = '';
-
-    window.openVolunteerQuestionnaire = function(){
-      var modal = document.getElementById('volunteer-questionnaire-modal');
-      var form = document.getElementById('volunteer-questionnaire-form');
-      var success = document.getElementById('volunteer-questionnaire-success');
-      if(!modal || !form || !success) return;
-
-      questionnairePreviousFocus = document.activeElement;
-      questionnairePreviousOverflow = document.body.style.overflow;
-      form.hidden = false;
-      success.hidden = true;
-      modal.hidden = false;
-      document.body.style.overflow = 'hidden';
-
-      requestAnimationFrame(function(){
-        var firstField = document.getElementById('candidate-name');
-        if(firstField) firstField.focus();
-      });
-    };
-
-    window.closeVolunteerQuestionnaire = function(){
-      var modal = document.getElementById('volunteer-questionnaire-modal');
-      if(!modal) return;
-      modal.hidden = true;
-      document.body.style.overflow = questionnairePreviousOverflow;
-      if(questionnairePreviousFocus && typeof questionnairePreviousFocus.focus === 'function'){
-        questionnairePreviousFocus.focus();
-      }
-    };
-
-    window.closeVolunteerQuestionnaireFromBackdrop = function(event){
-      if(event.target === event.currentTarget) closeVolunteerQuestionnaire();
-    };
-
     window.submitVolunteerQuestionnaire = function(event){
       event.preventDefault();
       var form = event.currentTarget;
@@ -234,11 +198,4 @@
       var firstField = document.getElementById('candidate-name');
       if(firstField) firstField.focus();
     };
-
-    document.addEventListener('keydown', function(event){
-      var modal = document.getElementById('volunteer-questionnaire-modal');
-      if(event.key === 'Escape' && modal && !modal.hidden){
-        closeVolunteerQuestionnaire();
-      }
-    });
   })();

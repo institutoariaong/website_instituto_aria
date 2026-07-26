@@ -29,7 +29,7 @@ function navigateWithFade(url) {
 
 var PAGE_URLS = {
   home:'index.html', quemsomos:'quem-somos.html', projetos:'projetos.html',
-  voluntarios:'voluntarios.html', produtos:'produtos.html', impacto:'impacto.html',
+  voluntarios:'voluntarios.html', inscricao:'inscricao.html', produtos:'produtos.html', impacto:'impacto.html',
   contato:'contato.html', apoie:'apoie.html', restrita:'restrita.html',
   privacidade:'privacidade.html', parceria:'parceria.html'
 };
@@ -58,7 +58,7 @@ function initCurrentPage() {
 
 function updateActiveLink(id) {
   const map = {
-    home: 0, quemsomos: 1, projetos: 2, voluntarios: 3, produtos: 4, impacto: 5,
+    home: 0, quemsomos: 1, projetos: 2, voluntarios: 3, inscricao: 3, produtos: 4, impacto: 5,
     contato: 6, restrita: 7, privacidade: 7
   };
   document.querySelectorAll('.nav-link').forEach((l, i) => {

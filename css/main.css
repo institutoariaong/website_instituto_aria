@@ -2107,17 +2107,11 @@ footer::before {
   margin:12px 0 0!important;color:rgba(255,255,255,.72)!important;
   font-size:12px;line-height:1.55;
 }
-.volunteer-questionnaire-modal {
-  position:fixed;inset:0;z-index:12000;display:grid;place-items:center;
-  padding:clamp(10px,2vw,24px);background:rgba(46,29,35,.74);
-  backdrop-filter:blur(5px);
-}
-.volunteer-questionnaire-modal[hidden] { display:none; }
+.volunteer-questionnaire-dialog-page-wrap { display:block; }
 .volunteer-questionnaire-dialog {
-  width:min(900px,100%);max-height:min(94dvh,920px);overflow:auto;
-  overscroll-behavior:contain;background:var(--aria-ivory);
+  width:100%;background:var(--aria-ivory);
   border:1px solid var(--aria-border-gold);border-radius:var(--r-lg);
-  box-shadow:0 28px 80px rgba(31,18,23,.35);
+  box-shadow:0 20px 56px rgba(31,18,23,.16);
 }
 .volunteer-questionnaire-header {
   position:sticky;top:0;z-index:2;display:flex;align-items:flex-start;
@@ -2132,6 +2126,7 @@ footer::before {
   width:44px;height:44px;flex:0 0 44px;border-radius:50%;
   border:1px solid var(--aria-border-gold);background:var(--aria-cream);
   color:var(--aria-wine);font-size:25px;line-height:1;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;text-decoration:none;
 }
 .volunteer-questionnaire-body { padding:clamp(20px,4vw,38px); }
 .questionnaire-notice {

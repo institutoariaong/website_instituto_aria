@@ -5,14 +5,14 @@
   .vine-sign-text-main { font-family:'Montserrat',sans-serif,Arial; font-size:20px; font-weight:800; fill:#4A7A35; text-anchor:middle; }
   .vine-sign-text-sub { font-family:'Montserrat',sans-serif,Arial; font-size:11px; font-weight:600; fill:#C6A15B; text-anchor:middle; }
 
-  #vine-cta-layer{ position:fixed; inset:0; width:100vw; height:100vh; pointer-events:none; z-index:850; overflow:hidden; }
+  #vine-cta-layer{ position:fixed; inset:0; width:100vw; height:100vh; pointer-events:none; z-index:850; overflow:hidden; opacity:0; transition:opacity 1.4s ease; }
+  #vine-cta-layer.vine-born{ opacity:1; }
   #vine-cta-svg{ width:100%; height:100%; overflow:visible; display:block; }
   .vine-sign-wrapper{ pointer-events:auto; cursor:grab; }
   .vine-sign-wrapper.dragging{ cursor:grabbing; }
+  #vine-sign-text-layer{ transition:opacity .22s ease; }
+  #vine-sign-text-layer.vine-text-fading{ opacity:0; }
 
-  @media (max-width: 900px), (hover:none) and (pointer:coarse){
-    #vine-cta-layer{ display:none; }
-  }
-  @media (prefers-reduced-motion: reduce){
+  @media (max-width: 768px), (hover:none) and (pointer:coarse){
     #vine-cta-layer{ display:none; }
   }
