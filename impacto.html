@@ -10,9 +10,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,500;6..12,600;6..12,700&family=Montserrat:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,500;6..12,600;6..12,700&family=Montserrat:wght@400;500;600;700&display=swap"></noscript>
-<link rel="stylesheet" href="css/main.css">
-<link rel="stylesheet" href="css/head2.css">
-<link rel="stylesheet" href="css/vine.css">
+<link rel="stylesheet" href="css/main.css?v=202607262330">
+<link rel="stylesheet" href="css/head2.css?v=202607261738">
+<link rel="stylesheet" href="css/vine.css?v=202607261738">
 </head>
 <body data-page="impacto">
 <!-- sprite das plantas/flores, invisível, só fonte para os <use> -->
@@ -206,157 +206,221 @@
 
   <!-- SOBRE O IMPACTO (Removido) -->
 
-  <!-- DEPOIMENTOS DO PROJETO SE PREPARA MENINA -->
-  <section class="section plant-zone" style="background:var(--aria-bg);" aria-labelledby="imp-dep-h">
+  <!-- DEPOIMENTOS DO PROJETO SE PREPARA MENINA — carrossel compacto -->
+  <section class="section carousel-section" style="background:var(--aria-bg);" aria-labelledby="imp-dep-h">
     <div class="container">
       <div class="section-header fade-up">
         <div class="eyebrow">Quem viveu, conta</div>
         <h2 id="imp-dep-h">Depoimentos</h2>
-        <p>Histórias reais de quem faz parte do Projeto Se Prepara Menina e do voluntariado ARIA. Clique em uma figura para ler.</p>
+        <p>Histórias reais de quem faz parte do Projeto Se Prepara Menina.</p>
       </div>
-      <div class="floating-figures-grid">
-        <!-- Foto depoimentos — Se Prepara Menina -->
-        <button class="floating-story-trigger shape-circle fade-up delay-1"
-                onclick="openImpactModal('camyle')"
-                aria-label="Ver depoimento de Camyle">
-          <div class="floating-story-shape">
-            <img src="assets/img/depoimentos/se-prepara-menina-01.webp" alt="" loading="lazy"/>
-          </div>
-          <span class="floating-story-name">Camyle</span>
+      <div class="carousel-wrap fade-up delay-1">
+        <button class="carousel-nav prev" data-target="dep-track" aria-label="Depoimento anterior">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 3 5 9l6 6"/></svg>
         </button>
-        <button class="floating-story-trigger shape-organic fade-up delay-2"
-                onclick="openImpactModal('orelie')"
-                aria-label="Ver depoimento de Orelie">
-          <div class="floating-story-shape">
-            <img src="assets/img/depoimentos/se-prepara-menina-02.webp" alt="" loading="lazy"/>
-          </div>
-          <span class="floating-story-name">Orelie</span>
-        </button>
-        <button class="floating-story-trigger shape-rect fade-up delay-3"
-                onclick="openImpactModal('part3')"
-                aria-label="Ver depoimento de participante">
-          <div class="floating-story-shape">
-            <img src="assets/img/depoimentos/se-prepara-menina-03.webp" alt="" loading="lazy"/>
-          </div>
-          <span class="floating-story-name">Participante</span>
-        </button>
-        <button class="floating-story-trigger shape-organic fade-up delay-1"
-                onclick="openImpactModal('part4')"
-                aria-label="Ver depoimento de participante">
-          <div class="floating-story-shape">
-            <img src="assets/img/depoimentos/se-prepara-menina-04.webp" alt="" loading="lazy"/>
-          </div>
-          <span class="floating-story-name">Participante</span>
-        </button>
-        <button class="floating-story-trigger shape-circle fade-up delay-2"
-                onclick="openImpactModal('andriellen')"
-                aria-label="Ver depoimento de Andriellen">
-          <div class="floating-story-shape">
-            <img src="assets/img/depoimentos/se-prepara-menina-05.webp" alt="" loading="lazy"/>
-          </div>
-          <span class="floating-story-name">Andriellen</span>
-        </button>
-        <button class="floating-story-trigger shape-rect fade-up delay-3"
-                onclick="openImpactModal('part6')"
-                aria-label="Ver depoimento de participante">
-          <div class="floating-story-shape">
-            <img src="assets/img/depoimentos/se-prepara-menina-06.webp" alt="" loading="lazy"/>
-          </div>
-          <span class="floating-story-name">Participante</span>
-        </button>
-        <!-- Depoimentos textuais — voluntariado -->
-        <button class="floating-story-trigger shape-circle fade-up delay-1"
-                onclick="openImpactModal('vol1')"
-                aria-label="Ver depoimento de voluntária">
-          <div class="floating-story-shape">
-            <div class="floating-story-placeholder" style="background:var(--aria-plum);" aria-hidden="true">🐾</div>
-          </div>
-          <span class="floating-story-name">Voluntária</span>
-        </button>
-        <button class="floating-story-trigger shape-organic fade-up delay-2"
-                onclick="openImpactModal('vol2')"
-                aria-label="Ver depoimento de voluntária">
-          <div class="floating-story-shape">
-            <div class="floating-story-placeholder" style="background:var(--aria-wine);" aria-hidden="true">💛</div>
-          </div>
-          <span class="floating-story-name">Voluntária</span>
-        </button>
-        <button class="floating-story-trigger shape-rect fade-up delay-3"
-                onclick="openImpactModal('vol3')"
-                aria-label="Ver depoimento de voluntária">
-          <div class="floating-story-shape">
-            <div class="floating-story-placeholder" style="background:var(--aria-brown);" aria-hidden="true">🌱</div>
-          </div>
-          <span class="floating-story-name">Voluntária</span>
+        <div class="coverflow-stage" id="dep-track">
+
+          <article class="carousel-card">
+            <div class="carousel-card-photo"><img src="assets/img/depoimentos/depoimento-camyle.png" alt="Camyle, participante do Projeto Se Prepara Menina" loading="lazy"/></div>
+            <div class="carousel-card-body">
+              <span class="carousel-card-name">Camyle</span>
+              <p class="carousel-card-quote">&ldquo;Só tenho a agradecer ao projeto por ter sido um divisor de águas na minha vida.&rdquo;</p>
+              <button class="carousel-expand-btn" aria-expanded="false">Ler depoimento completo</button>
+              <div class="carousel-expand-panel">
+                <p>Aprendi estabilidade financeira, técnicas de informática, empreendedorismo, e participei das ações voluntárias que ampliaram minha visão sobre a realidade de outras pessoas. Hoje trabalho em uma clínica médica como ajudante de secretaria — e muito do que aprendi nas aulas de informática uso todos os dias no trabalho.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="carousel-card">
+            <div class="carousel-card-photo"><img src="assets/img/depoimentos/depoimento-orelie.png" alt="Orelie, participante do Projeto Se Prepara Menina" loading="lazy"/></div>
+            <div class="carousel-card-body">
+              <span class="carousel-card-name">Orelie</span>
+              <p class="carousel-card-quote">&ldquo;O projeto desencadeou nas meninas a vontade de correr atrás dos seus sonhos.&rdquo;</p>
+              <button class="carousel-expand-btn" aria-expanded="false">Ler depoimento completo</button>
+              <div class="carousel-expand-panel">
+                <p>Amadureci em minhas escolhas e vi oportunidades nas coisas mais simples — inclusive nas ações sociais, como as doações de cestas básicas para famílias carentes. As aulas de informática básica também me ajudaram muito nos trabalhos escolares.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="carousel-card">
+            <div class="carousel-card-photo"><img src="assets/img/depoimentos/depoimento-adrian.png" alt="Adrian, participante do Projeto Se Prepara Menina" loading="lazy"/></div>
+            <div class="carousel-card-body">
+              <span class="carousel-card-name">Adrian</span>
+              <p class="carousel-card-quote">&ldquo;Sou grata à Caroline e a todas as pessoas que ajudaram a proporcionar esse curso a nós, meninas.&rdquo;</p>
+              <button class="carousel-expand-btn" aria-expanded="false">Ler depoimento completo</button>
+              <div class="carousel-expand-panel">
+                <p>O projeto me ajudou a conhecer um pouco sobre mim mesma, com diálogos importantes sobre adolescência, faculdade, concursos e identidade. Conheci pessoas incríveis que vou levar para sempre no coração.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="carousel-card">
+            <div class="carousel-card-photo"><img src="assets/img/depoimentos/depoimento-participante.png" alt="Participante do Projeto Se Prepara Menina" loading="lazy"/></div>
+            <div class="carousel-card-body">
+              <span class="carousel-card-name">Participante</span>
+              <p class="carousel-card-quote">&ldquo;Participar do projeto foi ótimo para ampliar meu horizonte e ganhar experiência. Amei demais!&rdquo;</p>
+              <button class="carousel-expand-btn" aria-expanded="false">Ler depoimento completo</button>
+              <div class="carousel-expand-panel">
+                <p>Tivemos aulas sobre maquiagem, informática e mercado de trabalho — e também ações como recolher lixo da praia e distribuir brinquedos.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="carousel-card">
+            <div class="carousel-card-photo"><img src="assets/img/depoimentos/depoimento-andriellen.png" alt="Andriellen, participante do Projeto Se Prepara Menina" loading="lazy"/></div>
+            <div class="carousel-card-body">
+              <span class="carousel-card-name">Andriellen</span>
+              <p class="carousel-card-quote">&ldquo;O projeto impactou minha vida de forma maravilhosa, e sou eternamente grata à Carol.&rdquo;</p>
+              <button class="carousel-expand-btn" aria-expanded="false">Ler depoimento completo</button>
+              <div class="carousel-expand-panel">
+                <p>Eu estava desempregada e sem condições de me deslocar até Mosqueiro, onde aconteciam as aulas. A Carol fez de tudo para que eu pudesse participar. Graças ao que aprendi — Informática, Excel, Canva, LinkedIn — consegui um emprego como assistente administrativa na minha cidade.</p>
+              </div>
+            </div>
+          </article>
+
+        </div>
+        <button class="carousel-nav next" data-target="dep-track" aria-label="Próximo depoimento">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 3l6 6-6 6"/></svg>
         </button>
       </div>
     </div>
   </section>
 
-  <!-- CASOS DE RESGATE -->
-  <section class="section plant-zone" style="background:var(--aria-ivory);" aria-labelledby="imp-casos-h">
+  <!-- CASOS DE RESGATE — carrossel compacto -->
+  <section class="section carousel-section" style="background:var(--aria-ivory);" aria-labelledby="imp-casos-h">
     <div class="container">
       <div class="section-header fade-up">
         <div class="eyebrow">Cada vida importa</div>
         <h2 id="imp-casos-h">Casos de resgate</h2>
-        <p>Alguns dos animais que o Instituto ARIA ajudou a transformar. Clique em um caso para saber mais.</p>
+        <p>Alguns dos animais que o Instituto ARIA ajudou a transformar. Toque em "Ver jornada" para acompanhar a recuperação.</p>
       </div>
-      <div class="floating-figures-grid">
-        <button class="floating-story-trigger shape-organic fade-up delay-1"
-                onclick="openRescueModal('mel')"
-                aria-label="Ver caso Mel">
-          <div class="floating-story-shape">
-            <img src="assets/img/depoimentos/resgate-animal-01.webp" alt="" loading="lazy"/>
-          </div>
-          <span class="floating-story-name">Caso Mel</span>
+      <div class="carousel-wrap fade-up delay-1">
+        <button class="carousel-nav prev" data-target="res-track" aria-label="Caso anterior">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 3 5 9l6 6"/></svg>
         </button>
-        <button class="floating-story-trigger shape-circle fade-up delay-2"
-                onclick="openRescueModal('sansao')"
-                aria-label="Ver caso Sansão">
-          <div class="floating-story-shape">
-            <img src="assets/img/depoimentos/resgate-animal-02.webp" alt="" loading="lazy"/>
-          </div>
-          <span class="floating-story-name">Caso Sansão</span>
-        </button>
-        <button class="floating-story-trigger shape-rect fade-up delay-3"
-                onclick="openRescueModal('bethoven')"
-                aria-label="Ver caso Bethoven">
-          <div class="floating-story-shape">
-            <img src="assets/img/depoimentos/resgate-animal-03.webp" alt="" loading="lazy"/>
-          </div>
-          <span class="floating-story-name">Caso Bethoven</span>
-        </button>
-        <button class="floating-story-trigger shape-circle fade-up delay-1"
-                onclick="openRescueModal('trigemeos')"
-                aria-label="Ver caso Trigêmeos">
-          <div class="floating-story-shape">
-            <img src="assets/img/depoimentos/resgate-animal-04.webp" alt="" loading="lazy"/>
-          </div>
-          <span class="floating-story-name">Caso Trigêmeos</span>
-        </button>
-        <button class="floating-story-trigger shape-organic fade-up delay-2"
-                onclick="openRescueModal('felicia')"
-                aria-label="Ver caso Felícia">
-          <div class="floating-story-shape">
-            <img src="assets/img/depoimentos/resgate-animal-05.webp" alt="" loading="lazy"/>
-          </div>
-          <span class="floating-story-name">Caso Felícia</span>
-        </button>
-        <button class="floating-story-trigger shape-rect fade-up delay-3"
-                onclick="openRescueModal('apolo')"
-                aria-label="Ver caso Apolo">
-          <div class="floating-story-shape">
-            <img src="assets/img/depoimentos/resgate-animal-06.webp" alt="" loading="lazy"/>
-          </div>
-          <span class="floating-story-name">Caso Apolo</span>
-        </button>
-        <button class="floating-story-trigger shape-organic fade-up delay-1"
-                onclick="openRescueModal('melinaamora')"
-                aria-label="Ver caso Melina e Amora">
-          <div class="floating-story-shape">
-            <img src="assets/img/depoimentos/resgate-animal-07.webp" alt="" loading="lazy"/>
-          </div>
-          <span class="floating-story-name">Melina e Amora</span>
+        <div class="coverflow-stage" id="res-track">
+
+          <article class="carousel-card">
+            <div class="carousel-card-photo"><img src="assets/img/depoimentos/resgate-mel-4.png" alt="Mel, recuperada" loading="lazy"/></div>
+            <div class="carousel-card-body">
+              <span class="carousel-card-name">Caso Mel</span>
+              <p class="carousel-card-quote-plain">Resgatada em grave situação de maus-tratos. Hoje vive saudável e feliz.</p>
+              <button class="carousel-expand-btn" aria-expanded="false">Ver jornada</button>
+              <div class="carousel-expand-panel">
+                <div class="rescue-mini-timeline">
+                  <div><img src="assets/img/depoimentos/resgate-mel-1.png" alt="Mel no resgate" loading="lazy"/><span>Resgate</span></div>
+                  <div><img src="assets/img/depoimentos/resgate-mel-2.png" alt="Mel em cuidados" loading="lazy"/><span>Cuidados</span></div>
+                  <div><img src="assets/img/depoimentos/resgate-mel-3.png" alt="Mel em recuperação" loading="lazy"/><span>Recuperação</span></div>
+                  <div><img src="assets/img/depoimentos/resgate-mel-4.png" alt="Mel hoje" loading="lazy"/><span>Hoje</span></div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="carousel-card">
+            <div class="carousel-card-photo"><img src="assets/img/depoimentos/resgate-sansao-3.png" alt="Sansão, recuperado" loading="lazy"/></div>
+            <div class="carousel-card-body">
+              <span class="carousel-card-name">Caso Sansão</span>
+              <p class="carousel-card-quote-plain">Encontrado em estado crítico. Ganhou força e um lar amoroso.</p>
+              <button class="carousel-expand-btn" aria-expanded="false">Ver jornada</button>
+              <div class="carousel-expand-panel">
+                <div class="rescue-mini-timeline">
+                  <div><img src="assets/img/depoimentos/resgate-sansao-1.png" alt="Sansão no resgate" loading="lazy"/><span>Resgate</span></div>
+                  <div><img src="assets/img/depoimentos/resgate-sansao-2.png" alt="Sansão em cuidados" loading="lazy"/><span>Cuidados</span></div>
+                  <div><img src="assets/img/depoimentos/resgate-sansao-3.png" alt="Sansão hoje" loading="lazy"/><span>Recuperação</span></div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="carousel-card">
+            <div class="carousel-card-photo"><img src="assets/img/depoimentos/resgate-bethoven-4.png" alt="Bethoven, recuperado" loading="lazy"/></div>
+            <div class="carousel-card-body">
+              <span class="carousel-card-name">Caso Bethoven</span>
+              <p class="carousel-card-quote-plain">Resgatado com infecções e desnutrição severa. Hoje, adoção responsável.</p>
+              <button class="carousel-expand-btn" aria-expanded="false">Ver jornada</button>
+              <div class="carousel-expand-panel">
+                <div class="rescue-mini-timeline">
+                  <div><img src="assets/img/depoimentos/resgate-bethoven-1.png" alt="Bethoven no resgate" loading="lazy"/><span>Resgate</span></div>
+                  <div><img src="assets/img/depoimentos/resgate-bethoven-2.png" alt="Bethoven em cuidados" loading="lazy"/><span>Cuidados</span></div>
+                  <div><img src="assets/img/depoimentos/resgate-bethoven-3.png" alt="Certificado de conclusão do Bethoven" loading="lazy"/><span>Certificado — 04.06.25</span></div>
+                  <div><img src="assets/img/depoimentos/resgate-bethoven-4.png" alt="Bethoven hoje" loading="lazy"/><span>Hoje</span></div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="carousel-card">
+            <div class="carousel-card-photo"><img src="assets/img/depoimentos/resgate-trigemeos-4.png" alt="Trigêmeos, recuperados" loading="lazy"/></div>
+            <div class="carousel-card-body">
+              <span class="carousel-card-name">Caso Trigêmeos</span>
+              <p class="carousel-card-quote-plain">Três filhotes resgatados juntos, ainda muito pequenos. Hoje, adotados.</p>
+              <button class="carousel-expand-btn" aria-expanded="false">Ver jornada</button>
+              <div class="carousel-expand-panel">
+                <div class="rescue-mini-timeline">
+                  <div><img src="assets/img/depoimentos/resgate-trigemeos-1.png" alt="Trigêmeos no resgate" loading="lazy"/><span>Resgate</span></div>
+                  <div><img src="assets/img/depoimentos/resgate-trigemeos-2.png" alt="Trigêmeos em cuidados" loading="lazy"/><span>Cuidados</span></div>
+                  <div><img src="assets/img/depoimentos/resgate-trigemeos-3.png" alt="Trigêmeos em recuperação" loading="lazy"/><span>Recuperação</span></div>
+                  <div><img src="assets/img/depoimentos/resgate-trigemeos-4.png" alt="Trigêmeos hoje" loading="lazy"/><span>Hoje</span></div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="carousel-card">
+            <div class="carousel-card-photo"><img src="assets/img/depoimentos/resgate-felicia-3.png" alt="Felícia, recuperada" loading="lazy"/></div>
+            <div class="carousel-card-body">
+              <span class="carousel-card-name">Caso Felícia</span>
+              <p class="carousel-card-quote-plain">Resgatada em situação de abandono. Hoje, alegre e sociável.</p>
+              <button class="carousel-expand-btn" aria-expanded="false">Ver jornada</button>
+              <div class="carousel-expand-panel">
+                <div class="rescue-mini-timeline">
+                  <div><img src="assets/img/depoimentos/resgate-felicia-1.png" alt="Felícia no resgate" loading="lazy"/><span>Resgate</span></div>
+                  <div><img src="assets/img/depoimentos/resgate-felicia-2.png" alt="Felícia em cuidados" loading="lazy"/><span>Cuidados</span></div>
+                  <div><img src="assets/img/depoimentos/resgate-felicia-3.png" alt="Felícia hoje" loading="lazy"/><span>Recuperação</span></div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="carousel-card">
+            <div class="carousel-card-photo"><img src="assets/img/depoimentos/resgate-apolo-3.png" alt="Apolo, recuperado" loading="lazy"/></div>
+            <div class="carousel-card-body">
+              <span class="carousel-card-name">Caso Apolo</span>
+              <p class="carousel-card-quote-plain">Encontrado sozinho e ferido. Hoje, uma segunda chance de vida.</p>
+              <button class="carousel-expand-btn" aria-expanded="false">Ver jornada</button>
+              <div class="carousel-expand-panel">
+                <div class="rescue-mini-timeline">
+                  <div><img src="assets/img/depoimentos/resgate-apolo-1.png" alt="Apolo no resgate" loading="lazy"/><span>Resgate</span></div>
+                  <div><img src="assets/img/depoimentos/resgate-apolo-2.png" alt="Apolo em cuidados" loading="lazy"/><span>Cuidados</span></div>
+                  <div><img src="assets/img/depoimentos/resgate-apolo-3.png" alt="Apolo hoje" loading="lazy"/><span>Recuperação</span></div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="carousel-card">
+            <div class="carousel-card-photo"><img src="assets/img/depoimentos/resgate-melinaamora-4.png" alt="Melina e Amora, recuperadas" loading="lazy"/></div>
+            <div class="carousel-card-body">
+              <span class="carousel-card-name">Melina e Amora</span>
+              <p class="carousel-card-quote-plain">Dupla resgatada junta. Inseparáveis até hoje no novo lar.</p>
+              <button class="carousel-expand-btn" aria-expanded="false">Ver jornada</button>
+              <div class="carousel-expand-panel">
+                <div class="rescue-mini-timeline">
+                  <div><img src="assets/img/depoimentos/resgate-melinaamora-1.png" alt="Melina e Amora no resgate" loading="lazy"/><span>Resgate</span></div>
+                  <div><img src="assets/img/depoimentos/resgate-melinaamora-2.png" alt="Melina e Amora em cuidados" loading="lazy"/><span>Cuidados</span></div>
+                  <div><img src="assets/img/depoimentos/resgate-melinaamora-3.png" alt="Melina e Amora em recuperação" loading="lazy"/><span>Recuperação</span></div>
+                  <div><img src="assets/img/depoimentos/resgate-melinaamora-4.png" alt="Melina e Amora hoje" loading="lazy"/><span>Hoje</span></div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+        </div>
+        <button class="carousel-nav next" data-target="res-track" aria-label="Próximo caso">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 3l6 6-6 6"/></svg>
         </button>
       </div>
     </div>
@@ -486,13 +550,14 @@
           <li><a href="impacto.html" role="button" tabindex="0">Impacto</a></li>
           <li><a href="apoie.html" role="button" tabindex="0">Apoie</a></li>
           <li><a href="contato.html" role="button" tabindex="0">Contato</a></li>
+          <li><a href="faq.html" role="button" tabindex="0">FAQ</a></li>
           <li><a href="restrita.html" role="button" tabindex="0">Área Restrita</a></li>
         </ul>
       </div>
 
       <!-- Projetos -->
       <div class="footer-col footer-projetos-col">
-        <h5>Projetos</h5>
+        <h5><a href="projetos.html" role="button" tabindex="0" class="footer-col-title-link">Projetos</a></h5>
         <ul>
           <li><a href="projetos.html" role="button" tabindex="0">Se Prepara Menina</a></li>
           <li><a href="projetos.html" role="button" tabindex="0">Viralatinha</a></li>
@@ -505,7 +570,7 @@
       <!-- Contato + newsletter -->
       <!-- Contato -->
       <div class="footer-col footer-contato-col">
-        <h5 style="padding-left:24px;">Contato</h5>
+        <h5 style="padding-left:24px;"><a href="contato.html" role="button" tabindex="0" class="footer-col-title-link">Contato</a></h5>
         <div class="footer-contact-item">
           <svg viewBox="0 0 16 16"><path d="M8 1C5.24 1 3 3.24 3 6c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>
           <span>Marituba - PA, Brasil</span>
@@ -524,12 +589,12 @@
       </div>
 
       <div class="footer-col footer-gov-col">
-        <h5>Governan&ccedil;a &amp; Parcerias</h5>
+        <h5><a href="governanca.html" role="button" tabindex="0" class="footer-col-title-link">Governan&ccedil;a &amp; Parcerias</a></h5>
         <ul>
-          <li><a href="parceria.html" role="button" tabindex="0" class="footer-link-partner">&#129309; Seja uma Empresa Parceira</a></li>
-          <li><a href="#" role="button" tabindex="0">Relatório Anual 2025</a></li>
-          <li><a href="#" role="button" tabindex="0">Programação 2026</a></li>
-          <li><a href="#" role="button" tabindex="0">Atas de Conselho Fiscal</a></li>
+          <li><a href="parceria.html" role="button" tabindex="0" class="footer-link-partner"><svg class="footer-partner-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M1.3 9.6c1.1 1.9 3.1 2.9 6.7 2.9s5.6-1 6.7-2.9M1.3 9.6c-.1-1 .8-1.9 1.9-1.4M14.7 9.6c.1-1-.8-1.9-1.9-1.4M8 8.4V3.2M8 5.4C8 3.4 6.8 2.4 6 3.2c.8.8 1.3 1.4 2 2.2zm0 0c0-2 1.2-3 2-2.2-.8.8-1.3 1.4-2 2.2z"/></svg> Seja uma Empresa Parceira</a></li>
+          <li><a href="governanca.html#relatorio" role="button" tabindex="0">Relatório Anual 2025</a></li>
+          <li><a href="governanca.html#programacao" role="button" tabindex="0">Programação 2026</a></li>
+          <li><a href="governanca.html#atas" role="button" tabindex="0">Atas de Conselho Fiscal</a></li>
         </ul>
       </div>
 
@@ -668,11 +733,12 @@
     </g>
   </defs>
 </svg>
-<script src="js/core.js"></script>
-<script src="js/plants.js"></script>
-<script src="js/features.js"></script>
-<script src="js/behold.js"></script>
-<script src="js/vine.js"></script>
-<script src="js/spa-nav.js"></script>
+<script src="js/core.js?v=202607262330"></script>
+<script src="js/plants.js?v=202607261738"></script>
+<script src="js/features.js?v=202607261738"></script>
+<script src="js/behold.js?v=202607261738"></script>
+<script src="js/vine.js?v=202607261738"></script>
+<script src="js/spa-nav.js?v=202607261738"></script>
+<script src="js/impacto-scroll.js?v=202607270100"></script>
 </body>
 </html>

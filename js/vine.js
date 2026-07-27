@@ -279,6 +279,12 @@
     hideForPage = false; // o cipó também aparece na página de Voluntários/Inscrição
     setSignMode(onVolPage);
     applyVisibility();
+    // A troca de página (SPA) faz window.scrollTo(0,0) instantaneamente. Sem isto,
+    // o próximo cálculo de "velocidade de scroll" interpretaria esse salto como um
+    // scroll muito rápido do usuário, disparando a retração da corda ao máximo —
+    // que depois se estica de volta devagar, parecendo o cipó "caindo" de novo.
+    lastScrollY = window.scrollY || 0;
+    retractAmount = 0;
   }
 
   // Estado inicial, a partir do data-page já presente no <body>.

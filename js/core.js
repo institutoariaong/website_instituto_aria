@@ -131,6 +131,28 @@ function toggleFaq(btn) {
   }
 }
 
+/* ─── ACORDEON QR CODE PIX (independente do FAQ) ───
+   O botão .pix-detail e o painel .faq-answer são irmãos (não estão dentro
+   de um .faq-item), então buscamos o painel como o próximo elemento. */
+function toggleQrPix(btn) {
+  const answer = btn.nextElementSibling;
+  if (!answer) return;
+  const icon = btn.querySelector('.faq-icon');
+  const isOpen = answer.style.maxHeight && answer.style.maxHeight !== '0px';
+
+  if (isOpen) {
+    answer.style.maxHeight = '0px';
+    answer.setAttribute('aria-hidden', 'true');
+    if (icon) icon.style.transform = '';
+    btn.setAttribute('aria-expanded', 'false');
+  } else {
+    answer.style.maxHeight = answer.scrollHeight + 'px';
+    answer.setAttribute('aria-hidden', 'false');
+    if (icon) icon.style.transform = 'rotate(180deg)';
+    btn.setAttribute('aria-expanded', 'true');
+  }
+}
+
 /* ─── COPIAR PIX ─── */
 function copiarPix() {
   const key = '67.555.170/0001-03';
@@ -238,22 +260,77 @@ function animateCounters() {
   counters.forEach(c => obsC.observe(c));
 }
 
-/* ─── WORD CYCLE (hero) ─── */
-(function wordCycle() {
+/* ─── WORD CYCLE (hero) ───
+   Reescrito como função reinicializável: o span #cycle-word só existe
+   dentro do .page da home, que é trocado via swap SPA. Guardamos o
+   interval pra poder limpá-lo antes de descartar a página antiga. */
+var _heroWordCycleInterval = null;
+function ARIA_reinitWordCycle() {
+  if (_heroWordCycleInterval) { clearInterval(_heroWordCycleInterval); _heroWordCycleInterval = null; }
+  const el = document.getElementById('cycle-word');
+  if (!el) return;
   const words = ['mulheres', 'crianças', 'comunidades'];
   let idx = 0;
-  function cycle() {
-    const el = document.getElementById('cycle-word');
-    if (!el) return;
+  _heroWordCycleInterval = setInterval(() => {
     el.classList.add('fading');
     setTimeout(() => {
       idx = (idx + 1) % words.length;
       el.textContent = words[idx];
       el.classList.remove('fading');
     }, 280);
-  }
-  setInterval(cycle, 2400);
-})();
+  }, 2400);
+}
+ARIA_reinitWordCycle();
+
+/* ─── WORD CYCLE (tiers de doação - Apoie o ARIA) ───
+   Mesma lógica: os spans .tier-cycle vivem dentro do .page de "Apoie o
+   ARIA", trocado via swap SPA. Guardamos os intervals pra limpá-los
+   antes do swap, senão viram timers fantasma apontando pra nós removidos. */
+var _tierCycleIntervals = [];
+function ARIA_reinitTierCycles() {
+  _tierCycleIntervals.forEach(id => clearInterval(id));
+  _tierCycleIntervals = [];
+
+  const tiers = [
+    {
+      id: 'tier-cycle-25',
+      options: [
+        'transporte para ações do projeto <strong>Se Prepara Menina.</strong>',
+        'ração para os animais resgatados do projeto <strong>Viralatinha.</strong>'
+      ]
+    },
+    {
+      id: 'tier-cycle-75',
+      options: [
+        'uma sessão de acompanhamento psicossocial para participantes do <strong>Se Prepara Menina.</strong>',
+        'suporte veterinário para um animal resgatado do <strong>Projeto Viralatinha.</strong>'
+      ]
+    },
+    {
+      id: 'tier-cycle-150',
+      options: [
+        'um resgate animal completo (atendimento veterinário + ração + encaminhamento para adoção).',
+        'uma cesta básica para a comunidade.'
+      ]
+    }
+  ];
+
+  tiers.forEach(tier => {
+    const el = document.getElementById(tier.id);
+    if (!el) return;
+    let idx = 0;
+    const intervalId = setInterval(() => {
+      el.classList.add('fading');
+      setTimeout(() => {
+        idx = (idx + 1) % tier.options.length;
+        el.innerHTML = tier.options[idx];
+        el.classList.remove('fading');
+      }, 280);
+    }, 2400);
+    _tierCycleIntervals.push(intervalId);
+  });
+}
+ARIA_reinitTierCycles();
 
 /* ─── KEYBOARD NAV (ESC fecha overlay) ─── */
 document.addEventListener('keydown', (e) => {
@@ -284,7 +361,7 @@ window.showPage = function(id) {
   setTimeout(() => { if (window.recheckPlantPoints) window.recheckPlantPoints(); }, 120);
 };
 
-/* Hero carousel — avança a cada 3 segundos.
+/* Hero carousel — avança a cada 5,5 segundos.
    Reescrito como função reinicializável: o carrossel só existe dentro do
    .page da home, que é trocado via swap SPA. Guardamos o interval pra poder
    limpá-lo antes de descartar a página antiga (senão vira timer fantasma). */
@@ -300,14 +377,121 @@ function ARIA_reinitCarousel() {
     slides[cur].classList.remove('active');
     cur = (cur + 1) % slides.length;
     slides[cur].classList.add('active');
-  }, 3000);
+  }, 5500);
 }
 ARIA_reinitCarousel();
+
+/* Pan das fotos do hero — desloca a foto ativa lentamente pra esquerda/
+   direita (sentido sorteado por foto), revelando mais do enquadramento
+   original em vez de deixar a imagem estática cortada pelo object-fit:cover.
+   Controlado via requestAnimationFrame (atualiza o transform diretamente).
+
+   Otimizações de custo:
+   - Só a imagem do slide ATIVO é animada a cada frame (as outras 5 ficam
+     paradas em scale(1.45) fixo via CSS, já que estão com opacity:0 e
+     invisíveis mesmo). Evita recalcular estilo de 6 imagens 60x/s à toa.
+   - `will-change:transform` é aplicado só na imagem ativa, e removido da
+     anterior — não mantemos 6 camadas de composição (GPU) o tempo todo.
+   - O loop pausa quando a aba perde o foco (visibilitychange) e quando o
+     hero sai da viewport (IntersectionObserver), evitando trabalho quando
+     ninguém está vendo. */
+var _heroPanRAF = null;
+var _heroPanMeta = [];
+var _heroPanPaused = false;
+var _heroPanObserver = null;
+
+function _heroPanTick(ts) {
+  var activeImg = document.querySelector('#heroCarousel .hero-slide.active img');
+  if (activeImg) {
+    var m = _heroPanMeta.find(function(x) { return x.img === activeImg; });
+    if (m) {
+      var t = (ts / m.period) * Math.PI * 2 + m.phase;
+      var pct = Math.sin(t) * 13 * m.dir; // desloca entre -13% e +13%
+      activeImg.style.transform = 'scale(1.45) translateX(' + pct.toFixed(2) + '%)';
+    }
+  }
+  _heroPanRAF = requestAnimationFrame(_heroPanTick);
+}
+
+function _heroPanStart() {
+  if (_heroPanRAF || _heroPanPaused || !_heroPanMeta.length) return;
+  _heroPanRAF = requestAnimationFrame(_heroPanTick);
+}
+function _heroPanStop() {
+  if (_heroPanRAF) { cancelAnimationFrame(_heroPanRAF); _heroPanRAF = null; }
+}
+
+function ARIA_reinitHeroPan() {
+  _heroPanStop();
+  if (_heroPanObserver) { _heroPanObserver.disconnect(); _heroPanObserver = null; }
+
+  var imgs = document.querySelectorAll('#heroCarousel .hero-slide img');
+  if (!imgs.length) { _heroPanMeta = []; return; }
+
+  // Pan sempre ativo aqui (não respeita prefers-reduced-motion): efeito
+  // decorativo pedido explicitamente pelo cliente pra esse carrossel.
+  _heroPanMeta = [];
+  imgs.forEach(function(img) {
+    img.style.willChange = '';
+    _heroPanMeta.push({
+      img: img,
+      dir: Math.random() < 0.5 ? 1 : -1,   // sentido do pan, sorteado por foto
+      phase: Math.random() * Math.PI * 2,  // defasagem, pra não ficarem sincronizadas
+      period: 11000 + Math.random() * 3000 // 11-14s por ciclo completo (ida e volta)
+    });
+  });
+
+  // Marca a imagem ativa com will-change (só ela), e remove das demais
+  // sempre que o carrossel troca de slide.
+  var carousel = document.getElementById('heroCarousel');
+  if (carousel && window.MutationObserver && !carousel._heroPanClassObserver) {
+    carousel._heroPanClassObserver = new MutationObserver(function() {
+      imgs.forEach(function(img) {
+        var isActive = img.closest('.hero-slide').classList.contains('active');
+        img.style.willChange = isActive ? 'transform' : '';
+      });
+    });
+    carousel._heroPanClassObserver.observe(carousel, { attributes: true, attributeFilter: ['class'], subtree: true });
+  }
+  imgs.forEach(function(img) {
+    var isActive = img.closest('.hero-slide').classList.contains('active');
+    img.style.willChange = isActive ? 'transform' : '';
+  });
+
+  _heroPanPaused = (document.visibilityState === 'hidden');
+
+  // Pausa/retoma com a troca de aba.
+  document.removeEventListener('visibilitychange', _heroPanVisibilityHandler);
+  document.addEventListener('visibilitychange', _heroPanVisibilityHandler);
+
+  // Pausa/retoma quando o hero sai/entra da viewport.
+  if ('IntersectionObserver' in window && carousel) {
+    _heroPanObserver = new IntersectionObserver(function(entries) {
+      var inView = entries[0] && entries[0].isIntersecting;
+      _heroPanPaused = !inView || document.visibilityState === 'hidden';
+      if (_heroPanPaused) { _heroPanStop(); } else { _heroPanStart(); }
+    }, { threshold: 0.1 });
+    _heroPanObserver.observe(carousel);
+  } else {
+    _heroPanStart();
+  }
+}
+function _heroPanVisibilityHandler() {
+  _heroPanPaused = (document.visibilityState === 'hidden');
+  if (_heroPanPaused) { _heroPanStop(); } else { _heroPanStart(); }
+}
+ARIA_reinitHeroPan();
 
 /* ─── HOOKS DE REINICIALIZAÇÃO (chamados por js/spa-nav.js após cada swap) ─── */
 // Limpa timers/observers presos ao .page antigo, antes de descartá-lo.
 window.ARIA_teardownCore = function () {
   if (_heroCarouselInterval) { clearInterval(_heroCarouselInterval); _heroCarouselInterval = null; }
+  if (_heroWordCycleInterval) { clearInterval(_heroWordCycleInterval); _heroWordCycleInterval = null; }
+  _heroPanStop();
+  if (_heroPanObserver) { _heroPanObserver.disconnect(); _heroPanObserver = null; }
+  document.removeEventListener('visibilitychange', _heroPanVisibilityHandler);
+  _tierCycleIntervals.forEach(id => clearInterval(id));
+  _tierCycleIntervals = [];
 };
 // Reinicializa tudo que vive dentro do .page recém-inserido.
 window.ARIA_reinitCore = function () {
@@ -315,7 +499,10 @@ window.ARIA_reinitCore = function () {
   updateNavTop();
   initFadeUp();
   animateCounters();
-  ARIA_reinitCarousel(); // só faz algo na home; no-op nas demais
+  ARIA_reinitCarousel();   // só faz algo na home; no-op nas demais
+  ARIA_reinitHeroPan();    // só faz algo na home; no-op nas demais
+  ARIA_reinitWordCycle();  // só faz algo na home; no-op nas demais
+  ARIA_reinitTierCycles(); // só faz algo em "Apoie o ARIA"; no-op nas demais
 };
 
 /* Barra "Doe" — slide após 5s, esconde ao rolar, volta após 5s parado */

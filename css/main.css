@@ -59,7 +59,7 @@
 /* ─── 2. RESET ─── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 script, noscript { display: none !important; visibility: hidden !important; height: 0 !important; overflow: hidden !important; }
-html { font-size: 16px; overflow-x: clip; background: var(--aria-cream); } /* clip no html: propaga ao viewport sem criar BFC nem travar scroll vertical; fundo igual ao body pra evitar flash de cor na navegação */
+html { font-size: 16px; overflow-x: clip; background: var(--aria-plum-d); } /* clip no html: propaga ao viewport sem criar BFC nem travar scroll vertical */
 body {
   font-family: 'Nunito Sans', system-ui, sans-serif;
   background: var(--aria-cream);
@@ -164,6 +164,286 @@ h4 { font-size: clamp(16px, 1.8vw, 22px); }
 .fade-up.delay-3.visible { transition-delay: 300ms; }
 @media (prefers-reduced-motion: reduce) {
   .fade-up { opacity:1; transform:none; transition:none; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CARROSSEL COVERFLOW — imagem central em destaque, laterais
+   parciais à esquerda/direita; clique gira para revelar a próxima.
+   ═══════════════════════════════════════════════════════════ */
+.carousel-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+.carousel-nav {
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--aria-border-gold);
+  background: var(--aria-ivory);
+  color: var(--aria-wine);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background var(--t), transform var(--t);
+  z-index: 2;
+}
+.carousel-nav:hover { background: var(--aria-gold); color: #fff; }
+.carousel-nav:active { transform: scale(.94); }
+.carousel-nav:disabled { opacity: .35; cursor: default; }
+.carousel-nav:disabled:hover { background: var(--aria-ivory); color: var(--aria-wine); }
+
+.coverflow-stage {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  height: 640px; /* ajustado dinamicamente por JS conforme o card ativo */
+  overflow: hidden;
+  outline: none;
+  perspective: 1400px; /* profundidade para a rotação 3D dos cards */
+}
+.coverflow-stage:focus-visible {
+  box-shadow: inset 0 0 0 3px var(--aria-gold);
+}
+.carousel-card {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: min(624px, 70vw); /* 3x o original, -20% conforme ajuste, limitado à largura da tela */
+  background: var(--aria-card, #fff);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-md, 0 8px 24px rgba(59,37,26,.08));
+  display: flex;
+  flex-direction: column;
+  transition: transform 620ms cubic-bezier(.22,1,.36,1), opacity 460ms ease, box-shadow 460ms ease;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+.carousel-card.is-active {
+  cursor: default;
+  box-shadow: var(--shadow-xl, 0 20px 44px rgba(59,37,26,.18));
+}
+.carousel-card:focus-visible {
+  outline: 3px solid var(--aria-gold);
+  outline-offset: 3px;
+}
+/* Escurece levemente os cards laterais para reforçar a leitura da rotação 3D,
+   mesmo quando a foto ocupa quase toda a borda do card (casos de resgate). */
+.carousel-card:not(.is-active)::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(43,26,20,.28);
+  pointer-events: none;
+}
+.carousel-card.is-active .carousel-expand-btn { pointer-events: auto; }
+.carousel-card:not(.is-active) .carousel-expand-btn { pointer-events: none; }
+
+/* Foto: amplia até no máximo 2x, sem cortar bordas (object-fit: contain) */
+.carousel-card-photo {
+  height: clamp(210px, 26vw, 400px);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--aria-cream);
+}
+.carousel-card-photo img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.carousel-card-body { padding: 27px 30px 30px; }
+
+/* Depoimentos do Se Prepara Menina: foto circular, tamanho fixo (referência enviada) */
+#dep-track .carousel-card-photo {
+  width: 280px;
+  height: 280px;
+  flex: 0 0 auto;
+  margin: 32px auto 0;
+  border-radius: 50%;
+  background: var(--aria-cream);
+}
+#dep-track .carousel-card-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+#dep-track .carousel-card-body { text-align: center; }
+.carousel-card-name {
+  display: block;
+  font-family: 'Libre Baskerville', serif;
+  font-weight: 700;
+  font-size: 22.5px; /* +50% sobre 15px */
+  color: var(--aria-wine);
+  margin-bottom: 12px;
+}
+.carousel-card-quote, .carousel-card-quote-plain {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-size: 21.75px; /* +50% sobre 14.5px */
+  line-height: 1.55;
+  color: var(--aria-brown);
+  margin: 0;
+}
+.carousel-card-quote { font-style: italic; }
+.carousel-expand-btn {
+  margin-top: 12px;
+  background: none;
+  border: none;
+  padding: 8px 0 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 17px; /* +50% sobre 11.5px */
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: var(--aria-wine);
+  cursor: pointer;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+.carousel-expand-btn:hover { text-decoration: underline; }
+
+/* Abrir/fechar "Ler depoimento completo" / "Ver jornada": altura + fade,
+   para que a revelação sempre pareça uma animação completa, mesmo quando
+   o conteúdo é mais curto que o teto de altura. */
+.carousel-expand-panel {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transition: max-height 420ms cubic-bezier(.22,1,.36,1), opacity 320ms ease;
+  /* rolagem funcional (se precisar), mas sem barra visível */
+  scrollbar-width: none;      /* Firefox */
+  -ms-overflow-style: none;   /* Edge legado */
+}
+.carousel-expand-panel::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+.carousel-card.expanded .carousel-expand-panel {
+  max-height: 820px; /* espaço suficiente pra timeline + prévia ampliada, sem cortar */
+  opacity: 1;
+  overflow-y: auto;
+  pointer-events: auto;
+  margin-top: 6px;
+}
+/* Depoimento completo entre aspas tipográficas */
+.carousel-expand-panel > p {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-size: 20.25px; /* +50% sobre 13.5px */
+  line-height: 1.65;
+  color: var(--aria-muted);
+  margin: 0;
+}
+.carousel-expand-panel > p:first-child::before { content: '\201C'; }
+.carousel-expand-panel > p:last-of-type::after  { content: '\201D'; }
+
+.rescue-mini-timeline {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.rescue-mini-timeline::-webkit-scrollbar { display: none; }
+.rescue-mini-timeline > div {
+  flex: 0 0 90px;
+  text-align: center;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 320ms ease, transform 320ms ease;
+}
+.carousel-card.expanded .rescue-mini-timeline > div { opacity: 1; transform: translateY(0); }
+.carousel-card.expanded .rescue-mini-timeline > div:nth-child(1) { transition-delay: 40ms; }
+.carousel-card.expanded .rescue-mini-timeline > div:nth-child(2) { transition-delay: 100ms; }
+.carousel-card.expanded .rescue-mini-timeline > div:nth-child(3) { transition-delay: 160ms; }
+.carousel-card.expanded .rescue-mini-timeline > div:nth-child(4) { transition-delay: 220ms; }
+.rescue-mini-timeline img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  background: var(--aria-cream);
+  border-radius: var(--r-md);
+  display: block;
+  border: 1px solid var(--aria-border-gold);
+  transition: border-color var(--t), box-shadow var(--t);
+}
+.rescue-mini-timeline > div:hover img { border-color: var(--aria-gold); }
+.rescue-mini-timeline > div.is-selected img {
+  border-color: var(--aria-wine);
+  box-shadow: 0 0 0 2px rgba(139,74,94,.25);
+}
+.rescue-mini-timeline span {
+  display: block;
+  margin-top: 6px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13.5px; /* +50% sobre 9px */
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .3px;
+  color: var(--aria-wine);
+  line-height: 1.3;
+}
+
+/* Prévia grande da miniatura clicada — expande para baixo, dentro do painel */
+.rescue-mini-preview {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 380ms cubic-bezier(.22,1,.36,1), opacity 280ms ease;
+}
+.rescue-mini-preview.is-open {
+  max-height: 700px; /* 2x a foto (560px) + preenchimento/rótulo */
+  opacity: 1;
+  margin-top: 14px;
+}
+.rescue-mini-preview-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--aria-cream);
+  border-radius: var(--r-md);
+  padding: 10px;
+}
+.rescue-mini-preview img {
+  max-width: 100%;
+  max-height: 560px; /* 2x o tamanho anterior (280px) */
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: calc(var(--r-md) - 4px);
+  display: block;
+}
+.rescue-mini-preview-label {
+  display: block;
+  text-align: center;
+  margin-top: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  color: var(--aria-wine);
+}
+
+/* Respeita quem pede menos movimento: sem o giro/profundidade 3D e com
+   transições curtas, mas ainda visíveis (não trocar tudo instantaneamente). */
+@media (prefers-reduced-motion: reduce) {
+  .carousel-card { transition: opacity 200ms linear, transform 200ms linear; }
+  .carousel-expand-panel, .rescue-mini-preview, .rescue-mini-timeline > div {
+    transition-duration: 150ms;
+    transition-delay: 0ms !important;
+  }
 }
 
 /* ─── 7. BARRA DE ANÚNCIO ─── */
@@ -372,6 +652,10 @@ h4 { font-size: clamp(16px, 1.8vw, 22px); }
   font-style:italic;transition:opacity 280ms ease;
 }
 .hero-cycle-word.fading { opacity:0; }
+.tier-cycle {
+  display:inline;transition:opacity 280ms ease;
+}
+.tier-cycle.fading { opacity:0; }
 .hero-ctas { display:flex;gap:14px;flex-wrap:wrap;margin-bottom:44px; }
 .hero-trust { display:flex;align-items:center;gap:20px;flex-wrap:wrap; }
 .hero-trust-item {
@@ -395,7 +679,7 @@ h4 { font-size: clamp(16px, 1.8vw, 22px); }
   pointer-events:none;
 }
 .hero-img-wrap {
-  position:relative;width:360px;height:430px;z-index:2;
+  position:relative;width:380px;height:410px;z-index:2;
 }
 .hero-img-wrap img {
   width:100%;height:100%;object-fit:cover;
@@ -421,7 +705,19 @@ h4 { font-size: clamp(16px, 1.8vw, 22px); }
   transition:opacity 1s ease;
 }
 .hero-slide.active { opacity:1; }
-.hero-slide img { width:100%;height:100%;object-fit:cover;display:block; }
+.hero-slide img {
+  width:100%;height:100%;object-fit:cover;display:block;
+  transform-origin:center center;
+  transform:scale(1.45);
+}
+/* Escala a imagem além do necessário pro "cover", criando folga real pra
+   deslizar horizontalmente. O movimento em si (translateX) é controlado
+   via JS (js/core.js → ARIA_reinitHeroPan), atualizando o transform a
+   cada frame — mas só na foto ATIVA (as outras ficam paradas nesse
+   scale, já que estão com opacity:0). `will-change` também é aplicado
+   só na ativa, via JS, pra não manter 6 camadas de composição à toa.
+   Intencionalmente NÃO respeita prefers-reduced-motion aqui: o pan é um
+   efeito decorativo pedido explicitamente pelo cliente pra esse carrossel. */
 /* Floating badges on hero visual */
 .hero-badge {
   position:absolute;background:var(--aria-ivory);
@@ -516,6 +812,16 @@ h4 { font-size: clamp(16px, 1.8vw, 22px); }
   transition:transform var(--t),box-shadow var(--t);
 }
 .aria-card-ivory:hover { transform:translateY(-4px);box-shadow:var(--shadow-md); }
+.gov-link-card { display:block;text-decoration:none;color:inherit;cursor:pointer; }
+.gov-link-icon {
+  width:42px;height:42px;border-radius:12px;background:rgba(184,115,125,.12);
+  display:flex;align-items:center;justify-content:center;
+}
+.gov-link-icon svg { width:20px;height:20px;fill:none;stroke:var(--aria-wine,#8B4A5E);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round; }
+.partner-icon { width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0; }
+.partner-icon svg { width:20px;height:20px; }
+.why-vol-icon { width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center; }
+.why-vol-icon svg { width:26px;height:26px; }
 /* Project cards */
 .project-card {
   background:var(--aria-ivory);border-radius:var(--r-lg);overflow:hidden;
@@ -879,6 +1185,9 @@ footer::before {
   font-size:13px;color:rgba(250,247,239,.58);transition:color var(--t);line-height:1.5;
 }
 .footer-contact-item a:hover { color:var(--aria-ivory); }
+.footer-col-title-link { color:inherit;text-decoration:none;cursor:pointer;transition:color var(--t); }
+.footer-col-title-link:hover { color:var(--aria-rose-vivid); }
+.footer-partner-icon { width:14px;height:14px;stroke:var(--aria-rose-vivid);fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px;margin-right:2px; }
 .footer-newsletter { margin-top:22px; }
 .footer-newsletter p { font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(250,247,239,.32)!important;margin-bottom:10px!important; }
 .footer-nl-form { display:flex;gap:8px; }
@@ -1713,7 +2022,7 @@ footer::before {
   .hero-trust-item svg { width:18px;height:18px; }
   .hero-visual { height:590px; }
   .hero-orb { width:500px;height:500px; }
-  .hero-img-wrap { width:405px;height:485px; }
+  .hero-img-wrap { width:440px;height:465px; }
   .hero-badge { padding:15px 20px; }
   .hero-badge-num { font-size:34px; }
   .hero-badge-label { font-size:11.5px; }
