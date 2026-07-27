@@ -14,14 +14,24 @@
 </head>
 <body data-page="quemsomos">
 <script>
-  /* Carrega o sprite SVG do jardim de plantas (externo, cacheado entre páginas)
-     e injeta no <body> ANTES do plants.js inicializar o jardim. */
+  /* Carrega o sprite SVG do jardim de plantas (externo, cacheado entre páginas).
+     A insercao no DOM roda em idle time (nao compete com o primeiro scroll/paint);
+     plants.js so monta o jardim depois que essa promise resolver. */
   window.ARIA_spriteReady = fetch('assets/svg/plants-sprite.svg?v=202607271200')
     .then(function (r) { return r.text(); })
     .then(function (svg) {
-      var tmp = document.createElement('div');
-      tmp.innerHTML = svg;
-      document.body.insertBefore(tmp.firstChild, document.body.firstChild);
+      return new Promise(function (resolve) {
+        function insert() {
+          var frag = document.createRange().createContextualFragment(svg);
+          document.body.insertBefore(frag, document.body.firstChild);
+          resolve();
+        }
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(insert, { timeout: 300 });
+        } else {
+          setTimeout(insert, 0);
+        }
+      });
     })
     .catch(function (e) { console.warn('Sprite de plantas não carregou:', e); });
 </script>
@@ -624,11 +634,11 @@
     </g>
   </defs>
 </svg>
-<script src="js/core.js?v=202607271500" defer></script>
-<script src="js/plants.js?v=202607271500" defer></script>
-<script src="js/features.js?v=202607271500" defer></script>
-<script src="js/behold.js?v=202607271500" defer></script>
-<script src="js/vine.js?v=202607271500" defer></script>
-<script src="js/spa-nav.js?v=202607271500" defer></script>
+<script src="js/core.js?v=202607271500"></script>
+<script src="js/plants.js?v=202607271500"></script>
+<script src="js/features.js?v=202607271500"></script>
+<script src="js/behold.js?v=202607271500"></script>
+<script src="js/vine.js?v=202607271500"></script>
+<script src="js/spa-nav.js?v=202607271500"></script>
 </body>
 </html>
